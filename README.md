@@ -7,6 +7,9 @@
 **It is recommended that you read the whole text before downloading CSClock.**
 &nbsp;  
 &nbsp;  
+**PLEASE NOTE!**  
+**CSClock is in alpha-state, and might contain major bugs!**  
+  
 **FEATURES:**  
 - Easy and clean user interface  
 - Overtime will deduct computer time the next day (experimental)  
@@ -14,9 +17,6 @@
 - You can add/subtract time from the time elapsed, if you for example left the computer unlocked, and the timer counted that time as   well. **NOTE!** Anyone having access to the computer can do this, so if you for example want to count your childrens' computer time, they can change the time elapsed.  
 - Language support for both English and Swedish  
 - Portable, no installation required (but it does create a Local AppData folder in order to save settings, timer data and log files)
-
-**PLEASE NOTE!**  
-This program might contain bugs as it's just in version 0.1!  
   
 **SCREENSHOT(S):**  
 ![Alt text](https://github.com/steel9/CSClock/blob/master/Screenshots/screenshot1.PNG?raw=true "Main form")
