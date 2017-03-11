@@ -16,6 +16,9 @@
 **HOW TO INSTALL:**  
 Download PCTime.exe, place it somewhere in your computer (but not in a folder requiring administrator permissions to write), then run it and follow the configuration instructions. If you for some reason don't trust me, check the source code then compile the exe yourself. **NOTE!** If you move or rename the exe, your settings and user data will be lost! This is because of how the built in settings manager works.  
   
+**CONTACT:**
+steel9apps@gmail.com  
+  
 **KNOWN ISSUES:**  
 **ISSUE 1:** In some cases where pressing any of the buttons in the About form, the computer will stop responding a few seconds.  
 **ISSUE 2:** Settings gone after some updates  
