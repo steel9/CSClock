@@ -9,7 +9,7 @@
 - Language support for both English and Swedish  
 - Portable, no installation required (but it does create a Local AppData folder in order to save settings, timer data and log files)
 
-**SCREENSHOTS:**  
+**SCREENSHOT(S):**  
 ![Alt text](https://github.com/steel9/CSClock/blob/master/Screenshots/screenshot1.PNG?raw=true "Main form")
   
 **SYSTEM REQUIREMENTS:**
