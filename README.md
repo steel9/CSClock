@@ -14,7 +14,7 @@
   - Windows PowerShell, used by the removal tool. You can use PCTime without Windows PowerShell, but you can't use the removal tool. 
   
 **HOW TO INSTALL:**  
-Download PCTime.exe, place it somewhere in your computer (but not in a folder requiring administrator permissions to write), then run it and follow the configuration instructions. If you for some reason don't trust me, check the source code then compile the exe yourself. **NOTE!** If you move or rename the exe, your settings and user data will be lost! This is because of how the built in settings manager works.  
+Download CSTime.exe, place it somewhere in your computer (but not in a folder requiring administrator permissions to write), then run it and follow the configuration instructions. If you for some reason don't trust me, check the source code then compile the exe yourself. **NOTE!** If you move or rename the exe, your settings and user data will be lost! This is because of how the built in settings manager works.  
   
 **CONTACT:**  
 steel9apps@gmail.com  
@@ -30,8 +30,8 @@ steel9apps@gmail.com
 2. Select Task Manager.  
 3. If there are no tabs in the task manager, press 'More information'.  
 4. Navigate to the 'Information' tab.  
-5. Locate 'PCTime.exe'  
-6. Right click 'PCTime.exe' and select 'Kill process'. Confirm.  
+5. Locate 'CSTime.exe'  
+6. Right click 'CSTime.exe' and select 'Kill process'. Confirm.  
 **Windows 7 or earlier:**  
 Do steps 1, 2, 5, 6  
    
