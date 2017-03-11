@@ -51,7 +51,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Logo.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -315,7 +316,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <None Include="Resources\gear-1077563_640.png" />
     <None Include="Resources\earth-2092185_640.png" />
     <None Include="bin\Release\PCTime.exe" />
-    <Content Include="Logo.ico" />
     <None Include="Resources\Art.png" />
     <None Include="Resources\Logo.ico" />
     <None Include="Resources\Logo.png" />
