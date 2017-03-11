@@ -40,4 +40,5 @@ This is probably due to some special changes in the application resetting the us
 - Automatic updater  
 - More unified icons  
 - More languages  
+
 If you want, you can contribute! It is really appreciated!
