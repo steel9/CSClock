@@ -7,6 +7,7 @@
 - Easy and clean user interface  
 - Overtime will deduct computer time the next day (experimental)  
 - Automatic timer pause/resume on computer lock/unlock  
+- You can add/subtract time from the time elapsed, if you for example left the computer unlocked, and the timer counted that time as   well. **NOTE!** Anyone having access to the computer can do this, so if you for example want to count your childrens' computer time, they can change the time elapsed.  
 - Language support for both English and Swedish  
 - Portable, no installation required (but it does create a Local AppData folder in order to save settings, timer data and log files)
 
