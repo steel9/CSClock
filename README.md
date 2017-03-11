@@ -35,3 +35,9 @@ Do steps 1, 2, 5, 6
 **ISSUE 2:**  
 **Windows Vista, 7, 8.x, 10:**  
 This is probably due to some special changes in the application resetting the user data. The easiest solution is just to adjust the       settings by yourself again.  
+  
+**FEATURES TO BE ADDED:**  
+- Automatic updater  
+- More unified icons  
+- More languages  
+If you want, you can contribute! It is really appreciated!
