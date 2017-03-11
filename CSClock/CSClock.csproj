@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
-PCTime - a program which keeps track of your computer time
+CSClock - a program which keeps track of your computer time
 Copyright (C) 2017  Viktor J
 
 This program is free software: you can redistribute it and/or modify
@@ -325,7 +325,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <None Include="Resources\pause-97625_640.png" />
     <None Include="Resources\gear-1077563_640.png" />
     <None Include="Resources\earth-2092185_640.png" />
-    <None Include="bin\Release\PCTime.exe" />
+    <None Include="bin\Release\CSClock.exe" />
     <None Include="Resources\Logo.ico" />
     <None Include="Resources\Logo.png" />
   </ItemGroup>
