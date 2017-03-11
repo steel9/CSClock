@@ -39,6 +39,6 @@ This is probably due to some special changes in the application resetting the us
 **FEATURES TO BE ADDED:**  
 - Automatic updater  
 - More unified icons (the button icons)  
-- More languages  
+- More supported languages  
 
 If you want, you can contribute! It is really appreciated!
