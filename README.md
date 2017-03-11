@@ -1,4 +1,4 @@
-# PCTime
+# CSClock
 **A C# application which keeps track of the time you spend on your computer.** 
 
 **The project was created in Visual Studio 2015.**
