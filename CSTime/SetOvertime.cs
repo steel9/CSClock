@@ -33,7 +33,7 @@ namespace CSTime
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Program.pctimeForm.maximumSecondsOvertime = (int)(numericUpDown_maximumMinutesOvertime.Value * 60);
+            Program.CSTimeForm.maximumSecondsOvertime = (int)(numericUpDown_maximumMinutesOvertime.Value * 60);
             Properties.Settings.Default.maximumMinutesOvertime = numericUpDown_maximumMinutesOvertime.Value;
             Properties.Settings.Default.overtimeDateTime = DateTime.Now;
             Properties.Settings.Default.Save();

@@ -70,7 +70,7 @@ namespace CSTime
         {
             InitializeComponent();
 
-            this.TopMost = Program.pctimeForm.TopMost;
+            this.TopMost = Program.CSTimeForm.TopMost;
         }
 
         private void FwrdRwndTime_Load(object sender, EventArgs e)
@@ -79,7 +79,7 @@ namespace CSTime
                 Program.assembly);
             this.Text = Program.rm_AddSubtractTime.GetString("windowTitle");
             label2.Text = Program.rm_AddSubtractTime.GetString("label2_text");
-            this.Location = new Point(Program.pctimeForm.Location.X, Program.pctimeForm.Location.Y + (this.Size.Height + 20));
+            this.Location = new Point(Program.CSTimeForm.Location.X, Program.CSTimeForm.Location.Y + (this.Size.Height + 20));
         }
 
         private void FwrdRwndTime_FormClosing(object sender, FormClosingEventArgs e)
@@ -117,14 +117,14 @@ namespace CSTime
             Program.logger.Log(className, string.Format("Adding {0} to seconds elapsed", secondsChange),
                 Logger.LogType.Info);
 
-            if (Program.pctimeForm.secondsElapsed + secondsChange < 86400
-                && Program.pctimeForm.secondsElapsed + secondsChange > 0)
+            if (Program.CSTimeForm.secondsElapsed + secondsChange < 86400
+                && Program.CSTimeForm.secondsElapsed + secondsChange > 0)
             {
-                Program.pctimeForm.secondsElapsed += secondsChange;
+                Program.CSTimeForm.secondsElapsed += secondsChange;
             }
             else
             {
-                Program.pctimeForm.secondsElapsed = 0;
+                Program.CSTimeForm.secondsElapsed = 0;
             }
             this.Close();
         }

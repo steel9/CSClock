@@ -359,8 +359,8 @@ namespace CSTime
             }
             
 
-            Program.pctimeForm.label_timeElapsed.Text = timeElapsed;
-            Program.pctimeForm.label_timeRemaining.Text = timeRemaining;
+            Program.CSTimeForm.label_timeElapsed.Text = timeElapsed;
+            Program.CSTimeForm.label_timeRemaining.Text = timeRemaining;
 
             if (!Program.debug)
             {

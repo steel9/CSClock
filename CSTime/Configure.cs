@@ -145,7 +145,7 @@ namespace CSTime
 
         private void Configure_Load(object sender, EventArgs e)
         {
-            this.Location = Program.pctimeForm.Location;
+            this.Location = Program.CSTimeForm.Location;
             this.Size = new Size(420, 342);
 
             Program.rm_Configure = new ResourceManager(string.Format("CSTime.Languages.{0}.Configure", Program.selectedLanguage), Program.assembly);
@@ -193,7 +193,7 @@ namespace CSTime
                 "CSTime", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 Program.logger.Log(className, "Resetting CSTime...", Logger.LogType.Info);
-                Program.pctimeForm.timer.Stop();
+                Program.CSTimeForm.timer.Stop();
                 Properties.Settings.Default.Reset();
                 Properties.Settings.Default.upgradeRequired = false;
                 Properties.Settings.Default.Save();

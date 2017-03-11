@@ -42,7 +42,7 @@ namespace CSTime
 
         public static Logger logger;
 
-        public static CSTime pctimeForm;
+        public static CSTime CSTimeForm;
         public static Configure configureForm;
         public static NotifyIcon notifyIcon1;
         public static SetOvertime setOvertime;
@@ -185,8 +185,8 @@ namespace CSTime
                 return;
             }
 
-            pctimeForm = new CSTime();
-            pctimeForm.startDateTime = DateTime.Now;
+            CSTimeForm = new CSTime();
+            CSTimeForm.startDateTime = DateTime.Now;
 
             LoadNotifyIcon();
 
@@ -200,7 +200,7 @@ namespace CSTime
             logger.Log(className, "executing LoadApplySettings()", Logger.LogType.Info);
             try
             {
-                pctimeForm.LoadApplySettings();
+                CSTimeForm.LoadApplySettings();
             }
             catch (Exception ex)
             {
@@ -212,10 +212,10 @@ namespace CSTime
 
             if (args != null && args.Contains("-s"))
             {
-                pctimeForm.startMinimized = true;
+                CSTimeForm.startMinimized = true;
             }
 
-            Application.Run(pctimeForm);
+            Application.Run(CSTimeForm);
         }
 
         public static void Removal(bool confirmMsg)
@@ -223,7 +223,7 @@ namespace CSTime
             if (!confirmMsg || MessageBox.Show(rm_Messages.GetString("removalQuestion"), "CSTime",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                string path = Path.Combine(Path.GetTempPath(), "pcTimeRemovalTool.bat");
+                string path = Path.Combine(Path.GetTempPath(), "CSTimeRemovalTool.bat");
 
                 StreamWriter sw = new StreamWriter(path);
                 sw.Write(Properties.Resources.removaltool);
@@ -251,8 +251,8 @@ namespace CSTime
             rm_GUI = new ResourceManager(string.Format("CSTime.Languages.{0}.GUI", selectedLanguage), assembly);
 
             LoadNotifyIcon();
-            pctimeForm.LoadApplySettings();
-            pctimeForm.GUI_Load();
+            CSTimeForm.LoadApplySettings();
+            CSTimeForm.GUI_Load();
         }
 
         public static void LoadNotifyIcon()
@@ -288,14 +288,14 @@ namespace CSTime
 
         static void ShowGUI(object sender, EventArgs e)
         {
-            if (pctimeForm != null)
+            if (CSTimeForm != null)
             {
-                pctimeForm.BringToFront();
+                CSTimeForm.BringToFront();
             }
             else
             {
-                pctimeForm = new CSTime();
-                pctimeForm.Show();
+                CSTimeForm = new CSTime();
+                CSTimeForm.Show();
             }
         }
 
@@ -305,7 +305,7 @@ namespace CSTime
             {
                 case BalloonClickActions.SetOvertime:
                     setOvertime = new SetOvertime();
-                    setOvertime.TopMost = pctimeForm.TopMost;
+                    setOvertime.TopMost = CSTimeForm.TopMost;
                     setOvertime.ShowDialog();
                     break;
             }
@@ -322,19 +322,19 @@ namespace CSTime
         static void PauseResumeTimer(object sender, EventArgs e)
         {
             bool updateGUI;
-            if (pctimeForm != null)
+            if (CSTimeForm != null)
                 updateGUI = true;
             else
                 updateGUI = false;
 
-            if (pctimeForm.timer.Enabled)
+            if (CSTimeForm.timer.Enabled)
             {
-                pctimeForm.PauseTimer(updateGUI);
+                CSTimeForm.PauseTimer(updateGUI);
                 notifyIcon1.ShowBalloonTip(2500, "CSTime", rm_Messages.GetString("timerPausedNotification_text"), ToolTipIcon.Info);
             }
             else
             {
-                pctimeForm.ResumeTimer(updateGUI);
+                CSTimeForm.ResumeTimer(updateGUI);
                 notifyIcon1.ShowBalloonTip(2500, "CSTime", rm_Messages.GetString("timerResumedNotification_text"), ToolTipIcon.Info);
             }
         }
