@@ -2,7 +2,11 @@
 **A C# application which keeps track of the time you spend on your computer, by setting limits. It will then alert you when your computer time is out.** 
 
 **The project was created in Visual Studio 2015.**
-
+&nbsp;  
+&nbsp;  
+**It is recommended that you read the whole text before downloading CSClock.**
+&nbsp;  
+&nbsp;  
 **FEATURES:**  
 - Easy and clean user interface  
 - Overtime will deduct computer time the next day (experimental)  
