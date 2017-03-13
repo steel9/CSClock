@@ -1,5 +1,5 @@
 # CSClock
-**A C# application which keeps track of the time you spend on your computer, by setting limits. It will then alert you when your computer time is out.** 
+**A C# application which keeps track of the time you spend on your computer, by setting limits. It will then alert you when your computer time is out. Note that CSClock doesn't *prevent* you from using the computer after the limit is reached, but it *alerts* you.** 
 
 **The project was created in Visual Studio 2015.**
 &nbsp;  
