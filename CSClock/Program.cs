@@ -146,6 +146,7 @@ namespace CSClock
                 ProcessStartInfo start =
                     new ProcessStartInfo();
                 start.FileName = updaterPath;
+                start.Arguments = "-update";
                 start.WindowStyle = ProcessWindowStyle.Hidden;
                 Process.Start(start);
             }
