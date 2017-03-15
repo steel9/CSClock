@@ -22,6 +22,7 @@ using System.Windows.Forms;
 using System.Resources;
 using Microsoft.Win32;
 using System.Diagnostics;
+using CSClock;
 
 namespace CSClock
 {

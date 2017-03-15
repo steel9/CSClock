@@ -173,7 +173,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <DesignTime>True</DesignTime>
       <DependentUpon>SetOvertime.resx</DependentUpon>
     </Compile>
-    <Compile Include="Logger.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SelectLanguage.cs">
@@ -331,6 +330,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </ItemGroup>
   <ItemGroup>
     <Content Include="Logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Logger\Logger.csproj">
+      <Project>{DBD5A181-DE73-4EF3-846B-24E8F79BD2C6}</Project>
+      <Name>Logger</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
