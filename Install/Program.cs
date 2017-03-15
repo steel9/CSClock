@@ -146,6 +146,7 @@ namespace OnlineSetup
             }
             logger.Log("Parsing version", className, Logger.LogType.Info);
             string latestVersion_s = latestVersionText.Split('#')[0];
+            logger.Log("Current version is: " + currentVersion, className, Logger.LogType.Info);
             logger.Log("Latest version is: " + latestVersion_s, className, Logger.LogType.Info);
             int latestVersion = int.Parse(latestVersion_s);
 
