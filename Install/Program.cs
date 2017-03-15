@@ -4,6 +4,8 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Net;
 using System.Linq;
+using Microsoft.Win32;
+using System.Reflection;
 
 namespace OnlineSetup
 {
