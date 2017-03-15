@@ -64,7 +64,7 @@ namespace OnlineSetup
             try
             {
                 WebClient webClient = new WebClient();
-                webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/CSClock.exe", exePath);
+                webClient.DownloadFile("https://github.com/steel9/CSClock/raw/unstable/CSClock.exe", exePath); //unstable should be master at release
             }
             catch (Exception ex)
             {
@@ -137,7 +137,7 @@ namespace OnlineSetup
             string latestVersionText = null;
             try
             {
-                latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/master/VERSION");
+                latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/unstable/VERSION"); //unstable should be master at release
             }
             catch (Exception ex)
             {
@@ -184,7 +184,7 @@ namespace OnlineSetup
             logger.Log("Downloading latest CSClock.exe", className, Logger.LogType.Info);
             try
             {
-                webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/CSClock.exe", exePath);
+                webClient.DownloadFile("https://github.com/steel9/CSClock/raw/unstable/CSClock.exe", exePath); //unstable should be master at release
             }
             catch (Exception ex)
             {
