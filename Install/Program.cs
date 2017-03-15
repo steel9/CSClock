@@ -51,8 +51,8 @@ namespace OnlineSetup
             //Make shortcuts
             try
             {
-                CreateShortcut(Application.ExecutablePath, startupShortcutPath, Path.GetDirectoryName(Application.ExecutablePath), "-s");
-                CreateShortcut(Application.ExecutablePath, startmenuShortcutPath, Path.GetDirectoryName(Application.ExecutablePath));
+                CreateShortcut(exePath, startupShortcutPath, Path.GetDirectoryName(exePath), "-s");
+                CreateShortcut(exePath, startmenuShortcutPath, Path.GetDirectoryName(exePath));
             }
             catch (MissingMethodException ex)
             {
