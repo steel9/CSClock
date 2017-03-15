@@ -99,8 +99,9 @@ namespace OnlineSetup
             WebClient webClient = new WebClient();
             int currentVersion = int.Parse(Application.ProductVersion.Replace(".", ""));
             string latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/unstable/VERSION"); //should not be /unstable/
-            string latestVersion_s = latestVersionText.Split(new string[] { "\r\n" }, StringSplitOptions.None)[0];
+            string latestVersion_s = latestVersionText.Split('#')[0];
             int latestVersion = int.Parse(latestVersion_s);
+            MessageBox.Show(latestVersion_s);
 
             if (currentVersion >= latestVersion)
             {
