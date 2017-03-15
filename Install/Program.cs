@@ -68,9 +68,9 @@ namespace OnlineSetup
             }
             catch (MissingMethodException ex)
             {
+                logger.Log("Error while creating shortcuts: " + ex.ToString(), className, Logger.LogType.Error);
                 MessageBox.Show("Error while creating shortcuts" +
                     "Your .NET version does not support this function", "CSClock", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                logger.Log("Error while creating shortcuts: " + ex.ToString(), className, Logger.LogType.Error);
             }
             catch (Exception ex)
             {
