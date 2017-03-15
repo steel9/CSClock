@@ -93,6 +93,19 @@ namespace OnlineSetup
 
         static void Update()
         {
+            //Check if update is needed
+            WebClient webClient = new WebClient();
+            int currentVersion = int.Parse(Application.ProductVersion.Replace(".", ""));
+            string latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/unstable/VERSION"); //should not be /unstable/
+            string latestVersion_s = latestVersionText.Split(new string[] { "\r\n" }, StringSplitOptions.None)[0];
+            int latestVersion = int.Parse(latestVersion_s);
+
+            if (currentVersion >= latestVersion)
+            {
+                //Update is not needed
+                return;
+            }
+
             //Close CSClock
             Process[] processes;
             string procName = "CSClock";
@@ -115,7 +128,6 @@ namespace OnlineSetup
             //Update CSClock
             try
             {
-                WebClient webClient = new WebClient();
                 webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/CSClock.exe", exePath);
             }
             catch (Exception ex)
