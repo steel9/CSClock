@@ -63,6 +63,8 @@ namespace CSClock
         public static ResourceManager rm_SetOvertime = null;
         public static ResourceManager rm_AddSubtractTime = null;
 
+        private static bool portable = false;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -76,7 +78,8 @@ namespace CSClock
             debug = true;
 #endif
             string logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");
-            if (!Directory.Exists(logDir))
+
+            if (portable && !Directory.Exists(logDir))
             {
                 Directory.CreateDirectory(logDir);
             }
@@ -90,7 +93,6 @@ namespace CSClock
                 }
             }
 
-            
             logger = new Logger("CSClock", Path.Combine(logDir, "log.txt"),
                 Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
 
@@ -99,6 +101,7 @@ namespace CSClock
             {
                 if (createdNew || (args != null && args.Contains("-ignorerunning")))
                 {
+                    Update();
                     logger.Log(className, "createdNew=true", Logger.LogType.Info, true);
                     StartApplication(args);
                 }
@@ -132,6 +135,26 @@ namespace CSClock
                         logger.Log(className, Convert.ToString(ex), Logger.LogType.Error);
                     }
                 }
+            }
+        }
+
+        static void Update()
+        {
+            try
+            {
+                string updaterPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock", "Updater.exe");
+                ProcessStartInfo start =
+                    new ProcessStartInfo();
+                start.FileName = updaterPath;
+                start.WindowStyle = ProcessWindowStyle.Hidden;
+                Process.Start(start);
+            }
+            catch (Exception ex)
+            {
+                logger.Log(className, "Error when running auto-updater at app launch: " + ex.ToString(), Logger.LogType.Error);
+                MessageBox.Show("Error when running auto-updater: " + ex.Message + "\r\n\r\nSee '" + Path.Combine(Environment.GetFolderPath(
+                    Environment.SpecialFolder.LocalApplicationData), @"CSClock\log.txt") + "' for more details", "CSClock",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -266,6 +289,7 @@ namespace CSClock
             contextMenu1 = new ContextMenu();
             if (Properties.Settings.Default.timerEnabled)
             {
+                contextMenu1.MenuItems.Add(rm_GUI.GetString("showGUI"), new EventHandler(ShowGUI));
                 contextMenu1.MenuItems.Add(rm_GUI.GetString("pauseResume"), new EventHandler(PauseResumeTimer));
             }
             contextMenu1.MenuItems.Add(rm_GUI.GetString("quit"), new EventHandler(Quit));
