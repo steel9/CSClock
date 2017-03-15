@@ -158,5 +158,14 @@ namespace CSClock.Languages.English {
                 return ResourceManager.GetString("resume", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open.
+        /// </summary>
+        internal static string showGUI {
+            get {
+                return ResourceManager.GetString("showGUI", resourceCulture);
+            }
+        }
     }
 }

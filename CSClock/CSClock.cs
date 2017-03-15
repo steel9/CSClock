@@ -91,7 +91,7 @@ namespace CSClock
                     Properties.Settings.Default.closeNoticeFirstTime = false;
                     Properties.Settings.Default.Save();
                 }
-                WindowState = FormWindowState.Minimized;
+                Hide();
             }
             else
             {
