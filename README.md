@@ -1,5 +1,13 @@
 # CSClock
+
+**0.2.0-UNSTABLE. DO NOT DOWNLOAD FOR USAGE.**
+
 **A C# application which keeps track of the time you spend on your computer, by setting limits. It will then alert you when your computer time is out. Note that CSClock doesn't *prevent* you from using the computer after the limit is reached, but it *alerts* you.** 
+
+0.2.0 news:
+- Automatic updates from the master branch
+- CSClock now uses an installer. A portable version is planned before 0.2.0 release
+- Finally, you can now fully minimize CSClock to the tray! It is not stuck in the taskbar anymore.
 
 **The project was created in Visual Studio 2015.**
 &nbsp;  
@@ -26,7 +34,7 @@
   - Windows PowerShell, used by the removal tool. You can use CSClock without Windows PowerShell, but you can't use the removal tool. 
   
 **HOW TO INSTALL:**  
-Download CSClock.exe, place it somewhere on your computer (but not in a folder requiring administrator permissions to write), then run it and follow the configuration instructions. If you for some reason don't trust me, check the source code if you think it contains malware, then compile the exe yourself. **NOTE!** If you move or rename the exe, your settings and user data will be lost! This is because of how the built in settings manager works.  
+Download Setup.exe, open it, done. Simple as that (finally).
   
 **CONTACT:**  
 steel9apps@gmail.com  
