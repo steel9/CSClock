@@ -23,6 +23,7 @@ using System.Windows.Forms;
 using System.Net;
 using System.Linq;
 using CSClock;
+using System.Reflection;
 
 namespace OnlineSetup
 {
@@ -132,7 +133,7 @@ namespace OnlineSetup
             logger.Log("Initializing WebClient", className, Logger.LogType.Info);
             WebClient webClient = new WebClient();
             logger.Log("Current version without dots --> int", className, Logger.LogType.Info);
-            int currentVersion = int.Parse(Application.ProductVersion.Replace(".", ""));
+            int currentVersion = int.Parse(AssemblyName.GetAssemblyName("CSClock.exe").Version.ToString());
             logger.Log("Downloading VERSION file from master branch", className, Logger.LogType.Info);
             string latestVersionText = null;
             try
