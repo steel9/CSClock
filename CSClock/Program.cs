@@ -148,7 +148,8 @@ namespace CSClock
                 start.FileName = updaterPath;
                 start.Arguments = "-update";
                 start.WindowStyle = ProcessWindowStyle.Hidden;
-                Process.Start(start);
+                var updateProc = Process.Start(start);
+                updateProc.WaitForExit();
             }
             catch (Exception ex)
             {
@@ -288,9 +289,9 @@ namespace CSClock
             notifyIcon1 = new NotifyIcon();
             notifyIcon1.Icon = Properties.Resources.Logo;
             contextMenu1 = new ContextMenu();
+            contextMenu1.MenuItems.Add(rm_GUI.GetString("showGUI"), new EventHandler(ShowGUI));
             if (Properties.Settings.Default.timerEnabled)
             {
-                contextMenu1.MenuItems.Add(rm_GUI.GetString("showGUI"), new EventHandler(ShowGUI));
                 contextMenu1.MenuItems.Add(rm_GUI.GetString("pauseResume"), new EventHandler(PauseResumeTimer));
             }
             contextMenu1.MenuItems.Add(rm_GUI.GetString("quit"), new EventHandler(Quit));

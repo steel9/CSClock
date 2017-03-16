@@ -23,11 +23,10 @@ using System.Windows.Forms;
 using System.Net;
 using System.Linq;
 using CSClock;
-using System.Reflection;
 
 namespace OnlineSetup
 {
-    public static class Program
+    static class Program
     {
         const string className = "Program.cs";
 
@@ -45,6 +44,7 @@ namespace OnlineSetup
             {
                 Directory.CreateDirectory(installFolder);
             }
+
             logger = new Logger("CSClock_onlinesetup", Path.Combine(installFolder, "setuplog.txt"), Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
             if (args == null || args.Length == 0)
             {
@@ -54,6 +54,7 @@ namespace OnlineSetup
             {
                 Update();
             }
+            return;
         }
 
         static void Install()
@@ -65,7 +66,7 @@ namespace OnlineSetup
             try
             {
                 WebClient webClient = new WebClient();
-                webClient.DownloadFile("https://github.com/steel9/CSClock/raw/unstable/CSClock.exe", exePath); //unstable should be master at release
+                webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/CSClock.exe", exePath);
             }
             catch (Exception ex)
             {
@@ -133,12 +134,12 @@ namespace OnlineSetup
             logger.Log("Initializing WebClient", className, Logger.LogType.Info);
             WebClient webClient = new WebClient();
             logger.Log("Current version without dots --> int", className, Logger.LogType.Info);
-            int currentVersion = int.Parse(AssemblyName.GetAssemblyName("CSClock.exe").Version.ToString());
+            int currentVersion = int.Parse(FileVersionInfo.GetVersionInfo(exePath).ProductVersion.ToString().Replace(".", ""));
             logger.Log("Downloading VERSION file from master branch", className, Logger.LogType.Info);
             string latestVersionText = null;
             try
             {
-                latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/unstable/VERSION"); //unstable should be master at release
+                latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/master/VERSION");
             }
             catch (Exception ex)
             {
@@ -186,7 +187,7 @@ namespace OnlineSetup
             logger.Log("Downloading latest CSClock.exe", className, Logger.LogType.Info);
             try
             {
-                webClient.DownloadFile("https://github.com/steel9/CSClock/raw/unstable/CSClock.exe", exePath); //unstable should be master at release
+                webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/CSClock.exe", exePath);
             }
             catch (Exception ex)
             {
