@@ -8,6 +8,7 @@
 - Automatic updates
 - CSClock now uses an installer. A portable version is planned before 0.2.0 release
 - Finally, you can now fully minimize CSClock to the tray! It is not stuck in the taskbar anymore.
+- You can now track your computer time without setting limits!
 
 **The project was created in Visual Studio 2015.**
 &nbsp;  
