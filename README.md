@@ -3,7 +3,7 @@
 **A C# application which keeps track of the time you spend on your computer, by setting limits. It will then alert you when your computer time is out. Note that CSClock doesn't *prevent* you from using the computer after the limit is reached, but it *alerts* you.** 
    
 **0.2.0 news:**   
-- Automatic updates.   
+- Automatic updates from the master branch.   
 - CSClock now uses an installer, but a portable version is available.   
 - Finally, you can now fully minimize CSClock to the tray! It is not stuck in the taskbar anymore.   
 - You can now track your computer time without setting limits!   
