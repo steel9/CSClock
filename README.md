@@ -4,7 +4,7 @@
 
 0.2.0 news:
 - Automatic updates
-- CSClock now uses an installer, but a portable version is available
+- CSClock now uses an installer, but a portable version is available.
 - Finally, you can now fully minimize CSClock to the tray! It is not stuck in the taskbar anymore.
 - You can now track your computer time without setting limits!
 
