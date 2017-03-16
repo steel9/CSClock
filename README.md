@@ -59,7 +59,6 @@ Do steps 1, 2, 5, 6
 This is probably due to some special changes in the application resetting the user data. The easiest solution is just to adjust the       settings by yourself again.  
   
 **FEATURES TO BE ADDED:**  
-- Automatic updater  
 - More unified icons (the button icons)  
 - More supported languages  
 
