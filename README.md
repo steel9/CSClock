@@ -1,7 +1,5 @@
 # CSClock
 
-**0.2.0-UNSTABLE. DO NOT DOWNLOAD FOR USAGE. FOR USAGE, PLEASE DOWNLOAD CSCLOCK FROM THE MASTER BRANCH.**
-
 **A C# application which keeps track of the time you spend on your computer, by setting limits. It will then alert you when your computer time is out. Note that CSClock doesn't *prevent* you from using the computer after the limit is reached, but it *alerts* you.** 
 
 0.2.0 news:
