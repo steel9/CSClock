@@ -206,8 +206,7 @@ namespace CSClock
 
             if (maximumSeconds <= 0 && !overtimeY && !overtimeC)
             {
-                label_timeElapsed.Text = label_timeRemaining.Text = "--:--:--";
-                button3.Enabled = false;
+                label_timeRemaining.Text = "--:--:--";
             }
         }
 
@@ -293,7 +292,7 @@ namespace CSClock
                     SystemEvents.SessionSwitch += new SessionSwitchEventHandler(SystemEvents_SessionSwitch);
                 }
 
-                timer.Enabled = (settings_timerEnabled && !settings_timerPaused && (maximumSeconds > 0 || overtimeC || overtimeY));
+                timer.Enabled = (settings_timerEnabled && !settings_timerPaused);
 
                 if (settings_timerPaused)
                 {
@@ -308,7 +307,7 @@ namespace CSClock
                     if (Properties.Settings.Default.timerEnabled)
                     {
                         Program.logger.Log(className, "Starting timer", Logger.LogType.Info);
-                        Program.contextMenu1.MenuItems[0].Text = Program.rm_GUI.GetString("pause");
+                        Program.contextMenu1.MenuItems[1].Text = Program.rm_GUI.GetString("pause");
                     }
                     else
                     {
@@ -345,15 +344,15 @@ namespace CSClock
 
             timeElapsed = TimeSpan.FromSeconds(secondsElapsed).ToString(@"hh\:mm\:ss");
 
-            if (!overtimeC && !overtimeY)
+            if (maximumSeconds > 0 && !overtimeC && !overtimeY)
             {
                 timeRemaining = TimeSpan.FromSeconds(maximumSeconds - secondsElapsed).ToString(@"hh\:mm\:ss");
             }
-            else if (maximumSeconds + maximumSecondsOvertime >= secondsElapsed)
+            else if (maximumSeconds > 0 && maximumSeconds + maximumSecondsOvertime >= secondsElapsed)
             {
                 timeRemaining = TimeSpan.FromSeconds((maximumSeconds + maximumSecondsOvertime) - secondsElapsed).ToString(@"hh\:mm\:ss");
             }
-            else
+            else if (maximumSeconds > 0)
             {
                 timeRemaining = "-" + TimeSpan.FromSeconds((maximumSeconds + maximumSecondsOvertime) - secondsElapsed).ToString(@"hh\:mm\:ss");
                 l_exclM.Visible = true;
@@ -361,7 +360,10 @@ namespace CSClock
             
 
             Program.CSClockForm.label_timeElapsed.Text = timeElapsed;
-            Program.CSClockForm.label_timeRemaining.Text = timeRemaining;
+            if (maximumSeconds > 0)
+            {
+                Program.CSClockForm.label_timeRemaining.Text = timeRemaining;
+            }
 
             if (!Program.debug)
             {
@@ -374,13 +376,13 @@ namespace CSClock
                     timeRemaining);
             }
 
-            if (secondsElapsed == maximumSeconds - 600)
+            if (maximumSeconds > 0 && secondsElapsed == maximumSeconds - 600)
             {
                 Program.notifyIcon1.ShowBalloonTip(10000, "CSClock", Program.rm_Messages.GetString("tenMinutesRemainingNotification_text"),
                         ToolTipIcon.Info);
             }
 
-            if (!overtimeC && !overtimeY && secondsElapsed >= maximumSeconds)
+            if (maximumSeconds > 0 && !overtimeC && !overtimeY && secondsElapsed >= maximumSeconds)
             {
                 if (timesOutEvent)
                 {
@@ -400,7 +402,7 @@ namespace CSClock
                 }
             }
 
-            if (overtimeC && maximumSecondsOvertime > 0 && secondsElapsed >= maximumSeconds + maximumSecondsOvertime)
+            if (maximumSeconds > 0 && overtimeC && maximumSecondsOvertime > 0 && secondsElapsed >= maximumSeconds + maximumSecondsOvertime)
             {
                 if (timesOutOvertimeEvent)
                 {
@@ -452,7 +454,7 @@ namespace CSClock
                     timeRemaining);
             }
 
-            Program.contextMenu1.MenuItems[0].Text = Program.rm_GUI.GetString("resume");
+            Program.contextMenu1.MenuItems[1].Text = Program.rm_GUI.GetString("resume");
             if (updateGUI)
             {
                 button3.Image = Properties.Resources.play_97626_640;
@@ -476,7 +478,7 @@ namespace CSClock
                 Program.notifyIcon1.Text = string.Format(Program.rm_Messages.GetString("notifyIcon_text_debug"), Program.rm_Messages.GetString("RUNNING"),
                     timeRemaining);
             }
-            Program.contextMenu1.MenuItems[0].Text = Program.rm_GUI.GetString("pause");
+            Program.contextMenu1.MenuItems[1].Text = Program.rm_GUI.GetString("pause");
             if (updateGUI)
             {
                 button3.Image = Properties.Resources.pause_97625_640;

@@ -63,7 +63,7 @@ namespace CSClock
         public static ResourceManager rm_SetOvertime = null;
         public static ResourceManager rm_AddSubtractTime = null;
 
-        private static bool portable = false;
+        private static bool portable = true;
 
         /// <summary>
         /// The main entry point for the application.
@@ -77,9 +77,15 @@ namespace CSClock
 #if DEBUG
             debug = true;
 #endif
+
+            if (args != null && args.Length > 0 && args.Contains("-np"))
+            {
+                portable = false;
+            }
+
             string logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");
 
-            if (portable && !Directory.Exists(logDir))
+            if (!Directory.Exists(logDir))
             {
                 Directory.CreateDirectory(logDir);
             }
@@ -101,7 +107,10 @@ namespace CSClock
             {
                 if (createdNew || (args != null && args.Contains("-ignorerunning")))
                 {
-                    Update();
+                    if (!portable)
+                    {
+                        Update();
+                    }
                     logger.Log(className, "createdNew=true", Logger.LogType.Info, true);
                     StartApplication(args);
                 }
@@ -167,7 +176,7 @@ namespace CSClock
 
             logger.Log(className, "Starting CSClock", Logger.LogType.Info);
 
-            if (Properties.Settings.Default.upgradeRequired && (args == null || !args.Contains("-donotupgradesettings")))
+            if (Properties.Settings.Default.upgradeRequired && ((args == null && args.Length > 0) || !args.Contains("-donotupgradesettings")))
             {
                 logger.Log(className, "Upgrading user settings...", Logger.LogType.Info);
 
@@ -182,13 +191,13 @@ namespace CSClock
             rm_Messages = new ResourceManager(string.Format("CSClock.Languages.{0}.Messages", selectedLanguage), assembly);
             rm_GUI = new ResourceManager(string.Format("CSClock.Languages.{0}.GUI", selectedLanguage), assembly);
 
-            if (args != null && args.Contains("-removal"))
+            if (args != null && args.Length > 0 && args.Contains("-removal"))
             {
                 Removal(true);
                 return;
             }
 
-            if (args != null && args.Contains("-reset"))
+            if (args != null && args.Length > 0 && args.Contains("-reset"))
             {
                 logger.Log(className, "Resetting CSClock", Logger.LogType.Info);
 
@@ -198,13 +207,13 @@ namespace CSClock
 
                 logger.Log(className, "Reset completed, closing CSClock", Logger.LogType.Info);
 
-                if ((args == null || !args.Contains("-deletelog")) || !File.Exists("log.txt"))
+                if (((args == null && args.Length > 0) || !args.Contains("-deletelog")) || !File.Exists("log.txt"))
                 {
                     return;
                 }
             }
 
-            if (args != null && args.Contains("-deletelog") && File.Exists("log.txt"))
+            if (args != null && args.Length > 0 && args.Contains("-deletelog") && File.Exists("log.txt"))
             {
                 File.Delete("log.txt");
                 return;
@@ -288,6 +297,7 @@ namespace CSClock
             }
             notifyIcon1 = new NotifyIcon();
             notifyIcon1.Icon = Properties.Resources.Logo;
+            notifyIcon1.DoubleClick += ShowGUI;
             contextMenu1 = new ContextMenu();
             contextMenu1.MenuItems.Add(rm_GUI.GetString("showGUI"), new EventHandler(ShowGUI));
             if (Properties.Settings.Default.timerEnabled)
@@ -316,6 +326,7 @@ namespace CSClock
         {
             if (CSClockForm != null)
             {
+                CSClockForm.Show();
                 CSClockForm.BringToFront();
             }
             else

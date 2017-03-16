@@ -33,6 +33,8 @@ namespace OnlineSetup
         static string installFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");
         static string exePath = Path.Combine(installFolder, "CSClock.exe");
 
+        static string logPath = Path.Combine(installFolder, "setuplog.txt");
+
         static string startupShortcutPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "CSClock.lnk");
         static string startmenuShortcutPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu), "CSClock.lnk");
 
@@ -44,8 +46,11 @@ namespace OnlineSetup
             {
                 Directory.CreateDirectory(installFolder);
             }
-
-            logger = new Logger("CSClock_onlinesetup", Path.Combine(installFolder, "setuplog.txt"), Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
+            if (File.Exists(logPath))
+            {
+                File.Delete(logPath);
+            }
+            logger = new Logger("CSClock Online Setup", logPath, Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
             if (args == null || args.Length == 0)
             {
                 Install();
@@ -82,9 +87,9 @@ namespace OnlineSetup
             try
             {
                 logger.Log("Creating startup shortcut", className, Logger.LogType.Info);
-                CreateShortcut(exePath, startupShortcutPath, Path.GetDirectoryName(exePath), "-s");
+                CreateShortcut(exePath, startupShortcutPath, Path.GetDirectoryName(exePath), "-s -np");
                 logger.Log("Creating start menu shortcut", className, Logger.LogType.Info);
-                CreateShortcut(exePath, startmenuShortcutPath, Path.GetDirectoryName(exePath));
+                CreateShortcut(exePath, startmenuShortcutPath, Path.GetDirectoryName(exePath), "-np");
             }
             catch (MissingMethodException ex)
             {
