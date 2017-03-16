@@ -33,7 +33,7 @@
   - Windows PowerShell, used by the removal tool. You can use CSClock without Windows PowerShell, but you can't use the removal tool. 
   
 **HOW TO INSTALL:**  
-Download Setup.exe, open it, done. Simple as that (finally).
+Download Install.exe, open it, press 'More info' on the SmartScreen warning, then press 'Run anyway'.
   
 **CONTACT:**  
 steel9apps@gmail.com  
