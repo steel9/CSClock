@@ -219,15 +219,16 @@ namespace CSClock
 
                 logger.Log(className, "Reset completed, closing CSClock", Logger.LogType.Info);
 
-                if (((args == null && args.Length > 0) || !args.Contains("-deletelog")) || !File.Exists("log.txt"))
+                if (((args == null && args.Length > 0) || !args.Contains("-deletelogs")) || (!File.Exists("log.txt") && !File.Exists("setuplog.txt")))
                 {
                     return;
                 }
             }
 
-            if (args != null && args.Length > 0 && args.Contains("-deletelog") && File.Exists("log.txt"))
+            if (args != null && args.Length > 0 && args.Contains("-deletelogs") && (File.Exists("log.txt") || File.Exists("setuplog.txt")))
             {
                 File.Delete("log.txt");
+                File.Delete("setuplog.txt");
                 return;
             }
 
