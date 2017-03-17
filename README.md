@@ -42,7 +42,7 @@ If everything works as it should, CSClock should automatically update at next ap
   
 **HOW TO INSTALL:**  
 FOR INSTALLATION: Download Install.exe, open it, press 'More info' on the SmartScreen warning, then press 'Run anyway'.   
-FOR NON-INSTALLATION: You can still just run CSClock.exe, but it does NOT auto update, and it still stores settings in its local appdata folder.
+FOR NON-INSTALLATION: You can still just download and run CSClock.exe, but it does NOT auto update, and it still stores settings in its local appdata folder.
    
 **START PARAMETERS:**   
 To run CSClock with a start parameter, open the CSClock install folder (default in "%localappdata%\CSClock" (without quotation)), then SHIFT+RIGHT-CLICK on an empty location in the folder, then press "Open command prompt here" or something similar, then run CSClock with the parameter(s), for example "CSClock.exe -deletelogs" (without quotation), which removes the log files.   
