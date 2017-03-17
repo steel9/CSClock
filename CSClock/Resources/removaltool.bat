@@ -44,6 +44,7 @@ powershell -Command "Remove-Item -Recurse -Force %1 -ErrorAction SilentlyContinu
 echo Removing data...
 powershell -Command "Remove-Item -Recurse -Force \"%localappdata%\CSClock\" -ErrorAction SilentlyContinue"
 powershell -Command "Remove-Item -Recurse -Force \"%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\CSClock.lnk\" -ErrorAction SilentlyContinue"
+powershell -Command "Remove-Item -Recurse -Force \"%appdata%\Microsoft\Windows\Start Menu\CSClock.lnk\" -ErrorAction SilentlyContinue"
 
 echo.
 echo.
