@@ -107,7 +107,7 @@ namespace CSClock
             {
                 if (createdNew || (args != null && args.Contains("-ignorerunning")))
                 {
-                    if (!portable)
+                    if (!portable && args != null && args.Length > 0 && !args.Contains("-du") && Properties.Settings.Default.autoUpdate)
                     {
                         Update();
                     }
@@ -190,6 +190,18 @@ namespace CSClock
             selectedLanguage = Properties.Settings.Default.selectedLanguage;
             rm_Messages = new ResourceManager(string.Format("CSClock.Languages.{0}.Messages", selectedLanguage), assembly);
             rm_GUI = new ResourceManager(string.Format("CSClock.Languages.{0}.GUI", selectedLanguage), assembly);
+
+            if (args != null && args.Length > 0 && args.Contains("-disup"))
+            {
+                Properties.Settings.Default.autoUpdate = false;
+                Properties.Settings.Default.Save();
+            }
+            else if (args != null && args.Length > 0 && args.Contains("-enup"))
+            {
+                Properties.Settings.Default.autoUpdate = true;
+                Properties.Settings.Default.Save();
+                Update();
+            }
 
             if (args != null && args.Length > 0 && args.Contains("-removal"))
             {
