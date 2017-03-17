@@ -62,9 +62,35 @@ namespace OnlineSetup
             return;
         }
 
+        public static bool CheckForInternetConnection()
+        {
+            try
+            {
+                using (var client = new WebClient())
+                {
+                    using (var stream = client.OpenRead("http://www.google.com"))
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         static void Install()
         {
             logger.Log("--INSTALLATION--", className, Logger.LogType.Info);
+
+            //Check for Internet connection
+            if (!CheckForInternetConnection())
+            {
+                logger.Log("No internet connection available, aborting install", className, Logger.LogType.Info);
+                MessageBox.Show("Network connection is needed to download CSClock", "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
 
             //Download CSClock
             logger.Log("Downloading CSClock.exe", className, Logger.LogType.Info);
@@ -76,7 +102,7 @@ namespace OnlineSetup
             catch (Exception ex)
             {
                 logger.Log("Download error: " + ex.ToString(), className, Logger.LogType.Error);
-                MessageBox.Show("Error when downloading CSClock: " + ex.Message, "CSClock", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error when downloading CSClock: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             //Install updater
@@ -95,12 +121,12 @@ namespace OnlineSetup
             {
                 logger.Log("Error while creating shortcuts: " + ex.ToString(), className, Logger.LogType.Error);
                 MessageBox.Show("Error while creating shortcuts" +
-                    "Your .NET version does not support this function", "CSClock", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    "Your .NET version does not support this function", "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
                 logger.Log("Error while creating shortcuts: " + ex.ToString(), className, Logger.LogType.Error);
-                MessageBox.Show("Error while creating shortcuts: " + ex.Message, "CSClock", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Error while creating shortcuts: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             //Start CSClock
@@ -134,6 +160,13 @@ namespace OnlineSetup
         static void Update()
         {
             logger.Log("--UPDATE--", className, Logger.LogType.Info);
+
+            //Check for Internet connection
+            if (!CheckForInternetConnection())
+            {
+                logger.Log("No internet connection available, aborting update", className, Logger.LogType.Info);
+                return;
+            }
 
             //Check if update is needed
             logger.Log("Initializing WebClient", className, Logger.LogType.Info);

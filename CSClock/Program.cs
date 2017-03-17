@@ -107,7 +107,7 @@ namespace CSClock
             {
                 if (createdNew || (args != null && args.Contains("-ignorerunning")))
                 {
-                    if (!portable)
+                    if (!portable && args != null && args.Length > 0 && !args.Contains("-du") && Properties.Settings.Default.autoUpdate)
                     {
                         Update();
                     }
@@ -191,6 +191,18 @@ namespace CSClock
             rm_Messages = new ResourceManager(string.Format("CSClock.Languages.{0}.Messages", selectedLanguage), assembly);
             rm_GUI = new ResourceManager(string.Format("CSClock.Languages.{0}.GUI", selectedLanguage), assembly);
 
+            if (args != null && args.Length > 0 && args.Contains("-disup"))
+            {
+                Properties.Settings.Default.autoUpdate = false;
+                Properties.Settings.Default.Save();
+            }
+            else if (args != null && args.Length > 0 && args.Contains("-enup"))
+            {
+                Properties.Settings.Default.autoUpdate = true;
+                Properties.Settings.Default.Save();
+                Update();
+            }
+
             if (args != null && args.Length > 0 && args.Contains("-removal"))
             {
                 Removal(true);
@@ -207,15 +219,16 @@ namespace CSClock
 
                 logger.Log(className, "Reset completed, closing CSClock", Logger.LogType.Info);
 
-                if (((args == null && args.Length > 0) || !args.Contains("-deletelog")) || !File.Exists("log.txt"))
+                if (((args == null && args.Length > 0) || !args.Contains("-deletelogs")) || (!File.Exists("log.txt") && !File.Exists("setuplog.txt")))
                 {
                     return;
                 }
             }
 
-            if (args != null && args.Length > 0 && args.Contains("-deletelog") && File.Exists("log.txt"))
+            if (args != null && args.Length > 0 && args.Contains("-deletelogs") && (File.Exists("log.txt") || File.Exists("setuplog.txt")))
             {
                 File.Delete("log.txt");
+                File.Delete("setuplog.txt");
                 return;
             }
 
