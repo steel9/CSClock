@@ -4,9 +4,11 @@
 
 If everything works as it should, CSClock should automatically update at next app start (if an Internet connection is available). You should not have to update manually. **NOTE:** The portable version (if you only download CSClock.exe and run it) does NOT contain the automatic updater.   
    
-0.2.1 news (only bug fixes):
-- Removal tool fix
-- Updater fix
+0.2.1 news:
+- Removal tool fix.
+- Updater fix.
+- You can now disable automatic updates (see start parameters for more info).
+- Start parameter "-deletelog" replaced with "-deletelogs", which now deletes the log both of the application *and* the installer.
 
 0.2.0 news:
 - Automatic updates
@@ -39,8 +41,19 @@ If everything works as it should, CSClock should automatically update at next ap
   - Windows PowerShell, used by the removal tool. You can use CSClock without Windows PowerShell, but you can't use the removal tool. 
   
 **HOW TO INSTALL:**  
-Download Install.exe, open it, press 'More info' on the SmartScreen warning, then press 'Run anyway'.
-  
+FOR INSTALLATION: Download Install.exe, open it, press 'More info' on the SmartScreen warning, then press 'Run anyway'.   
+FOR NON-INSTALLATION: You can still just run CSClock.exe, but it does NOT auto update, and it still stores settings in its local appdata folder.
+   
+**START PARAMETERS:**   
+To run CSClock with a start parameter, open the CSClock install folder (default in "%localappdata%\CSClock" (without quotation)), then SHIFT+RIGHT-CLICK on an empty location in the folder, then press "Open command prompt here" or something similar, then run CSClock with the parameter(s), for example "CSClock.exe -deletelogs" (without quotation), which removes the log files.   
+   
+-removal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Extract & run the removal tool.   
+-reset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Reset the user data of CSClock.   
+-deletelogs&nbsp;| Deletes the setup & application log files.   
+-disup&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Disable automatic updates (not recommended, but it's for users who want to run old versions).   
+-enup&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Enable automatic updates (default).   
+&nbsp;  
+&nbsp;  
 **CONTACT:**  
 steel9apps@gmail.com  
   
