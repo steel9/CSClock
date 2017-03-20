@@ -1,9 +1,13 @@
 # CSClock
+**DEVELOPMENT BRANCH - THIS BRANCH CONTAINS UNFINISHED FUNCTIONS. THE APPLICATION MAY OR MAY NOT WORK. DO NOT DOWNLOAD DEVELOPMENT BUILDS FOR USAGE.**   
    
 **A C# application which keeps track of the time you spend on your computer, by setting limits. It will then alert you when your computer time is out. Note that CSClock doesn't *prevent* you from using the computer after the limit is reached, but it *alerts* you.** 
 
 If everything works as it should, CSClock should automatically update at next app start (if an Internet connection is available). You should not have to update manually. **NOTE:** The portable version (if you only download CSClock.exe and run it) does NOT contain the automatic updater. The portable version also still stores the user data in the CSClock folder in local appdata.   
    
+0.3 news (not finished):  
+- Statistics  
+  
 0.2.1 news:
 - Removal tool fix.
 - Updater fix.
