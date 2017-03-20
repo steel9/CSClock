@@ -22,7 +22,9 @@ using System.Windows.Forms;
 using System.Resources;
 using Microsoft.Win32;
 using System.Diagnostics;
+using System.IO;
 using CSClock;
+using System.Xml;
 
 namespace CSClock
 {
@@ -336,6 +338,37 @@ namespace CSClock
             About about = new About();
             about.TopMost = this.TopMost;
             about.ShowDialog();
+        }
+
+        void UpdateStatistics()
+        {
+            XmlDocument statXml = loadStatXml();
+        }
+        
+        XmlDocument loadStatXml()
+        {
+            XmlDocument statXml = new XmlDocument();
+            XmlElement statElement;
+            if (!File.Exists(Program.statisticsFile))
+            {
+                XmlDeclaration xmlDeclaration = statXml.CreateXmlDeclaration("1.0", "UTF-8", null);
+                XmlElement root = statXml.DocumentElement;
+                statXml.InsertBefore(xmlDeclaration, root);
+                statElement = statXml.CreateElement(string.Empty, "Statistics", string.Empty);
+                XmlElement weekStatsElement = statXml.CreateElement(string.Empty, "WeekStatistics", string.Empty);
+                XmlElement timeSpentElement = statXml.CreateElement(string.Empty, "TimeSpent", string.Empty);
+                XmlText timeSpentText = statXml.CreateTextNode("0");
+                timeSpentElement.AppendChild(timeSpentText);
+                weekStatsElement.AppendChild(timeSpentElement);
+                statElement.AppendChild(weekStatsElement);
+                statXml.AppendChild(statElement);
+                statXml.Save(Program.statisticsFile);
+            }
+            else
+            {
+                statXml.Load(Program.statisticsFile);
+            }
+            return statXml;
         }
 
         private void timer_Tick(object sender, EventArgs e)
