@@ -7,18 +7,6 @@ If everything works as it should, CSClock should automatically update at next ap
    
 0.3 news (not finished):  
 - Statistics  
-  
-0.2.1 news:
-- Removal tool fix.
-- Updater fix.
-- You can now disable automatic updates (see start parameters for more info).
-- Start parameter "-deletelog" replaced with "-deletelogs", which now deletes the log both of the application *and* the installer.
-
-0.2.0 news:
-- Automatic updates
-- CSClock now uses an installer, but a portable version is available.
-- Finally, you can now fully minimize CSClock to the tray! It is not stuck in the taskbar anymore.
-- You can now track your computer time without setting limits!
 
 **The project was created in Visual Studio 2015.**
 &nbsp;  
