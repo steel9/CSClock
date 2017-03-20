@@ -5,7 +5,7 @@
 
 If everything works as it should, CSClock should automatically update at next app start (if an Internet connection is available). You should not have to update manually. **NOTE:** The portable version (if you only download CSClock.exe and run it) does NOT contain the automatic updater. The portable version also still stores the user data in the CSClock folder in local appdata.   
    
-0.3 news (not finished):  
+**0.3 news (not finished):**  
 - Statistics  
 
 **The project was created in Visual Studio 2015.**
