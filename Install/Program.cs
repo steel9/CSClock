@@ -87,7 +87,7 @@ namespace OnlineSetup
             //Check for Internet connection
             if (!CheckForInternetConnection())
             {
-                logger.Log("No internet connection available, aborting install", className, Logger.LogType.Info);
+                logger.Log("No internet connection available, aborting installation", className, Logger.LogType.Info);
                 MessageBox.Show("Network connection is needed to download CSClock", "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
@@ -172,7 +172,9 @@ namespace OnlineSetup
             logger.Log("Initializing WebClient", className, Logger.LogType.Info);
             WebClient webClient = new WebClient();
             logger.Log("Current version without dots --> int", className, Logger.LogType.Info);
-            int currentVersion = int.Parse(FileVersionInfo.GetVersionInfo(exePath).ProductVersion.ToString().Replace(".", ""));
+            FileVersionInfo currVer = FileVersionInfo.GetVersionInfo(exePath);
+            int currentVersion = int.Parse(string.Format("{0}{1}{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
+                currVer.FileBuildPart.ToString()));
             logger.Log("Downloading VERSION file from master branch", className, Logger.LogType.Info);
             string latestVersionText = null;
             try
