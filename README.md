@@ -79,5 +79,6 @@ This is probably due to some special changes in the application resetting the us
 - More unified icons (the button icons)  
 - More supported languages  
 - Statistics   
+- More bug fixes :)   
 
 If you want, you can contribute! It is really appreciated!
