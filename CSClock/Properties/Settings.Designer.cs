@@ -272,5 +272,17 @@ namespace CSClock.Properties {
                 this["autoUpdate"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool portableWarnHasAppeared {
+            get {
+                return ((bool)(this["portableWarnHasAppeared"]));
+            }
+            set {
+                this["portableWarnHasAppeared"] = value;
+            }
+        }
     }
 }

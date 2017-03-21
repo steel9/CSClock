@@ -83,6 +83,18 @@ namespace CSClock
             {
                 portable = false;
             }
+            else
+            {
+                if (!Properties.Settings.Default.portableWarnHasAppeared)
+                {
+                    MessageBox.Show("You are running the (partly) portable version of CSClock. The portable version does not auto-update. To use the auto-updater, " +
+                        "please download CSClock with the installer, or download Install.exe, depending on where you download it. If you are using the installed " +
+                        "version but this message appears, it might be because you have not launched CSClock.exe with the start parameter \"-np\" (without quotation)." +
+                        "\r\nThis message will not appear again", "CSClock", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    Properties.Settings.Default.portableWarnHasAppeared = true;
+                    Properties.Settings.Default.Save();
+                }
+            }
 
             string logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");
 
@@ -194,8 +206,12 @@ namespace CSClock
 
             if (args != null && args.Length > 0 && args.Contains("-disup"))
             {
-                Properties.Settings.Default.autoUpdate = false;
-                Properties.Settings.Default.Save();
+                if (MessageBox.Show("Disabling auto-update is NOT recommended, as CSClock is in alpha-state, which might mean BUGS. If you turn off automatic updates, you will NOT get bug fixes and improvements. CSClock will also only auto-update at application launch (when auto-updates are enabled). Are you sure you want to disable auto-updating?",
+                    "CSClock", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                {
+                    Properties.Settings.Default.autoUpdate = false;
+                    Properties.Settings.Default.Save();
+                }
             }
             else if (args != null && args.Length > 0 && args.Contains("-enup"))
             {

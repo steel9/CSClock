@@ -87,6 +87,46 @@ namespace CSClock
         {
             var timeSpent = int.Parse(statXml.SelectSingleNode("//WeekStatistics/TimeSpent").InnerText);
             var days = int.Parse(statXml.SelectSingleNode("//WeekStatistics/DaysTimeSpent").InnerText);
+
+            var lastUpd = statXml.SelectSingleNode("//WeekStatistics/LastUpdate").InnerText;
+            int dayOfWeekNow = (int)DateTime.Now.DayOfWeek;
+            int lastUpdDayOfWeek;
+            switch (lastUpd)
+            {
+                case "Mon":
+                    lastUpdDayOfWeek = 1;
+                    break;
+
+                case "Tue":
+                    lastUpdDayOfWeek = 2;
+                    break;
+
+                case "Wed":
+                    lastUpdDayOfWeek = 3;
+                    break;
+
+                case "Thu":
+                    lastUpdDayOfWeek = 4;
+                    break;
+
+                case "Fri":
+                    lastUpdDayOfWeek = 5;
+                    break;
+
+                case "Sat":
+                    lastUpdDayOfWeek = 6;
+                    break;
+
+                case "Sun":
+                    lastUpdDayOfWeek = 7;
+                    break;
+
+                default:
+                    lastUpdDayOfWeek = -1;
+                    break;
+            }
+
+
             return timeSpent / days;
         }
     }
