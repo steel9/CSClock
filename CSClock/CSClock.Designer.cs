@@ -65,6 +65,7 @@ namespace CSClock
             this.restartEveryDayTimer = new System.Windows.Forms.Timer(this.components);
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.button_quit = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.panel_home.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -220,11 +221,22 @@ namespace CSClock
             this.button_quit.UseVisualStyleBackColor = true;
             this.button_quit.Click += new System.EventHandler(this.button_quit_Click);
             // 
+            // button2
+            // 
+            this.button2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button2.Location = new System.Drawing.Point(120, 118);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(123, 23);
+            this.button2.TabIndex = 8;
+            this.button2.Text = "Statistics";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
             // CSClock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(404, 150);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.button_fwrdRwndTime);
             this.Controls.Add(this.button_quit);
             this.Controls.Add(this.button_about);
@@ -268,6 +280,7 @@ namespace CSClock
         private System.Windows.Forms.Button button_quit;
         private System.Windows.Forms.Button button_fwrdRwndTime;
         private System.Windows.Forms.Label l_exclM;
+        private System.Windows.Forms.Button button2;
     }
 }
 

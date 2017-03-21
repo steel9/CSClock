@@ -78,56 +78,51 @@ namespace CSClock
 
         static void UpdateStatistics(int secsElapsed)
         {
+            //Week statistics
             int timeSpent = int.Parse(statXml.SelectSingleNode("//WeekStatistics/TimeSpent").InnerText);
+            int daysTimeSpent_ = int.Parse(statXml.SelectSingleNode("//WeekStatistics/DaysTimeSpent").InnerText);
             timeSpent += secsElapsed;
+
+            var lastUpd = int.Parse(statXml.SelectSingleNode("//WeekStatistics/LastUpdate").InnerText);
+            var currentDate = int.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"));
+            if (currentDate > lastUpd)
+            {
+                daysTimeSpent_ += 1;
+            }
+
             statXml.SelectSingleNode("//WeekStatistics/TimeSpent").InnerText = timeSpent.ToString();
+            statXml.SelectSingleNode("//WeekStatistics/LastUpdate").InnerText = DateTime.Now.ToString("yyyyMMddHHmmss");
+            statXml.Save(Path.GetFileName(statisticsFile));
         }
 
         static int averageWeekTimeSpent()
         {
+            CheckFixWeekStatDate();
+
             var timeSpent = int.Parse(statXml.SelectSingleNode("//WeekStatistics/TimeSpent").InnerText);
             var days = int.Parse(statXml.SelectSingleNode("//WeekStatistics/DaysTimeSpent").InnerText);
 
-            var lastUpd = statXml.SelectSingleNode("//WeekStatistics/LastUpdate").InnerText;
-            int dayOfWeekNow = (int)DateTime.Now.DayOfWeek;
-            int lastUpdDayOfWeek;
-            switch (lastUpd)
-            {
-                case "Mon":
-                    lastUpdDayOfWeek = 1;
-                    break;
-
-                case "Tue":
-                    lastUpdDayOfWeek = 2;
-                    break;
-
-                case "Wed":
-                    lastUpdDayOfWeek = 3;
-                    break;
-
-                case "Thu":
-                    lastUpdDayOfWeek = 4;
-                    break;
-
-                case "Fri":
-                    lastUpdDayOfWeek = 5;
-                    break;
-
-                case "Sat":
-                    lastUpdDayOfWeek = 6;
-                    break;
-
-                case "Sun":
-                    lastUpdDayOfWeek = 7;
-                    break;
-
-                default:
-                    lastUpdDayOfWeek = -1;
-                    break;
-            }
-
-
             return timeSpent / days;
+        }
+
+        static void CheckFixWeekStatDate()
+        {
+            var lastUpd = int.Parse(statXml.SelectSingleNode("//WeekStatistics/LastUpdate").InnerText);
+            var currentDate = int.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"));
+            var currentWeekDay = (int)DateTime.Now.DayOfWeek;
+
+            if (currentDate - lastUpd > currentWeekDay)
+            {
+                ClearWeekStatistics();
+            }
+        }
+
+        static void ClearWeekStatistics()
+        {
+            statXml.SelectSingleNode("//WeekStatistics/TimeSpent").InnerText = "0";
+            statXml.SelectSingleNode("//WeekStatistics/DaysTimeSpent").InnerText = "0";
+            statXml.SelectSingleNode("//WeekStatistics/LastUpdate").InnerText = DateTime.Now.ToString("yyyyMMddHHmmss");
+            statXml.Save(Path.GetFileName(statisticsFile));
         }
     }
 }
