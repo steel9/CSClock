@@ -7,7 +7,8 @@ If everything works as it should, CSClock should automatically update at next ap
    
 **0.3 news (not finished):**  
 - Statistics  
-
+- Minor improvements   
+   
 **The project was created in Visual Studio 2015.**
 &nbsp;  
 &nbsp;  
