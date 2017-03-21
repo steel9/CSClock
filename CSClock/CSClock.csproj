@@ -189,6 +189,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <DependentUpon>SetOvertime.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="Stats.cs" />
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>

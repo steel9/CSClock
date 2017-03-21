@@ -340,37 +340,6 @@ namespace CSClock
             about.ShowDialog();
         }
 
-        void UpdateStatistics()
-        {
-            XmlDocument statXml = loadStatXml();
-        }
-        
-        XmlDocument loadStatXml()
-        {
-            XmlDocument statXml = new XmlDocument();
-            XmlElement statElement;
-            if (!File.Exists(Program.statisticsFile))
-            {
-                XmlDeclaration xmlDeclaration = statXml.CreateXmlDeclaration("1.0", "UTF-8", null);
-                XmlElement root = statXml.DocumentElement;
-                statXml.InsertBefore(xmlDeclaration, root);
-                statElement = statXml.CreateElement(string.Empty, "Statistics", string.Empty);
-                XmlElement weekStatsElement = statXml.CreateElement(string.Empty, "WeekStatistics", string.Empty);
-                XmlElement timeSpentElement = statXml.CreateElement(string.Empty, "TimeSpent", string.Empty);
-                XmlText timeSpentText = statXml.CreateTextNode("0");
-                timeSpentElement.AppendChild(timeSpentText);
-                weekStatsElement.AppendChild(timeSpentElement);
-                statElement.AppendChild(weekStatsElement);
-                statXml.AppendChild(statElement);
-                statXml.Save(Program.statisticsFile);
-            }
-            else
-            {
-                statXml.Load(Program.statisticsFile);
-            }
-            return statXml;
-        }
-
         private void timer_Tick(object sender, EventArgs e)
         {
             secondsElapsed++;

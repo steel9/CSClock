@@ -34,7 +34,6 @@ namespace CSClock
         private const string className = "Program.cs";
 
         public static string installDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");
-        public static string statisticsFile = Path.Combine(installDir, "statistics.xml");
 
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
