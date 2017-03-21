@@ -7,7 +7,8 @@ If everything works as it should, CSClock should automatically update at next ap
    
 **0.3 news (not finished):**  
 - Statistics  
-
+- Minor improvements   
+   
 **The project was created in Visual Studio 2015.**
 &nbsp;  
 &nbsp;  
@@ -78,5 +79,6 @@ This is probably due to some special changes in the application resetting the us
 - More unified icons (the button icons)  
 - More supported languages  
 - Statistics   
+- More bug fixes :)   
 
 If you want, you can contribute! It is really appreciated!
