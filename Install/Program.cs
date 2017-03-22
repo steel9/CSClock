@@ -32,6 +32,7 @@ namespace OnlineSetup
 
         static string installFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");
         static string exePath = Path.Combine(installFolder, "CSClock.exe");
+        static string tempExePath = Path.Combine(Path.GetTempPath(), "CSClock.exe");
 
         static string logPath = Path.Combine(installFolder, "setuplog.txt");
 
@@ -59,7 +60,6 @@ namespace OnlineSetup
             {
                 Update();
             }
-            return;
         }
 
         public static bool CheckForInternetConnection()
@@ -97,7 +97,7 @@ namespace OnlineSetup
             try
             {
                 WebClient webClient = new WebClient();
-                webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/CSClock.exe", exePath);
+                webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/CSClock.exe", tempExePath);
             }
             catch (Exception ex)
             {
@@ -105,9 +105,30 @@ namespace OnlineSetup
                 MessageBox.Show("Error when downloading CSClock: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+            //Install CSClock
+            logger.Log("Installing CSClock", className, Logger.LogType.Info);
+            try
+            {
+                File.Copy(tempExePath, exePath, true);
+                File.Delete(tempExePath);
+            }
+            catch (Exception ex)
+            {
+                logger.Log("CSClock installation error: " + ex.ToString(), className, Logger.LogType.Error);
+                MessageBox.Show("Error when installing CSClock: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
             //Install updater
             logger.Log("Installing updater", className, Logger.LogType.Info);
-            File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "Updater.exe"), true);
+            try
+            {
+                File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "Updater.exe"), true);
+            }
+            catch (Exception ex)
+            {
+                logger.Log("Updater installation error: " + ex.ToString(), className, Logger.LogType.Error);
+                MessageBox.Show("Error when installing updater: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             //Make shortcuts
             try
@@ -159,7 +180,7 @@ namespace OnlineSetup
 
         static void Update()
         {
-            logger.Log("--UPDATE--", className, Logger.LogType.Info);
+            logger.Log("--APP UPDATE--", className, Logger.LogType.Info);
 
             //Check for Internet connection
             if (!CheckForInternetConnection())
@@ -179,7 +200,7 @@ namespace OnlineSetup
             string latestVersionText = null;
             try
             {
-                latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/master/VERSION");
+                latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/master/VERSION2");
             }
             catch (Exception ex)
             {
@@ -187,7 +208,7 @@ namespace OnlineSetup
                 return;
             }
             logger.Log("Parsing version", className, Logger.LogType.Info);
-            string latestVersion_s = latestVersionText.Split('#')[0];
+            string latestVersion_s = latestVersionText.Split(',')[0];
             logger.Log("Current version is: " + currentVersion, className, Logger.LogType.Info);
             logger.Log("Latest version is: " + latestVersion_s, className, Logger.LogType.Info);
             int latestVersion = int.Parse(latestVersion_s);
@@ -227,11 +248,24 @@ namespace OnlineSetup
             logger.Log("Downloading latest CSClock.exe", className, Logger.LogType.Info);
             try
             {
-                webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/CSClock.exe", exePath);
+                webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/CSClock.exe", tempExePath);
             }
             catch (Exception ex)
             {
                 logger.Log("Error when downloading CSClock, aborting update. Error: " + ex.ToString(), className, Logger.LogType.Info);
+            }
+
+            //Install CSClock
+            logger.Log("Installing CSClock", className, Logger.LogType.Info);
+            try
+            {
+                File.Copy(tempExePath, exePath, true);
+                File.Delete(tempExePath);
+            }
+            catch (Exception ex)
+            {
+                logger.Log("CSClock installation error: " + ex.ToString(), className, Logger.LogType.Error);
+                MessageBox.Show("Error when installing CSClock: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             //Start CSClock

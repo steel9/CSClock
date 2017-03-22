@@ -196,6 +196,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <DependentUpon>Statistics.cs</DependentUpon>
     </Compile>
     <Compile Include="Stats.cs" />
+    <Compile Include="UpdUpdater.cs" />
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
     </EmbeddedResource>

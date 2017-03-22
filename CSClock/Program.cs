@@ -122,7 +122,8 @@ namespace CSClock
                 {
                     if (!portable && args != null && args.Length > 0 && !args.Contains("-du") && Properties.Settings.Default.autoUpdate)
                     {
-                        Update();
+                        UpdUpdater.UpdUpdate();
+                        AppUpdate();
                     }
                     logger.Log(className, "createdNew=true", Logger.LogType.Info, true);
                     StartApplication(args);
@@ -160,11 +161,11 @@ namespace CSClock
             }
         }
 
-        static void Update()
+        static void AppUpdate()
         {
             try
             {
-                string updaterPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock", "Updater.exe");
+                string updaterPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock", "AppUpdater.exe");
                 ProcessStartInfo start =
                     new ProcessStartInfo();
                 start.FileName = updaterPath;
@@ -217,7 +218,7 @@ namespace CSClock
             {
                 Properties.Settings.Default.autoUpdate = true;
                 Properties.Settings.Default.Save();
-                Update();
+                AppUpdate();
             }
 
             if (args != null && args.Length > 0 && args.Contains("-removal"))
