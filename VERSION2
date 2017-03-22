@@ -1,0 +1,2 @@
+030,100
+#Application version and installer/updater version, separated by a comma. Only MAJOR, MINOR, and BUILD numbers, with the dots removed. (For example, 030 = 0.3.0)
