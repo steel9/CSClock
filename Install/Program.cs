@@ -94,7 +94,7 @@ namespace OnlineSetup
                 logger = new Logger("CSClock Online Setup", logPath, Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
             } 
 
-            if (args == null || args.Length == 0)
+            if (args == null || args.Length == 0 || !args.Contains("-update"))
             {
                 Install();
             }
