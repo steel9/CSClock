@@ -153,7 +153,7 @@ namespace OnlineSetup
                 }
                 else
                 {
-                    File.Copy("CSClock.exe", tempExePath);
+                    File.Copy("CSClock.exe", tempExePath, true);
                 }
             }
             catch (Exception ex)
@@ -174,7 +174,14 @@ namespace OnlineSetup
             logger.Log("Installing CSClock", className, Logger.LogType.Info);
             try
             {
-                File.Copy(tempExePath, exePath, true);
+                if (!dev)
+                {
+                    File.Copy(tempExePath, exePath, true);
+                }
+                else
+                {
+                    File.Copy(tempExePath, devExePath, true);
+                }
                 File.Delete(tempExePath);
             }
             catch (Exception ex)

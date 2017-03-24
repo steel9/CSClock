@@ -1,7 +1,7 @@
 @echo off
 echo Building...
 cd C:\Windows\Microsoft.NET\Framework\v4.0.30319
-msbuild /p:Configuration=Debug "%~dp0%\CSClock.sln"
+msbuild /p:Configuration=Release "%~dp0%\CSClock.sln"
 cd "%~dp0%"
 mkdir Build
 copy /Y "CSClock\bin\Debug\CSClock.exe" "Build\CSClock.exe"
