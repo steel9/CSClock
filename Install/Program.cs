@@ -354,18 +354,4 @@ namespace OnlineSetup
             Process.Start(exePath);
         }
     }
-
-    public class SolutionBuilder
-    {
-        public SolutionBuilder() { }
-        [STAThread]
-        public void Compile(string solution_name)
-        {
-            Engine.GlobalEngine.BuildEnabled = true;
-            Project p = new Project(Engine.GlobalEngine);
-            p.BuildEnabled = true;
-            p.Load(solution_name);
-            p.Build();
-        }
-    }
 }
