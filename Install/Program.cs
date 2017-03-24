@@ -23,6 +23,9 @@ using System.Windows.Forms;
 using System.Net;
 using System.Linq;
 using CSClock;
+using static CSClock.Logger;
+
+using Microsoft.Build.BuildEngine;
 
 namespace OnlineSetup
 {
@@ -30,14 +33,23 @@ namespace OnlineSetup
     {
         const string className = "Program.cs";
 
+        public static bool dev = false;
+
         static string installFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");
+
         static string exePath = Path.Combine(installFolder, "CSClock.exe");
+        static string devExePath = Path.Combine(installFolder, "dev", "CSClock.exe");
+
         static string tempExePath = Path.Combine(Path.GetTempPath(), "CSClock.exe");
 
         static string logPath = Path.Combine(installFolder, "setuplog.txt");
+        static string devLogPath = Path.Combine(installFolder, "dev", "setuplog.txt");
 
         static string startupShortcutPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "CSClock.lnk");
         static string startmenuShortcutPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu), "CSClock.lnk");
+
+        static string devStartupShortcutPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "CSClock Dev.lnk");
+        static string devStartmenuShortcutPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu), "CSClock Dev.lnk");
 
         static Logger logger = null;
 
@@ -51,7 +63,33 @@ namespace OnlineSetup
             {
                 File.Delete(logPath);
             }
-            logger = new Logger("CSClock Online Setup", logPath, Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
+
+            if (args != null && args.Length > 0)
+            {
+                if (args.Contains("-dev"))
+                {
+                    dev = true;
+                    if (!Directory.Exists(Path.Combine(installFolder, "dev")))
+                    {
+                        Directory.CreateDirectory(Path.Combine(installFolder, "dev"));
+                    }
+                    if (!Directory.Exists(Path.Combine(installFolder, "devsrc")))
+                    {
+                        Directory.CreateDirectory(Path.Combine(installFolder, "devsrc"));
+                    }
+
+                    logger = new Logger("CSClock Online Setup", devLogPath, Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
+                }
+                else
+                {
+                    logger = new Logger("CSClock Online Setup", logPath, Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
+                }
+            }
+            else
+            {
+                logger = new Logger("CSClock Online Setup", logPath, Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
+            } 
+
             if (args == null || args.Length == 0)
             {
                 Install();
@@ -96,8 +134,11 @@ namespace OnlineSetup
             logger.Log("Downloading CSClock.exe", className, Logger.LogType.Info);
             try
             {
-                WebClient webClient = new WebClient();
-                webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/CSClock.exe", tempExePath);
+                if (!dev)
+                {
+                    WebClient webClient = new WebClient();
+                    webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/CSClock.exe", tempExePath);
+                }
             }
             catch (Exception ex)
             {
@@ -200,7 +241,7 @@ namespace OnlineSetup
             string latestVersionText = null;
             try
             {
-                latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/master/VERSION2");
+                 latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/master/VERSION2");
             }
             catch (Exception ex)
             {
@@ -248,7 +289,7 @@ namespace OnlineSetup
             logger.Log("Downloading latest CSClock.exe", className, Logger.LogType.Info);
             try
             {
-                webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/CSClock.exe", tempExePath);
+                 webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/CSClock.exe", tempExePath);
             }
             catch (Exception ex)
             {
@@ -271,6 +312,20 @@ namespace OnlineSetup
             //Start CSClock
             logger.Log("Starting CSClock", className, Logger.LogType.Info);
             Process.Start(exePath);
+        }
+    }
+
+    public class SolutionBuilder
+    {
+        public SolutionBuilder() { }
+        [STAThread]
+        public void Compile(string solution_name)
+        {
+            Engine.GlobalEngine.BuildEnabled = true;
+            Project p = new Project(Engine.GlobalEngine);
+            p.BuildEnabled = true;
+            p.Load(solution_name);
+            p.Build();
         }
     }
 }

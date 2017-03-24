@@ -40,6 +40,7 @@ namespace CSClock
         static extern bool SetForegroundWindow(IntPtr hWnd);
 
         public static bool debug = false;
+        public static bool dev = false;
 
         public static Logger logger;
 
@@ -120,11 +121,20 @@ namespace CSClock
             {
                 if (createdNew || (args != null && args.Contains("-ignorerunning")))
                 {
-                    if (!portable && args != null && args.Length > 0 && !args.Contains("-du") && Properties.Settings.Default.autoUpdate)
+                    if (args != null && args.Length > 0)
                     {
-                        UpdUpdater.UpdUpdate();
-                        AppUpdate();
+                        if (args.Contains("-dev"))
+                        {
+                            dev = true;
+                        }
+
+                        if (!portable && !args.Contains("-disup") && Properties.Settings.Default.autoUpdate)
+                        {
+                            UpdUpdater.UpdUpdate();
+                            AppUpdate();
+                        }
                     }
+
                     logger.Log(className, "createdNew=true", Logger.LogType.Info, true);
                     StartApplication(args);
                 }
@@ -169,7 +179,14 @@ namespace CSClock
                 ProcessStartInfo start =
                     new ProcessStartInfo();
                 start.FileName = updaterPath;
-                start.Arguments = "-update";
+                if (!dev)
+                {
+                    start.Arguments = "-update";
+                }
+                else
+                {
+                    start.Arguments = "-update -dev";
+                }
                 start.WindowStyle = ProcessWindowStyle.Hidden;
                 var updateProc = Process.Start(start);
                 updateProc.WaitForExit();
@@ -205,49 +222,55 @@ namespace CSClock
             rm_Messages = new ResourceManager(string.Format("CSClock.Languages.{0}.Messages", selectedLanguage), assembly);
             rm_GUI = new ResourceManager(string.Format("CSClock.Languages.{0}.GUI", selectedLanguage), assembly);
 
-            if (args != null && args.Length > 0 && args.Contains("-disup"))
+            if (args != null && args.Length > 0)
             {
-                if (MessageBox.Show("Disabling auto-update is NOT recommended, as CSClock is in alpha-state, which might mean BUGS. If you turn off automatic updates, you will NOT get bug fixes and improvements. CSClock will also only auto-update at application launch (when auto-updates are enabled). Are you sure you want to disable auto-updating?",
-                    "CSClock", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                if (args.Contains("-disup"))
                 {
-                    Properties.Settings.Default.autoUpdate = false;
-                    Properties.Settings.Default.Save();
+                    if (MessageBox.Show("Disabling auto-update is NOT recommended, as CSClock is in alpha-state, which might mean BUGS. If you turn off automatic updates, you will NOT get bug fixes and improvements. CSClock will also only auto-update at application launch (when auto-updates are enabled). Are you sure you want to disable auto-updating?",
+                        "CSClock", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+                    {
+                        Properties.Settings.Default.autoUpdate = false;
+                        Properties.Settings.Default.Save();
+                    }
                 }
-            }
-            else if (args != null && args.Length > 0 && args.Contains("-enup"))
-            {
-                Properties.Settings.Default.autoUpdate = true;
-                Properties.Settings.Default.Save();
-                AppUpdate();
-            }
-
-            if (args != null && args.Length > 0 && args.Contains("-removal"))
-            {
-                Removal(true);
-                return;
-            }
-
-            if (args != null && args.Length > 0 && args.Contains("-reset"))
-            {
-                logger.Log(className, "Resetting CSClock", Logger.LogType.Info);
-
-                Properties.Settings.Default.Reset();
-                Properties.Settings.Default.upgradeRequired = false;
-                Properties.Settings.Default.Save();
-
-                logger.Log(className, "Reset completed, closing CSClock", Logger.LogType.Info);
-
-                if (((args == null && args.Length > 0) || !args.Contains("-deletelogs")) || (!File.Exists("log.txt") && !File.Exists("setuplog.txt")))
+                else if (args.Contains("-enup"))
                 {
+                    Properties.Settings.Default.autoUpdate = true;
+                    Properties.Settings.Default.Save();
+
+                    //Update
+                    UpdUpdater.UpdUpdate();
+                    AppUpdate();
+                }
+
+                if (args.Contains("-removal"))
+                {
+                    Removal(true);
                     return;
                 }
-            }
 
-            if (args != null && args.Length > 0 && args.Contains("-deletelogs") && (File.Exists("log.txt") || File.Exists("setuplog.txt")))
-            {
-                File.Delete("log.txt");
-                File.Delete("setuplog.txt");
-                return;
+                if (args.Contains("-reset"))
+                {
+                    logger.Log(className, "Resetting CSClock", Logger.LogType.Info);
+
+                    Properties.Settings.Default.Reset();
+                    Properties.Settings.Default.upgradeRequired = false;
+                    Properties.Settings.Default.Save();
+
+                    logger.Log(className, "Reset completed, closing CSClock", Logger.LogType.Info);
+
+                    if (!args.Contains("-deletelogs") || (!File.Exists("log.txt") && !File.Exists("setuplog.txt")))
+                    {
+                        return;
+                    }
+                }
+
+                if (args.Contains("-deletelogs") && (File.Exists("log.txt") || File.Exists("setuplog.txt")))
+                {
+                    File.Delete("log.txt");
+                    File.Delete("setuplog.txt");
+                    return;
+                }
             }
 
             CSClockForm = new CSClock();
