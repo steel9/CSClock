@@ -135,7 +135,14 @@ namespace CSClock
                         }
                     }
 
-                    logger.Log(className, "createdNew=true", Logger.LogType.Info, true);
+                    if (!dev)
+                    {
+                        logger.Log(className, "createdNew=true", Logger.LogType.Info, true);
+                    }
+                    else
+                    {
+                        logger.Log(className, "createdNew=true, dev=true", Logger.LogType.Info, true);
+                    }
                     StartApplication(args);
                 }
                 else
@@ -175,7 +182,15 @@ namespace CSClock
         {
             try
             {
-                string updaterPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock", "AppUpdater.exe");
+                string updaterPath;
+                if (!dev)
+                {
+                    updaterPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock", "AppUpdater.exe");
+                }
+                else
+                {
+                    updaterPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock", "dev", "AppUpdater.exe");
+                }
                 ProcessStartInfo start =
                     new ProcessStartInfo();
                 start.FileName = updaterPath;

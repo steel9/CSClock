@@ -144,6 +144,11 @@ namespace CSClock
                 this.Text = "CSClock DEBUG";
                 label_version.Text += " DEBUGGING MODE";
             }
+            else if (Program.dev)
+            {
+                this.Text = "CSClock DEV";
+                label_version.Text += " DEV";
+            }
 
             if (Properties.Settings.Default.configured)
             {

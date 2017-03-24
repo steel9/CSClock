@@ -58,6 +58,7 @@ namespace OnlineSetup
             {
                 Directory.CreateDirectory(installFolder);
             }
+
             if (File.Exists(logPath))
             {
                 File.Delete(logPath);
@@ -71,10 +72,6 @@ namespace OnlineSetup
                     if (!Directory.Exists(Path.Combine(installFolder, "dev")))
                     {
                         Directory.CreateDirectory(Path.Combine(installFolder, "dev"));
-                    }
-                    if (!Directory.Exists(Path.Combine(installFolder, "devsrc")))
-                    {
-                        Directory.CreateDirectory(Path.Combine(installFolder, "devsrc"));
                     }
 
                     logger = new Logger("CSClock Online Setup", devLogPath, Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
@@ -130,7 +127,15 @@ namespace OnlineSetup
             }
 
             //Download CSClock
-            logger.Log("Downloading CSClock.exe", className, Logger.LogType.Info);
+            if (!dev)
+            {
+                logger.Log("Downloading CSClock.exe", className, Logger.LogType.Info);
+            }
+            else
+            {
+                logger.Log("Copying CSClock.exe", className, Logger.LogType.Info);
+            }
+
             try
             {
                 if (!dev)
@@ -138,11 +143,23 @@ namespace OnlineSetup
                     WebClient webClient = new WebClient();
                     webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/CSClock.exe", tempExePath);
                 }
+                else
+                {
+                    File.Copy(@"CSClock\bin\Debug\CSClock.exe", tempExePath);
+                }
             }
             catch (Exception ex)
             {
-                logger.Log("Download error: " + ex.ToString(), className, Logger.LogType.Error);
-                MessageBox.Show("Error when downloading CSClock: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (!dev)
+                {
+                    logger.Log("Download error: " + ex.ToString(), className, Logger.LogType.Error);
+                    MessageBox.Show("Error when downloading CSClock: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    logger.Log("Copy error: " + ex.ToString(), className, Logger.LogType.Error);
+                    MessageBox.Show("Error when copying CSClock.exe from bin to temp dir: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
 
             //Install CSClock
@@ -162,7 +179,14 @@ namespace OnlineSetup
             logger.Log("Installing updater", className, Logger.LogType.Info);
             try
             {
-                File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "Updater.exe"), true);
+                if (!dev)
+                {
+                    File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "Updater.exe"), true);
+                }
+                else
+                {
+                    File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "dev", "Updater.exe"), true);
+                }
             }
             catch (Exception ex)
             {
@@ -173,10 +197,20 @@ namespace OnlineSetup
             //Make shortcuts
             try
             {
-                logger.Log("Creating startup shortcut", className, Logger.LogType.Info);
-                CreateShortcut(exePath, startupShortcutPath, Path.GetDirectoryName(exePath), "-s -np");
-                logger.Log("Creating start menu shortcut", className, Logger.LogType.Info);
-                CreateShortcut(exePath, startmenuShortcutPath, Path.GetDirectoryName(exePath), "-np");
+                if (!dev)
+                {
+                    logger.Log("Creating startup shortcut", className, Logger.LogType.Info);
+                    CreateShortcut(exePath, startupShortcutPath, Path.GetDirectoryName(exePath), "-s -np");
+                    logger.Log("Creating start menu shortcut", className, Logger.LogType.Info);
+                    CreateShortcut(exePath, startmenuShortcutPath, Path.GetDirectoryName(exePath), "-np");
+                }
+                else
+                {
+                    logger.Log("Creating startup shortcut", className, Logger.LogType.Info);
+                    CreateShortcut(exePath, startupShortcutPath, Path.GetDirectoryName(devExePath), "-s -np -dev");
+                    logger.Log("Creating start menu shortcut", className, Logger.LogType.Info);
+                    CreateShortcut(exePath, startmenuShortcutPath, Path.GetDirectoryName(devExePath), "-np -dev");
+                }
             }
             catch (MissingMethodException ex)
             {
@@ -192,7 +226,14 @@ namespace OnlineSetup
 
             //Start CSClock
             logger.Log("Starting CSClock", className, Logger.LogType.Info);
-            Process.Start(exePath);
+            if (!dev)
+            {
+                Process.Start(exePath);
+            }
+            else
+            {
+                Process.Start(devExePath);
+            }
         }
 
         static void CreateShortcut(string filePath, string shortcutPath,
