@@ -23,7 +23,6 @@ using System.Windows.Forms;
 using System.Net;
 using System.Linq;
 using CSClock;
-using static CSClock.Logger;
 
 using Microsoft.Build.BuildEngine;
 
