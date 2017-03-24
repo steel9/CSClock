@@ -57,16 +57,26 @@ namespace OnlineSetup
                 Directory.CreateDirectory(installFolder);
             }
 
-            if (File.Exists(logPath))
+            if (dev && File.Exists(devLogPath))
+            {
+                File.Delete(devLogPath);
+            }
+            else if (!dev && File.Exists(logPath))
             {
                 File.Delete(logPath);
-            }
+            }  
 
             if (args != null && args.Length > 0)
             {
                 if (args.Contains("-dev"))
                 {
                     dev = true;
+                    if (!File.Exists("CSClock.exe"))
+                    {
+                        MessageBox.Show("Please run the installer from the Build folder with CSClock.exe inside", "CSClock", MessageBoxButtons.OK,
+                            MessageBoxIcon.Error);
+                        return;
+                    }
                     if (!Directory.Exists(Path.Combine(installFolder, "dev")))
                     {
                         Directory.CreateDirectory(Path.Combine(installFolder, "dev"));
@@ -143,7 +153,7 @@ namespace OnlineSetup
                 }
                 else
                 {
-                    File.Copy(@"CSClock\bin\Debug\CSClock.exe", tempExePath);
+                    File.Copy("CSClock.exe", tempExePath);
                 }
             }
             catch (Exception ex)
