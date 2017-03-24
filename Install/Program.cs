@@ -24,8 +24,6 @@ using System.Net;
 using System.Linq;
 using CSClock;
 
-using Microsoft.Build.BuildEngine;
-
 namespace OnlineSetup
 {
     static class Program
