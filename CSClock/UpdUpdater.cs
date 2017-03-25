@@ -58,44 +58,68 @@ namespace CSClock
         {
             logger = new Logger("CSClock App Updater Updater", logPath, Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
 
-            logger.Log("--UPDUPDATE (UPDATER UPDATE)--", className, Logger.LogType.Info);
+            logger.Log(className, "--UPDUPDATE (UPDATER UPDATE)--", Logger.LogType.Info);
+            if (Program.dev)
+            {
+                logger.Log(className, "-DEV-", Logger.LogType.Info);
+            }
 
             //Check for Internet connection
             if (!CheckForInternetConnection())
             {
-                logger.Log("No internet connection available, aborting update", className, Logger.LogType.Info);
+                logger.Log(className, "No internet connection available, aborting update", Logger.LogType.Info);
                 return;
             }
 
             //Check if update is needed
-            logger.Log("Initializing WebClient", className, Logger.LogType.Info);
+            logger.Log(className, "Initializing WebClient", Logger.LogType.Info);
             WebClient webClient = new WebClient();
-            logger.Log("Current version without dots --> int", className, Logger.LogType.Info);
+            logger.Log(className, "Current version without dots --> int", Logger.LogType.Info);
             FileVersionInfo currVer = FileVersionInfo.GetVersionInfo(exePath);
             int currentVersion = int.Parse(string.Format("{0}{1}{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
                 currVer.FileBuildPart.ToString()));
-            logger.Log("Downloading VERSION file from master branch", className, Logger.LogType.Info);
+            logger.Log(className, "Downloading VERSION file from master branch", Logger.LogType.Info);
             string latestVersionText = null;
             try
             {
-                latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/master/VERSION2");
+                if (!Program.dev)
+                {
+                    latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/master/VERSION2");
+                }
+                else
+                {
+                    latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/development/VERSION2");
+                }
             }
             catch (Exception ex)
             {
-                logger.Log("Error while downloading VERSION file from master branch, aborting update. Error: " + ex.ToString(), className, Logger.LogType.Error);
+                logger.Log(className, "Error while downloading VERSION file from master branch, aborting update. Error: " + ex.ToString(), Logger.LogType.Error);
                 return;
             }
-            logger.Log("Parsing version", className, Logger.LogType.Info);
+            logger.Log(className, "Parsing version", Logger.LogType.Info);
             string latestVersion_s = latestVersionText.Split(',', '#')[1];
-            logger.Log("Current version is: " + currentVersion, className, Logger.LogType.Info);
-            logger.Log("Latest version is: " + latestVersion_s, className, Logger.LogType.Info);
+            logger.Log(className, "Current version is: " + currentVersion, Logger.LogType.Info);
+            logger.Log(className, "Latest version is: " + latestVersion_s, Logger.LogType.Info);
             int latestVersion = int.Parse(latestVersion_s);
 
             if (currentVersion >= latestVersion)
             {
                 //Update is not needed
-                logger.Log("Update is NOT needed. Current version: '" + currentVersion.ToString() + "', latest version: '" +
-                    latestVersion.ToString() + "'", className, Logger.LogType.Info);
+                logger.Log(className, "Update is NOT needed. Current version: '" + currentVersion.ToString() + "', latest version: '" +
+                    latestVersion.ToString() + "'", Logger.LogType.Info);
+                return;
+            }
+            else if (Program.dev)
+            {
+                string ver = string.Empty;
+                foreach (char c in latestVersion.ToString())
+                {
+                    ver += c + ".";
+                }
+                ver.Remove(6, 1);
+                logger.Log(className, "Updater update is available: " + ver + "\r\nAutomatic updates are not available in development builds", Logger.LogType.Info);
+                MessageBox.Show("Updater update is available: " + ver + "\r\nAutomatic updates are not available in development builds", "CSClock",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
@@ -114,27 +138,27 @@ namespace CSClock
             }
             catch (NullReferenceException)
             {
-                logger.Log("NullReferenceException occurred, probably because app updater is not running", className, Logger.LogType.Warning);
+                logger.Log(className, "NullReferenceException occurred", Logger.LogType.Warning);
             }
             catch (Exception ex)
             {
-                logger.Log("Error when closing app updater, aborting updater update. Error: " + ex.ToString(), className, Logger.LogType.Error);
+                logger.Log(className, "Error when closing app updater, aborting updater update. Error: " + ex.ToString(), Logger.LogType.Error);
             }
 
 
             //Update CSClock
-            logger.Log("Downloading latest Install.exe", className, Logger.LogType.Info);
+            logger.Log(className, "Downloading latest Install.exe", Logger.LogType.Info);
             try
             {
                 webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/Install.exe", tempExePath);
             }
             catch (Exception ex)
             {
-                logger.Log("Error when downloading CSClock, aborting update. Error: " + ex.ToString(), className, Logger.LogType.Info);
+                logger.Log(className, "Error when downloading CSClock, aborting update. Error: " + ex.ToString(), Logger.LogType.Info);
             }
 
             //Install CSClock
-            logger.Log("Installing UpdUpdater", className, Logger.LogType.Info);
+            logger.Log(className, "Installing UpdUpdater", Logger.LogType.Info);
             try
             {
                 File.Copy(tempExePath, exePath, true);
@@ -142,7 +166,7 @@ namespace CSClock
             }
             catch (Exception ex)
             {
-                logger.Log("UpdUpdater installation error: " + ex.ToString(), className, Logger.LogType.Error);
+                logger.Log(className, "UpdUpdater installation error: " + ex.ToString(), Logger.LogType.Error);
                 MessageBox.Show("Error when installing UpdUpdater: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

@@ -21,8 +21,8 @@ cd C:\Windows\Microsoft.NET\Framework\v4.0.30319
 msbuild /p:Configuration=Release "%~dp0%\CSClock.sln"
 cd "%~dp0%"
 mkdir Build
-copy /Y "CSClock\bin\Debug\CSClock.exe" "Build\CSClock.exe"
-copy /Y "Install\bin\Debug\Install.exe" "Build\Install.exe"
+copy /Y "CSClock\bin\Release\CSClock.exe" "Build\CSClock.exe"
+copy /Y "Install\bin\Release\Install.exe" "Build\Install.exe"
 echo.
 echo.
 echo.

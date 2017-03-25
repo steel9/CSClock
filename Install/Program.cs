@@ -57,6 +57,11 @@ namespace OnlineSetup
                 Directory.CreateDirectory(installFolder);
             }
 
+            if (args != null && args.Length > 0 && args.Contains("-dev"))
+            {
+                dev = true;
+            }
+
             if (dev && File.Exists(devLogPath))
             {
                 File.Delete(devLogPath);
@@ -66,33 +71,25 @@ namespace OnlineSetup
                 File.Delete(logPath);
             }  
 
-            if (args != null && args.Length > 0)
+            if (dev)
             {
-                if (args.Contains("-dev"))
+                if (!File.Exists("CSClock.exe"))
                 {
-                    dev = true;
-                    if (!File.Exists("CSClock.exe"))
-                    {
-                        MessageBox.Show("Please run the installer from the Build folder with CSClock.exe inside", "CSClock", MessageBoxButtons.OK,
-                            MessageBoxIcon.Error);
-                        return;
-                    }
-                    if (!Directory.Exists(Path.Combine(installFolder, "dev")))
-                    {
-                        Directory.CreateDirectory(Path.Combine(installFolder, "dev"));
-                    }
+                    MessageBox.Show("Please run the installer from the Build folder with CSClock.exe inside", "CSClock", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                    return;
+                }
+                if (!Directory.Exists(Path.Combine(installFolder, "dev")))
+                {
+                    Directory.CreateDirectory(Path.Combine(installFolder, "dev"));
+                }
 
-                    logger = new Logger("CSClock Online Setup", devLogPath, Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
-                }
-                else
-                {
-                    logger = new Logger("CSClock Online Setup", logPath, Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
-                }
+                logger = new Logger("CSClock Online Setup", devLogPath, Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
             }
             else
             {
                 logger = new Logger("CSClock Online Setup", logPath, Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
-            } 
+            }
 
             if (args == null || args.Length == 0 || !args.Contains("-update"))
             {
@@ -124,7 +121,11 @@ namespace OnlineSetup
 
         static void Install()
         {
-            logger.Log("--INSTALLATION--", className, Logger.LogType.Info);
+            logger.Log(className, "--INSTALLATION--", Logger.LogType.Info);
+            if (dev)
+            {
+                logger.Log(className, "-DEV-", Logger.LogType.Info);
+            }
 
             //Check for Internet connection
             if (!CheckForInternetConnection())
@@ -137,11 +138,11 @@ namespace OnlineSetup
             //Download CSClock
             if (!dev)
             {
-                logger.Log("Downloading CSClock.exe", className, Logger.LogType.Info);
+                logger.Log(className, "Downloading CSClock.exe", Logger.LogType.Info);
             }
             else
             {
-                logger.Log("Copying CSClock.exe", className, Logger.LogType.Info);
+                logger.Log(className, "Copying CSClock.exe", Logger.LogType.Info);
             }
 
             try
@@ -160,18 +161,18 @@ namespace OnlineSetup
             {
                 if (!dev)
                 {
-                    logger.Log("Download error: " + ex.ToString(), className, Logger.LogType.Error);
+                    logger.Log(className, "Download error: " + ex.ToString(), Logger.LogType.Error);
                     MessageBox.Show("Error when downloading CSClock: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    logger.Log("Copy error: " + ex.ToString(), className, Logger.LogType.Error);
+                    logger.Log(className, "Copy error: " + ex.ToString(), Logger.LogType.Error);
                     MessageBox.Show("Error when copying CSClock.exe from bin to temp dir: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
             //Install CSClock
-            logger.Log("Installing CSClock", className, Logger.LogType.Info);
+            logger.Log(className, "Installing CSClock", Logger.LogType.Info);
             try
             {
                 if (!dev)
@@ -191,21 +192,21 @@ namespace OnlineSetup
             }
 
             //Install updater
-            logger.Log("Installing updater", className, Logger.LogType.Info);
+            logger.Log(className, "Installing updater", Logger.LogType.Info);
             try
             {
                 if (!dev)
                 {
-                    File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "Updater.exe"), true);
+                    File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "AppUpdater.exe"), true);
                 }
                 else
                 {
-                    File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "dev", "Updater.exe"), true);
+                    File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "dev", "AppUpdater.exe"), true);
                 }
             }
             catch (Exception ex)
             {
-                logger.Log("Updater installation error: " + ex.ToString(), className, Logger.LogType.Error);
+                logger.Log(className, "Updater installation error: " + ex.ToString(), Logger.LogType.Error);
                 MessageBox.Show("Error when installing updater: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
@@ -214,40 +215,40 @@ namespace OnlineSetup
             {
                 if (!dev)
                 {
-                    logger.Log("Creating startup shortcut", className, Logger.LogType.Info);
+                    logger.Log(className, "Creating startup shortcut", Logger.LogType.Info);
                     CreateShortcut(exePath, startupShortcutPath, Path.GetDirectoryName(exePath), "-s -np");
-                    logger.Log("Creating start menu shortcut", className, Logger.LogType.Info);
+                    logger.Log(className, "Creating start menu shortcut", Logger.LogType.Info);
                     CreateShortcut(exePath, startmenuShortcutPath, Path.GetDirectoryName(exePath), "-np");
                 }
                 else
                 {
-                    logger.Log("Creating startup shortcut", className, Logger.LogType.Info);
+                    logger.Log(className, "Creating startup shortcut", Logger.LogType.Info);
                     CreateShortcut(exePath, startupShortcutPath, Path.GetDirectoryName(devExePath), "-s -np -dev");
-                    logger.Log("Creating start menu shortcut", className, Logger.LogType.Info);
+                    logger.Log(className, "Creating start menu shortcut", Logger.LogType.Info);
                     CreateShortcut(exePath, startmenuShortcutPath, Path.GetDirectoryName(devExePath), "-np -dev");
                 }
             }
             catch (MissingMethodException ex)
             {
-                logger.Log("Error while creating shortcuts: " + ex.ToString(), className, Logger.LogType.Error);
+                logger.Log(className, "Error while creating shortcuts: " + ex.ToString(), Logger.LogType.Error);
                 MessageBox.Show("Error while creating shortcuts" +
                     "Your .NET version does not support this function", "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                logger.Log("Error while creating shortcuts: " + ex.ToString(), className, Logger.LogType.Error);
+                logger.Log(className, "Error while creating shortcuts: " + ex.ToString(), Logger.LogType.Error);
                 MessageBox.Show("Error while creating shortcuts: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             //Start CSClock
-            logger.Log("Starting CSClock", className, Logger.LogType.Info);
+            logger.Log(className, "Starting CSClock", Logger.LogType.Info);
             if (!dev)
             {
-                Process.Start(exePath);
+                Process.Start(exePath, "-np");
             }
             else
             {
-                Process.Start(devExePath);
+                Process.Start(devExePath, "-np -dev");
             }
         }
 
@@ -276,49 +277,80 @@ namespace OnlineSetup
 
         static void Update()
         {
-            logger.Log("--APP UPDATE--", className, Logger.LogType.Info);
+            logger.Log(className, "--APP UPDATE--", Logger.LogType.Info);
+            if (dev)
+            {
+                logger.Log(className, "-DEV-", Logger.LogType.Info);
+            }
 
             //Check for Internet connection
             if (!CheckForInternetConnection())
             {
-                logger.Log("No internet connection available, aborting update", className, Logger.LogType.Info);
+                logger.Log(className, "No internet connection available, aborting update", Logger.LogType.Info);
                 return;
             }
 
             //Check if update is needed
-            logger.Log("Initializing WebClient", className, Logger.LogType.Info);
+            logger.Log(className, "Initializing WebClient", Logger.LogType.Info);
             WebClient webClient = new WebClient();
-            logger.Log("Current version without dots --> int", className, Logger.LogType.Info);
+            logger.Log(className, "Current version without dots --> int", Logger.LogType.Info);
             FileVersionInfo currVer = FileVersionInfo.GetVersionInfo(exePath);
             int currentVersion = int.Parse(string.Format("{0}{1}{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
                 currVer.FileBuildPart.ToString()));
-            logger.Log("Downloading VERSION file from master branch", className, Logger.LogType.Info);
+            if (!dev)
+            {
+                logger.Log(className, "Downloading VERSION file from master branch", Logger.LogType.Info);
+            }
+            else
+            {
+                logger.Log(className, "Downloading VERSION file from development branch", Logger.LogType.Info);
+            }
             string latestVersionText = null;
             try
             {
-                 latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/master/VERSION2");
+                if (!dev)
+                {
+                    latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/master/VERSION2");
+                }
+                else
+                {
+                    latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/development/VERSION2");
+                }
             }
             catch (Exception ex)
             {
-                logger.Log("Error while downloading VERSION file from master branch, aborting update. Error: " + ex.ToString(), className, Logger.LogType.Error);
+                logger.Log(className, "Error while downloading VERSION file from master branch, aborting update. Error: " + ex.ToString(), Logger.LogType.Error);
                 return;
             }
-            logger.Log("Parsing version", className, Logger.LogType.Info);
+            logger.Log(className, "Parsing version", Logger.LogType.Info);
             string latestVersion_s = latestVersionText.Split(',')[0];
-            logger.Log("Current version is: " + currentVersion, className, Logger.LogType.Info);
-            logger.Log("Latest version is: " + latestVersion_s, className, Logger.LogType.Info);
+            logger.Log(className, "Current version is: " + currentVersion, Logger.LogType.Info);
+            logger.Log(className, "Latest version is: " + latestVersion_s, Logger.LogType.Info);
             int latestVersion = int.Parse(latestVersion_s);
 
             if (currentVersion >= latestVersion)
             {
                 //Update is not needed
-                logger.Log("Update is NOT needed. Current version: '" + currentVersion.ToString() + "', latest version: '" +
-                    latestVersion.ToString() + "'", className, Logger.LogType.Info);
+                logger.Log(className, "Update is NOT needed. Current version: '" + currentVersion.ToString() + "', latest version: '" +
+                    latestVersion.ToString() + "'", Logger.LogType.Info);
+                return;
+            }
+            else if (dev)
+            {
+                string ver = string.Empty;
+                foreach (char c in latestVersion.ToString())
+                {
+                    ver += c + ".";
+                }
+                ver.Remove(6, 1);
+                logger.Log(className, "App update is available: " + ver + "\r\nAutomatic updates are not available in development builds", Logger.LogType.Info);
+                MessageBox.Show("App update is available: " + ver + "\r\nAutomatic updates are not available in development builds", "CSClock",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             //Close CSClock
-            logger.Log("Closing CSClock", className, Logger.LogType.Info);
+            logger.Log(className, "Closing CSClock", Logger.LogType.Info);
             Process[] processes;
             string procName = "CSClock";
             processes = Process.GetProcessesByName(procName);
@@ -332,23 +364,23 @@ namespace OnlineSetup
             }
             catch (NullReferenceException)
             {
-                logger.Log("NullReferenceException occurred, probably because CSClock is not running", className, Logger.LogType.Warning);
+                logger.Log(className, "NullReferenceException occurred", Logger.LogType.Warning);
             }
             catch (Exception ex)
             {
-                logger.Log("Error when closing CSClock, aborting update. Error: " + ex.ToString(), className, Logger.LogType.Error);
+                logger.Log(className, "Error when closing CSClock, aborting update. Error: " + ex.ToString(), Logger.LogType.Error);
             }
 
 
             //Update CSClock
-            logger.Log("Downloading latest CSClock.exe", className, Logger.LogType.Info);
+            logger.Log(className, "Downloading latest CSClock.exe", Logger.LogType.Info);
             try
             {
                  webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/CSClock.exe", tempExePath);
             }
             catch (Exception ex)
             {
-                logger.Log("Error when downloading CSClock, aborting update. Error: " + ex.ToString(), className, Logger.LogType.Info);
+                logger.Log(className, "Error when downloading CSClock, aborting update. Error: " + ex.ToString(), Logger.LogType.Info);
             }
 
             //Install CSClock
@@ -360,12 +392,12 @@ namespace OnlineSetup
             }
             catch (Exception ex)
             {
-                logger.Log("CSClock installation error: " + ex.ToString(), className, Logger.LogType.Error);
+                logger.Log(className, "CSClock installation error: " + ex.ToString(), Logger.LogType.Error);
                 MessageBox.Show("Error when installing CSClock: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             //Start CSClock
-            logger.Log("Starting CSClock", className, Logger.LogType.Info);
+            logger.Log(className, "Starting CSClock", Logger.LogType.Info);
             Process.Start(exePath);
         }
     }
