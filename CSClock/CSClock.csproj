@@ -89,6 +89,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <Compile Include="AddSubtractTime.Designer.cs">
       <DependentUpon>AddSubtractTime.cs</DependentUpon>
     </Compile>
+    <Compile Include="ExtraVersionInfo.cs" />
     <Compile Include="Languages\English\AddSubtractTime.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -344,6 +345,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </ItemGroup>
   <ItemGroup>
     <Content Include="Logo.ico" />
+    <None Include="Resources\analytics-54x40.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

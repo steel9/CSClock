@@ -63,9 +63,9 @@ namespace CSClock.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap clock_1292829_640 {
+        internal static System.Drawing.Bitmap analytics {
             get {
-                object obj = ResourceManager.GetObject("clock_1292829_640", resourceCulture);
+                object obj = ResourceManager.GetObject("analytics", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace CSClock.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap earth_2092185_640 {
+        internal static System.Drawing.Bitmap clock {
             get {
-                object obj = ResourceManager.GetObject("earth_2092185_640", resourceCulture);
+                object obj = ResourceManager.GetObject("clock", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,19 @@ namespace CSClock.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap gear_1077563_640 {
+        internal static System.Drawing.Bitmap earth {
             get {
-                object obj = ResourceManager.GetObject("gear_1077563_640", resourceCulture);
+                object obj = ResourceManager.GetObject("earth", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap gear {
+            get {
+                object obj = ResourceManager.GetObject("gear", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +113,9 @@ namespace CSClock.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap pause_97625_640 {
+        internal static System.Drawing.Bitmap pause {
             get {
-                object obj = ResourceManager.GetObject("pause_97625_640", resourceCulture);
+                object obj = ResourceManager.GetObject("pause", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -113,9 +123,9 @@ namespace CSClock.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap play_97626_640 {
+        internal static System.Drawing.Bitmap play {
             get {
-                object obj = ResourceManager.GetObject("play_97626_640", resourceCulture);
+                object obj = ResourceManager.GetObject("play", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -22,6 +22,7 @@ using System.Windows.Forms;
 using System.Resources;
 using Microsoft.Win32;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace CSClock
 {
@@ -112,6 +113,9 @@ namespace CSClock
                 {
                     SystemEvents.SessionSwitch -= SystemEvents_SessionSwitch;
                 }
+
+                Stats.UpdateStatistics(secondsElapsed);
+
                 Program.notifyIcon1.Visible = false;
                 Program.logger.Log(className, "Done", Logger.LogType.Info);
             }
@@ -138,13 +142,21 @@ namespace CSClock
             toolTip1.SetToolTip(button_fwrdRwndTime, Program.rm_GUI.GetString("button2_toolTip_text"));
             toolTip1.SetToolTip(l_exclM, Program.rm_GUI.GetString("exclM_toolTip_text"));
 
-            label_version.Text = string.Format("v{0}", Application.ProductVersion);
+            if (!Program.dev && !Program.debug)
+            {
+                label_version.Text = string.Format("v{0}", Application.ProductVersion);
+            }
+            else
+            {
+                label_version.Text = string.Format("v{0}", Assembly.GetEntryAssembly().GetName().Version.ToString());
+            }
+
             if (Program.debug)
             {
                 this.Text = "CSClock DEBUG";
                 label_version.Text += " DEBUGGING MODE";
             }
-            else if (Program.dev)
+            else if (Program.dev || ExtraVersionInfo.developmentRelease)
             {
                 this.Text = "CSClock DEV";
                 label_version.Text += " DEV";
@@ -162,12 +174,12 @@ namespace CSClock
 
             if (timer.Enabled)
             {
-                button3.Image = Properties.Resources.pause_97625_640;
+                button3.Image = Properties.Resources.pause;
                 toolTip1.SetToolTip(button3, Program.rm_GUI.GetString("button3_toolTip_pause_text"));
             }
             else
             {
-                button3.Image = Properties.Resources.play_97626_640;
+                button3.Image = Properties.Resources.play;
                 toolTip1.SetToolTip(button3, Program.rm_GUI.GetString("button3_toolTip_resume_text"));
             }
 
@@ -461,7 +473,7 @@ namespace CSClock
             Program.contextMenu1.MenuItems[1].Text = Program.rm_GUI.GetString("resume");
             if (updateGUI)
             {
-                button3.Image = Properties.Resources.play_97626_640;
+                button3.Image = Properties.Resources.play;
                 toolTip1.SetToolTip(button3, Program.rm_GUI.GetString("resume"));
             }
         }
@@ -485,7 +497,7 @@ namespace CSClock
             Program.contextMenu1.MenuItems[1].Text = Program.rm_GUI.GetString("pause");
             if (updateGUI)
             {
-                button3.Image = Properties.Resources.pause_97625_640;
+                button3.Image = Properties.Resources.pause;
                 toolTip1.SetToolTip(button3, Program.rm_GUI.GetString("pause"));
             }
         }
@@ -532,6 +544,12 @@ namespace CSClock
             {
                 Process.Start("https://github.com/steel9/CSClock");
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Program.statForm = new Statistics();
+            Program.statForm.ShowDialog();
         }
     }
 }

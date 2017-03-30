@@ -169,9 +169,9 @@ namespace CSClock
             // 
             this.button3.Enabled = false;
             this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
-            this.button3.Location = new System.Drawing.Point(120, 74);
+            this.button3.Location = new System.Drawing.Point(182, 74);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(272, 40);
+            this.button3.Size = new System.Drawing.Size(210, 40);
             this.button3.TabIndex = 4;
             this.toolTip1.SetToolTip(this.button3, "Pause/resume");
             this.button3.UseVisualStyleBackColor = true;
@@ -224,12 +224,13 @@ namespace CSClock
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(120, 118);
+            this.button2.Image = global::CSClock.Properties.Resources.analytics;
+            this.button2.Location = new System.Drawing.Point(120, 74);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(123, 23);
+            this.button2.Size = new System.Drawing.Size(56, 40);
             this.button2.TabIndex = 8;
-            this.button2.Text = "Statistics";
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // CSClock
             // 

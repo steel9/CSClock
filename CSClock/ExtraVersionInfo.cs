@@ -1,4 +1,10 @@
-﻿/*
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+/*
 CSClock - a program which keeps track of your computer time
 Copyright (C) 2017  Viktor J
 
@@ -16,35 +22,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-
 namespace CSClock
 {
-    public partial class Statistics : Form
+    class ExtraVersionInfo
     {
-        public Statistics()
-        {
-            InitializeComponent();
-            this.TopMost = Program.CSClockForm.TopMost;
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void Statistics_Load(object sender, EventArgs e)
-        {
-            this.Location = Program.CSClockForm.Location;
-            l_avrtimespnt.Text = Stats.averageWeekTimeSpent().ToString();
-        }
+        public static bool developmentRelease = true; //change to false when making a release
     }
 }

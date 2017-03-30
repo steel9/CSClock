@@ -223,9 +223,9 @@ namespace OnlineSetup
                 else
                 {
                     logger.Log(className, "Creating startup shortcut", Logger.LogType.Info);
-                    CreateShortcut(exePath, startupShortcutPath, Path.GetDirectoryName(devExePath), "-s -np -dev");
+                    CreateShortcut(exePath, devStartupShortcutPath, Path.GetDirectoryName(devExePath), "-s -np -dev");
                     logger.Log(className, "Creating start menu shortcut", Logger.LogType.Info);
-                    CreateShortcut(exePath, startmenuShortcutPath, Path.GetDirectoryName(devExePath), "-np -dev");
+                    CreateShortcut(exePath, devStartmenuShortcutPath, Path.GetDirectoryName(devExePath), "-np -dev");
                 }
             }
             catch (MissingMethodException ex)

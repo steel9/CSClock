@@ -28,11 +28,10 @@ namespace CSClock
         public static string statisticsFile = Path.Combine(installDir, "statistics.xml");
 
         private static XmlDocument statXml_ = null; //do not call statXml_ in code, call statXml !
-        static XmlDocument statXml
+        public static XmlDocument statXml
         {
             get
             {
-                XmlDocument statXml_ = new XmlDocument();
                 XmlElement statElement;
                 if (statXml_ != null)
                 {
@@ -42,6 +41,7 @@ namespace CSClock
                 else if (!File.Exists(statisticsFile))
                 {
                     //Xml isn't created
+                    statXml_ = new XmlDocument();
                     XmlDeclaration xmlDeclaration = statXml_.CreateXmlDeclaration("1.0", "UTF-8", null);
                     XmlElement root = statXml_.DocumentElement;
                     statXml_.InsertBefore(xmlDeclaration, root);
@@ -57,7 +57,7 @@ namespace CSClock
                     daysTimeSpentElement.AppendChild(daysTimeSpentText);
                     lastUpdateElement.AppendChild(lastUpdateText);
                     weekStatsElement.AppendChild(timeSpentElement);
-                    weekStatsElement.AppendChild(daysTimeSpentText);
+                    weekStatsElement.AppendChild(daysTimeSpentElement);
                     weekStatsElement.AppendChild(lastUpdateElement);
                     statElement.AppendChild(weekStatsElement);
                     statXml_.AppendChild(statElement);
@@ -66,6 +66,7 @@ namespace CSClock
                  else
                  {
                     //Xml is created, but not loaded
+                    statXml_ = new XmlDocument();
                     statXml_.Load(statisticsFile);
                  }
                 return statXml_;
@@ -76,15 +77,25 @@ namespace CSClock
             }
         }
 
-        static void UpdateStatistics(int secsElapsed)
+        public static void UpdateStatistics(int secsElapsed)
         {
             //Week statistics
             int timeSpent = int.Parse(statXml.SelectSingleNode("//WeekStatistics/TimeSpent").InnerText);
             int daysTimeSpent_ = int.Parse(statXml.SelectSingleNode("//WeekStatistics/DaysTimeSpent").InnerText);
             timeSpent += secsElapsed;
 
-            var lastUpd = int.Parse(statXml.SelectSingleNode("//WeekStatistics/LastUpdate").InnerText);
-            var currentDate = int.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"));
+            var lastUpd_ = statXml.SelectSingleNode("//WeekStatistics/LastUpdate").InnerText;
+            ulong lastUpd;
+            if (lastUpd_ == "-")
+            {
+                lastUpd = 0;
+            }
+            else
+            {
+                lastUpd = ulong.Parse(lastUpd_);
+            }
+
+            var currentDate = ulong.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"));
             if (currentDate > lastUpd)
             {
                 daysTimeSpent_ += 1;
@@ -95,21 +106,38 @@ namespace CSClock
             statXml.Save(Path.GetFileName(statisticsFile));
         }
 
-        static int averageWeekTimeSpent()
+        public static int averageWeekTimeSpent()
         {
             CheckFixWeekStatDate();
 
             var timeSpent = int.Parse(statXml.SelectSingleNode("//WeekStatistics/TimeSpent").InnerText);
             var days = int.Parse(statXml.SelectSingleNode("//WeekStatistics/DaysTimeSpent").InnerText);
 
-            return timeSpent / days;
+            try
+            {
+                return timeSpent / days;
+            }
+            catch (DivideByZeroException)
+            {
+                return 0;
+            }
         }
 
-        static void CheckFixWeekStatDate()
+        public static void CheckFixWeekStatDate()
         {
-            var lastUpd = int.Parse(statXml.SelectSingleNode("//WeekStatistics/LastUpdate").InnerText);
-            var currentDate = int.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"));
-            var currentWeekDay = (int)DateTime.Now.DayOfWeek;
+            var lastUpd_ = statXml.SelectSingleNode("//WeekStatistics/LastUpdate").InnerText;
+            ulong lastUpd;
+            if (lastUpd_ == "-")
+            {
+                lastUpd = 0;
+            }
+            else
+            {
+                lastUpd = ulong.Parse(lastUpd_);
+            }
+
+            var currentDate = ulong.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"));
+            var currentWeekDay = (ulong)DateTime.Now.DayOfWeek;
 
             if (currentDate - lastUpd > currentWeekDay)
             {
@@ -117,7 +145,7 @@ namespace CSClock
             }
         }
 
-        static void ClearWeekStatistics()
+        private static void ClearWeekStatistics()
         {
             statXml.SelectSingleNode("//WeekStatistics/TimeSpent").InnerText = "0";
             statXml.SelectSingleNode("//WeekStatistics/DaysTimeSpent").InnerText = "0";

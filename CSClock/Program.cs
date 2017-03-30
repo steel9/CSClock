@@ -50,6 +50,7 @@ namespace CSClock
         public static SetOvertime setOvertime;
         public static AddSubtractTime addSubtractTime;
         public static BalloonClickActions balloonClickAction = BalloonClickActions.None;
+        public static Statistics statForm;
 
         public static ContextMenu contextMenu1;
         public static string selectedLanguage = "English"; //Must be spelled the same as the language folder
@@ -128,7 +129,7 @@ namespace CSClock
                             dev = true;
                         }
 
-                        if (!portable && !args.Contains("-disup") && Properties.Settings.Default.autoUpdate)
+                        if (!portable && !debug && !args.Contains("-disup") && Properties.Settings.Default.autoUpdate)
                         {
                             UpdUpdater.UpdUpdate();
                             AppUpdate();

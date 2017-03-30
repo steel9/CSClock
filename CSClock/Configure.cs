@@ -240,7 +240,18 @@ namespace CSClock
 
         private void button_remove_Click(object sender, EventArgs e)
         {
-            Program.Removal(true);
+            if (!Program.dev)
+            {
+                Program.Removal(true);
+            }
+            else
+            {
+                MessageBox.Show("The removal tool does not support dev mode (yet). For removal, please remove the following directories/files:"+
+                    "\r\n" + Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\CSClock\dev" +
+                    "\r\n" + Environment.GetFolderPath(Environment.SpecialFolder.StartMenu) + @"\CSClock Dev.lnk" +
+                    "\r\n" + Environment.GetFolderPath(Environment.SpecialFolder.Startup) + @"\CSClock Dev.lnk",
+                    "CSClock", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
     }
 }
