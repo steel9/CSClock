@@ -169,6 +169,7 @@ namespace OnlineSetup
                     logger.Log(className, "Copy error: " + ex.ToString(), Logger.LogType.Error);
                     MessageBox.Show("Error when copying CSClock.exe from bin to temp dir: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+                return;
             }
 
             //Install CSClock
@@ -189,6 +190,7 @@ namespace OnlineSetup
             {
                 logger.Log("CSClock installation error: " + ex.ToString(), className, Logger.LogType.Error);
                 MessageBox.Show("Error when installing CSClock: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             //Install updater
@@ -208,6 +210,7 @@ namespace OnlineSetup
             {
                 logger.Log(className, "Updater installation error: " + ex.ToString(), Logger.LogType.Error);
                 MessageBox.Show("Error when installing updater: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             //Make shortcuts
@@ -373,6 +376,7 @@ namespace OnlineSetup
             catch (Exception ex)
             {
                 logger.Log(className, "Error when closing CSClock, aborting update. Error: " + ex.ToString(), Logger.LogType.Error);
+                return;
             }
 
 
@@ -385,6 +389,7 @@ namespace OnlineSetup
             catch (Exception ex)
             {
                 logger.Log(className, "Error when downloading CSClock, aborting update. Error: " + ex.ToString(), Logger.LogType.Info);
+                return;
             }
 
             //Install CSClock
@@ -398,6 +403,7 @@ namespace OnlineSetup
             {
                 logger.Log(className, "CSClock installation error: " + ex.ToString(), Logger.LogType.Error);
                 MessageBox.Show("Error when installing CSClock: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
             }
 
             //Start CSClock
