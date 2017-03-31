@@ -75,7 +75,18 @@ namespace CSClock
             logger.Log(className, "Initializing WebClient", Logger.LogType.Info);
             WebClient webClient = new WebClient();
             logger.Log(className, "Current version without dots --> int", Logger.LogType.Info);
-            FileVersionInfo currVer = FileVersionInfo.GetVersionInfo(exePath);
+            FileVersionInfo currVer;
+            try
+            {
+                currVer = FileVersionInfo.GetVersionInfo(exePath);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error while getting current updater version: " + ex.Message, "CSClock", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                logger.Log(className, "Error while getting current updater version: " + ex.ToString(), Logger.LogType.Error);
+                currVer = null;
+                goto Update;
+            }
             int currentVersion = int.Parse(string.Format("{0}{1}{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
                 currVer.FileBuildPart.ToString()));
             logger.Log(className, "Downloading VERSION file from master branch", Logger.LogType.Info);
@@ -85,6 +96,7 @@ namespace CSClock
                 if (!Program.dev)
                 {
                     latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/master/VERSION2");
+                    //problem here, gets stuck, probably because file doesn't exist
                 }
                 else
                 {
@@ -123,6 +135,7 @@ namespace CSClock
                 return;
             }
 
+            Update:
             //Close CSClock
             logger.Log("Closing updater", className, Logger.LogType.Info);
             Process[] processes;

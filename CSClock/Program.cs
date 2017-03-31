@@ -120,7 +120,7 @@ namespace CSClock
             bool createdNew = true;
             using (Mutex mutex = new Mutex(true, "CSClock", out createdNew))
             {
-                if (createdNew || (args != null && args.Contains("-ignorerunning")))
+                if ((createdNew || debug) || (args != null && args.Contains("-ignorerunning")))
                 {
                     if (args != null && args.Length > 0)
                     {
@@ -129,11 +129,16 @@ namespace CSClock
                             dev = true;
                         }
 
-                        if (!portable && !debug && !args.Contains("-disup") && Properties.Settings.Default.autoUpdate)
+                        if (!portable && !args.Contains("-disup") && Properties.Settings.Default.autoUpdate)
                         {
                             UpdUpdater.UpdUpdate();
                             AppUpdate();
                         }
+                    }
+                    else if (debug)
+                    {
+                        UpdUpdater.UpdUpdate();
+                        AppUpdate();
                     }
 
                     if (!dev)
