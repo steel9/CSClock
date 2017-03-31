@@ -326,7 +326,11 @@ namespace OnlineSetup
             string latestVersion_s = latestVersionText.Split(',')[0];
             logger.Log(className, "Current version is: " + currentVersion, Logger.LogType.Info);
             logger.Log(className, "Latest version is: " + latestVersion_s, Logger.LogType.Info);
-            int latestVersion = int.Parse(latestVersion_s);
+            if (latestVersion_s.StartsWith("0"))
+            {
+                latestVersion_s = latestVersion_s.Insert(1, ",");
+            }
+            decimal latestVersion = decimal.Parse(latestVersion_s);
 
             if (currentVersion >= latestVersion)
             {
@@ -342,7 +346,7 @@ namespace OnlineSetup
                 {
                     ver += c + ".";
                 }
-                ver.Remove(6, 1);
+                ver = ver.Remove(6, 1);
                 logger.Log(className, "App update is available: " + ver + "\r\nAutomatic updates are not available in development builds", Logger.LogType.Info);
                 MessageBox.Show("App update is available: " + ver + "\r\nAutomatic updates are not available in development builds", "CSClock",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
