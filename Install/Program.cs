@@ -408,7 +408,14 @@ namespace OnlineSetup
 
             //Start CSClock
             logger.Log(className, "Starting CSClock", Logger.LogType.Info);
-            Process.Start(exePath);
+            if (!dev)
+            {
+                Process.Start(exePath);
+            }
+            else
+            {
+                Process.Start(devExePath);
+            }
         }
     }
 }
