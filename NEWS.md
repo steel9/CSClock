@@ -1,3 +1,5 @@
+**CSClock, with exceptions for the (partly) portable version and for the development builds, will automatically update at next program start, so there's no need to update manually.**  
+  
 0.2.2 news:
 - Fixed bug causing time elapsed to reset when applying settings
 - Updated version system (only 3 digits as informational version, not 4 digits)
