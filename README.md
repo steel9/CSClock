@@ -7,7 +7,7 @@ If everything works as it should, CSClock should automatically update at next ap
 **NEWS:**  
 See NEWS.md  
    
-**Development program:** Microsoft Visual Studio 2015 Community, upgrade to 2017 is planned later  
+**Development software:** Microsoft Visual Studio 2015 Community, upgrade to 2017 is planned later  
 **Programming language:** C#  
 **Program type:** Windows Forms Application (not Windows 10 universal app)  
   
