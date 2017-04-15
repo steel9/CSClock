@@ -282,6 +282,8 @@ namespace CSClock
 
         public static void Reload()
         {
+            CSClockForm.Save();
+
             if (setOvertime != null)
             {
                 setOvertime.Close();
