@@ -4,15 +4,13 @@
 
 If everything works as it should, CSClock should automatically update at next app start (if an Internet connection is available). You should not have to update manually. **NOTE:** The portable version (if you only download CSClock.exe and run it) does NOT contain the automatic updater. The portable version also still stores the user data in the CSClock folder in local appdata.   
    
-**News:**  
+**NEWS:**  
 See NEWS.md  
+   
+**Development program:** Microsoft Visual Studio 2015 Community, upgrade to 2017 is planned later  
+**Programming language:** C#  
+**Program type:** Windows Forms Application (not Windows 10 universal app)  
   
-**The project was created in Visual Studio 2015.**
-&nbsp;  
-&nbsp;  
-**It is recommended that you read the whole text before downloading CSClock.**
-&nbsp;  
-&nbsp;  
 **PLEASE NOTE!**  
 **CSClock is in alpha-state, and might contain major bugs!**  
   
@@ -54,8 +52,7 @@ To run CSClock with a start parameter, open the CSClock install folder (default 
 steel9apps@gmail.com  
   
 **KNOWN ISSUES:**  
-**ISSUE 1:** In some cases where pressing any of the buttons in the About form, the computer will stop responding a few seconds.  
-**ISSUE 2:** Settings gone after some updates  
+**ISSUE 1:** CSClock might freeze, for example by pressing buttons in the about form. I believe this is caused by some software that conflicts with CSClock.  
   
 **WHAT TO DO IF THESE ISSUES OCCUR:**  
 **ISSUE 1:**  
@@ -68,14 +65,10 @@ steel9apps@gmail.com
 6. Right click 'CSClock.exe' and select 'Kill process'. Confirm.  
 **Windows 7 or earlier:**  
 Do steps 1, 2, 5, 6  
-   
-**ISSUE 2:**  
-**Windows Vista, 7, 8.x, 10:**  
-This is probably due to some special changes in the application resetting the user data. The easiest solution is just to adjust the       settings by yourself again.  
   
 **FEATURES TO BE ADDED:**  
 - More unified icons (the button icons)  
 - More supported languages  
 - Statistics   
-
+  
 If you want, you can contribute! It is really appreciated!
