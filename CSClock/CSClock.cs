@@ -102,23 +102,27 @@ namespace CSClock
                 Program.logger.Log(className, "Quitting CSClock", Logger.LogType.Info);
                 Program.logger.Log(className, "Performing quit actions...", Logger.LogType.Info);
 
-                Properties.Settings.Default.secondsElapsed = secondsElapsed;
-                if (overtimeC)
-                {
-                    Properties.Settings.Default.overtimeMinutes = (decimal)(secondsElapsed - maximumSeconds) / 60;
-                }
+                Save();
 
-                Properties.Settings.Default.Save();
                 if (Properties.Settings.Default.pauseResumeTimerOnComputerLockUnlock && Properties.Settings.Default.timerEnabled)
                 {
                     SystemEvents.SessionSwitch -= SystemEvents_SessionSwitch;
                 }
-
-                Stats.UpdateStatistics(secondsElapsed);
-
                 Program.notifyIcon1.Visible = false;
                 Program.logger.Log(className, "Done", Logger.LogType.Info);
             }
+        }
+
+        public void Save()
+        {
+            Program.logger.Log(className, "Saving...", Logger.LogType.Info);
+            Properties.Settings.Default.secondsElapsed = secondsElapsed;
+            if (overtimeC)
+            {
+                Properties.Settings.Default.overtimeMinutes = (decimal)(secondsElapsed - maximumSeconds) / 60;
+            }
+            Properties.Settings.Default.Save();
+            Program.logger.Log(className, "Saved", Logger.LogType.Info);
         }
 
         private void CSClock_Load(object sender, EventArgs e)
