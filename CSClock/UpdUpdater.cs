@@ -82,8 +82,8 @@ namespace CSClock
                 currVer = null;
                 goto Update;
             }
-            decimal currentVersion = decimal.Parse(string.Format("{0}.{1}{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
-                currVer.FileBuildPart.ToString()), CultureInfo.InvariantCulture);
+            Version currentVersion = Version.Parse(string.Format("{0}.{1}.{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
+                currVer.FileBuildPart.ToString()));
             logger.Log(className, "Downloading VERSION file from master branch", Logger.LogType.Info);
             string latestVersionText = null;
             try
@@ -98,7 +98,7 @@ namespace CSClock
             logger.Log(className, "Parsing version", Logger.LogType.Info);
             string latestVersion_s = latestVersionText.Split(',', '#')[1];
             latestVersion_s = latestVersion_s.Insert(1, ".");
-            decimal latestVersion = decimal.Parse(latestVersion_s, CultureInfo.InvariantCulture);
+            Version latestVersion = Version.Parse(latestVersion_s);
             logger.Log(className, "Current version is: " + currentVersion.ToString(), Logger.LogType.Info);
             logger.Log(className, "Latest version is: " + latestVersion.ToString(), Logger.LogType.Info);
 
