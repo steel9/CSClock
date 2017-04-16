@@ -2,6 +2,8 @@
   
 0.3.0 news (**UNDER DEVELOPMENT**):  
 - Statistics  
+- Automatic updates for CSClock updater  
+- Bug fixes  
   
 0.2.2 news:
 - Fixed bug causing time elapsed to reset when applying settings
