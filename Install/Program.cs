@@ -23,6 +23,7 @@ using System.Windows.Forms;
 using System.Net;
 using System.Linq;
 using CSClock;
+using System.Globalization;
 
 namespace OnlineSetup
 {
@@ -298,8 +299,10 @@ namespace OnlineSetup
             WebClient webClient = new WebClient();
             logger.Log(className, "Current version without dots --> int", Logger.LogType.Info);
             FileVersionInfo currVer = FileVersionInfo.GetVersionInfo(exePath);
-            int currentVersion = int.Parse(string.Format("{0}{1}{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
+            MessageBox.Show(string.Format("{0}.{1}{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
                 currVer.FileBuildPart.ToString()));
+            decimal currentVersion = decimal.Parse(string.Format("{0}.{1}{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
+                currVer.FileBuildPart.ToString()), CultureInfo.InvariantCulture);
             if (!dev)
             {
                 logger.Log(className, "Downloading VERSION file from master branch", Logger.LogType.Info);
@@ -327,13 +330,10 @@ namespace OnlineSetup
             }
             logger.Log(className, "Parsing version", Logger.LogType.Info);
             string latestVersion_s = latestVersionText.Split(',')[0];
+            latestVersion_s = latestVersion_s.Insert(1, ".");
             logger.Log(className, "Current version is: " + currentVersion, Logger.LogType.Info);
             logger.Log(className, "Latest version is: " + latestVersion_s, Logger.LogType.Info);
-            if (latestVersion_s.StartsWith("0"))
-            {
-                latestVersion_s = latestVersion_s.Insert(1, ",");
-            }
-            decimal latestVersion = decimal.Parse(latestVersion_s);
+            decimal latestVersion = decimal.Parse(latestVersion_s, CultureInfo.InvariantCulture);
 
             if (currentVersion >= latestVersion)
             {
