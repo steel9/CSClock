@@ -72,9 +72,7 @@ namespace CSClock
             }
 
             //Check if update is needed
-            logger.Log(className, "Initializing WebClient", Logger.LogType.Info);
             WebClient webClient = new WebClient();
-            logger.Log(className, "Current version without dots --> int", Logger.LogType.Info);
             FileVersionInfo currVer;
             try
             {
