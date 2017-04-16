@@ -200,11 +200,11 @@ namespace OnlineSetup
             {
                 if (!dev)
                 {
-                    File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "AppUpdater.exe"), true);
+                    File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "Updater.exe"), true);
                 }
                 else
                 {
-                    File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "dev", "AppUpdater.exe"), true);
+                    File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "dev", "Updater.exe"), true);
                 }
             }
             catch (Exception ex)
