@@ -10,6 +10,7 @@ See NEWS.md
 **Development software:** Microsoft Visual Studio 2015 Community, upgrade to 2017 is planned later  
 **Programming language:** C#  
 **Program type:** Windows Forms Application (not Windows 10 universal app)  
+**Font:** Segoe UI  
   
 **PLEASE NOTE!**  
 **CSClock is in alpha-state, and might contain major bugs!**  
