@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
@@ -81,8 +82,8 @@ namespace CSClock
                 currVer = null;
                 goto Update;
             }
-            int currentVersion = int.Parse(string.Format("{0}{1}{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
-                currVer.FileBuildPart.ToString()));
+            decimal currentVersion = decimal.Parse(string.Format("{0}.{1}{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
+                currVer.FileBuildPart.ToString()), CultureInfo.InvariantCulture);
             logger.Log(className, "Downloading VERSION file from master branch", Logger.LogType.Info);
             string latestVersionText = null;
             try
@@ -96,9 +97,9 @@ namespace CSClock
             }
             logger.Log(className, "Parsing version", Logger.LogType.Info);
             string latestVersion_s = latestVersionText.Split(',', '#')[1];
-            logger.Log(className, "Current version is: " + currentVersion, Logger.LogType.Info);
-            logger.Log(className, "Latest version is: " + latestVersion_s, Logger.LogType.Info);
-            int latestVersion = int.Parse(latestVersion_s);
+            decimal latestVersion = decimal.Parse(latestVersion_s);
+            logger.Log(className, "Current version is: " + currentVersion.ToString(), Logger.LogType.Info);
+            logger.Log(className, "Latest version is: " + latestVersion.ToString(), Logger.LogType.Info);
 
             if (currentVersion >= latestVersion)
             {
