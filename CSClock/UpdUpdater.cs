@@ -97,7 +97,8 @@ namespace CSClock
             }
             logger.Log(className, "Parsing version", Logger.LogType.Info);
             string latestVersion_s = latestVersionText.Split(',', '#')[1];
-            decimal latestVersion = decimal.Parse(latestVersion_s);
+            latestVersion_s = latestVersion_s.Insert(1, ".");
+            decimal latestVersion = decimal.Parse(latestVersion_s, CultureInfo.InvariantCulture);
             logger.Log(className, "Current version is: " + currentVersion.ToString(), Logger.LogType.Info);
             logger.Log(className, "Latest version is: " + latestVersion.ToString(), Logger.LogType.Info);
 
