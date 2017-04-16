@@ -2,6 +2,7 @@
   
 0.2.2 news:
 - Fixed bug causing time elapsed to reset when applying settings
+- Text fix
 - Updated version system (only 3 digits as informational version, not 4 digits)
 
 0.2.1 news:
