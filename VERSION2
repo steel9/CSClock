@@ -1,2 +1,2 @@
-0.2.3,0.1.0
+0.2.4,0.1.0
 #Application version and installer/updater version, separated by a comma, on FIRST LINE. Only MAJOR, MINOR, and BUILD numbers, with the dots removed. (For example, 030 = 0.3.0)
