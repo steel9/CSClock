@@ -1,5 +1,12 @@
 **CSClock, with exceptions for the (partly) portable version and for the development builds, will automatically update at next program start, so there's no need to update manually.**  
   
+0.2.4 news:  
+- Update fix  
+  
+0.2.3 news:  
+- Automatic updates for app updater  
+- Bug fixes  
+  
 0.2.2 news:
 - Fixed bug causing time elapsed to reset when applying settings
 - Text fix
