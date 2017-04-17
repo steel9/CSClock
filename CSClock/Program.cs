@@ -107,8 +107,9 @@ namespace CSClock
             {
                 if (createdNew || (args != null && args.Contains("-ignorerunning")))
                 {
-                    if (!portable && args != null && args.Length > 0 && !args.Contains("-du") && Properties.Settings.Default.autoUpdate)
+                    if (!portable && args != null && args.Length > 0 && !args.Contains("-disup") && Properties.Settings.Default.autoUpdate)
                     {
+                        UpdUpdater.UpdUpdate();
                         Update();
                     }
                     logger.Log(className, "createdNew=true", Logger.LogType.Info, true);

@@ -30,8 +30,8 @@ namespace CSClock
         private const string className = "UpdUpdater.cs";
 
         static string installFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");
-        static string exePath = Path.Combine(installFolder, "AppUpdater.exe");
-        static string tempExePath = Path.Combine(Path.GetTempPath(), "AppUpdater.exe");
+        static string exePath = Path.Combine(installFolder, "Setup.exe");
+        static string tempExePath = Path.Combine(Path.GetTempPath(), "Setup.exe");
 
         static string logPath = Path.Combine(installFolder, "updupdaterlog.txt");
 
@@ -59,7 +59,7 @@ namespace CSClock
         {
             logger = new Logger("CSClock App Updater Updater", logPath, Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
 
-            logger.Log(className, "--UPDUPDATE (UPDATER UPDATE)--", Logger.LogType.Info);
+            logger.Log(className, "--UPDUPDATE (APP UPDATER UPDATE)--", Logger.LogType.Info);
 
             //Check for Internet connection
             if (!CheckForInternetConnection())
@@ -97,7 +97,6 @@ namespace CSClock
             }
             logger.Log(className, "Parsing version", Logger.LogType.Info);
             string latestVersion_s = latestVersionText.Split(',', '#')[1];
-            latestVersion_s = latestVersion_s.Insert(1, ".");
             Version latestVersion = Version.Parse(latestVersion_s);
             logger.Log(className, "Current version is: " + currentVersion.ToString(), Logger.LogType.Info);
             logger.Log(className, "Latest version is: " + latestVersion.ToString(), Logger.LogType.Info);
@@ -114,7 +113,7 @@ namespace CSClock
             //Close CSClock
             logger.Log("Closing updater", className, Logger.LogType.Info);
             Process[] processes;
-            string procName = "Updater";
+            string procName = "Setup";
             processes = Process.GetProcessesByName(procName);
             try
             {
@@ -138,7 +137,7 @@ namespace CSClock
             logger.Log(className, "Downloading latest Install.exe", Logger.LogType.Info);
             try
             {
-                webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/Install.exe", tempExePath);
+                webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/Setup.exe", tempExePath);
             }
             catch (Exception ex)
             {
@@ -146,7 +145,7 @@ namespace CSClock
             }
 
             //Install CSClock
-            logger.Log(className, "Installing UpdUpdater", Logger.LogType.Info);
+            logger.Log(className, "Installing app updater", Logger.LogType.Info);
             try
             {
                 File.Copy(tempExePath, exePath, true);
@@ -154,8 +153,8 @@ namespace CSClock
             }
             catch (Exception ex)
             {
-                logger.Log(className, "UpdUpdater installation error: " + ex.ToString(), Logger.LogType.Error);
-                MessageBox.Show("Error when installing UpdUpdater: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                logger.Log(className, "App updater installation error: " + ex.ToString(), Logger.LogType.Error);
+                MessageBox.Show("Error when installing app updater: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

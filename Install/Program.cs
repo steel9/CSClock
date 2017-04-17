@@ -200,11 +200,11 @@ namespace OnlineSetup
             {
                 if (!dev)
                 {
-                    File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "Updater.exe"), true);
+                    File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "Setup.exe"), true);
                 }
                 else
                 {
-                    File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "dev", "Updater.exe"), true);
+                    File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "dev", "Setup.exe"), true);
                 }
             }
             catch (Exception ex)
@@ -326,7 +326,6 @@ namespace OnlineSetup
             }
             logger.Log(className, "Parsing version", Logger.LogType.Info);
             string latestVersion_s = latestVersionText.Split(',')[0];
-            latestVersion_s = latestVersion_s.Insert(1, ".");
             Version latestVersion = Version.Parse(latestVersion_s);
             logger.Log(className, "Current version is: " + currentVersion.ToString(), Logger.LogType.Info);
             logger.Log(className, "Latest version is: " + latestVersion.ToString(), Logger.LogType.Info);
