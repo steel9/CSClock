@@ -23,7 +23,6 @@ using System.Windows.Forms;
 using System.Net;
 using System.Linq;
 using CSClock;
-using System.Globalization;
 
 namespace OnlineSetup
 {

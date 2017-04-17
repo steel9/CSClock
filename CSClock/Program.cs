@@ -152,7 +152,7 @@ namespace CSClock
         {
             try
             {
-                string updaterPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock", "Updater.exe");
+                string updaterPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock", "Setup.exe");
                 ProcessStartInfo start =
                     new ProcessStartInfo();
                 start.FileName = updaterPath;
