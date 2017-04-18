@@ -84,7 +84,7 @@ namespace CSClock
             }
             Version currentVersion = Version.Parse(string.Format("{0}.{1}.{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
                 currVer.FileBuildPart.ToString()));
-            logger.Log(className, "Downloading VERSION file from master branch", Logger.LogType.Info);
+            logger.Log(className, "Downloading VERSION2 file from master branch", Logger.LogType.Info);
             string latestVersionText = null;
             try
             {
@@ -92,7 +92,7 @@ namespace CSClock
             }
             catch (Exception ex)
             {
-                logger.Log(className, "Error while downloading VERSION file from master branch, aborting update. Error: " + ex.ToString(), Logger.LogType.Error);
+                logger.Log(className, "Error while downloading VERSION2 file from master branch, aborting update. Error: " + ex.ToString(), Logger.LogType.Error);
                 return;
             }
             logger.Log(className, "Parsing version", Logger.LogType.Info);
