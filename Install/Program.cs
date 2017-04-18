@@ -395,8 +395,8 @@ namespace OnlineSetup
             //Check if update is needed
             WebClient webClient = new WebClient();
             FileVersionInfo currVer = FileVersionInfo.GetVersionInfo(exePath);
-            decimal currentVersion = decimal.Parse(string.Format("{0}.{1}.{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
-                currVer.FileBuildPart.ToString()), CultureInfo.InvariantCulture);
+            Version currentVersion = new Version(string.Format("{0}.{1}.{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
+                currVer.FileBuildPart.ToString()));
             if (!dev)
             {
                 logger.Log(className, "Downloading VERSION2 file from master branch", Logger.LogType.Info);
@@ -423,10 +423,10 @@ namespace OnlineSetup
                 return;
             }
             logger.Log(className, "Parsing version", Logger.LogType.Info);
-            string latestVersion_s = latestVersionText.Split(',', '#')[1];
-            logger.Log(className, "Current version is: " + currentVersion, Logger.LogType.Info);
-            logger.Log(className, "Latest version is: " + latestVersion_s, Logger.LogType.Info);
-            decimal latestVersion = decimal.Parse(latestVersion_s, CultureInfo.InvariantCulture);
+            string latestVersion_s = latestVersionText.Split(',')[0];
+            Version latestVersion = new Version(latestVersion_s);
+            logger.Log(className, "Current version is: " + currentVersion.ToString(), Logger.LogType.Info);
+            logger.Log(className, "Latest version is: " + latestVersion.ToString(), Logger.LogType.Info);
 
             if (currentVersion >= latestVersion)
             {
@@ -437,14 +437,8 @@ namespace OnlineSetup
             }
             else if (dev)
             {
-                string ver = string.Empty;
-                foreach (char c in latestVersion.ToString())
-                {
-                    ver += c + ".";
-                }
-                ver = ver.Remove(6, 1);
-                logger.Log(className, "App update is available: " + ver + "\r\nAutomatic updates are not available in development builds", Logger.LogType.Info);
-                MessageBox.Show("App update is available: " + ver + "\r\nAutomatic updates are not available in development builds", "CSClock",
+                logger.Log(className, "App update is available: " + latestVersion.ToString() + "\r\nAutomatic updates are not available in development builds", Logger.LogType.Info);
+                MessageBox.Show("App update is available: " + latestVersion.ToString() + "\r\nAutomatic updates are not available in development builds", "CSClock",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
