@@ -118,6 +118,8 @@ namespace OnlineSetup
 
             if (args == null || args.Length == 0 || !args.Contains("-update"))
             {
+                Install installForm = new Install();
+                installForm.Show();
                 Install();
             }
             else if (args.Contains("-update"))
