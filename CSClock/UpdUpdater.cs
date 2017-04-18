@@ -134,7 +134,7 @@ namespace CSClock
 
 
             //Update CSClock
-            logger.Log(className, "Downloading latest Install.exe", Logger.LogType.Info);
+            logger.Log(className, "Downloading latest Setup.exe", Logger.LogType.Info);
             try
             {
                 webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/Setup.exe", tempExePath);
