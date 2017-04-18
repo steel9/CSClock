@@ -23,11 +23,7 @@ using System.Windows.Forms;
 using System.Net;
 using System.Linq;
 using CSClock;
-using System.Globalization;
 using Microsoft.Win32;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Security.Permissions;
 using System.Security.Principal;
 
 namespace OnlineSetup
