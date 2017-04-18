@@ -22,6 +22,8 @@ namespace OnlineSetup
         private void Install_Load(object sender, EventArgs e)
         {
             pictureBox1.Image = ResizeImage(Properties.Resources.Logo, pictureBox1.Size.Width, pictureBox1.Size.Height);
+
+            Program.Install();
         }
 
         public static Bitmap ResizeImage(Image image, int width, int height)

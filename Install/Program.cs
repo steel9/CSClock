@@ -123,7 +123,6 @@ namespace OnlineSetup
 
                 Install installForm = new Install();
                 installForm.Show();
-                Install();
             }
             else if (args.Contains("-update"))
             {
@@ -156,7 +155,7 @@ namespace OnlineSetup
             }
         }
 
-        static void Install()
+        public static void Install()
         {
             logger.Log(className, "--INSTALLATION--", Logger.LogType.Info);
             if (dev)
