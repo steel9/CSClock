@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <ProjectGuid>{51D68EFF-D2DD-484B-8623-99864FB29E06}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Install</RootNamespace>
-    <AssemblyName>Install</AssemblyName>
+    <RootNamespace>Setup</RootNamespace>
+    <AssemblyName>Setup</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
