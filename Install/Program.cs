@@ -27,6 +27,7 @@ using System.Globalization;
 using Microsoft.Win32;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Security.Permissions;
 
 namespace OnlineSetup
 {
@@ -56,6 +57,16 @@ namespace OnlineSetup
 
         public static void Main(string[] args)
         {
+            if (args == null || args.Length == 0 || !args.Contains("-update"))
+            {
+                if (MessageBox.Show("The setup requires administrator permissions to write the uninstaller to the registry. A warning will be displayed" +
+                " saying that the developer is unknown, but that is because it costs money to be a verified publisher. Press OK now, and then 'Yes' on the warning" +
+                " to install CSClock", "CSClock", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) != DialogResult.OK)
+                {
+                    return;
+                }
+            }
+
             if (!Directory.Exists(installFolder))
             {
                 Directory.CreateDirectory(installFolder);
@@ -123,6 +134,7 @@ namespace OnlineSetup
             }
         }
 
+        [PrincipalPermission(SecurityAction.Demand, Role = @"BUILTIN\Administrators")]
         static void Install()
         {
             logger.Log(className, "--INSTALLATION--", Logger.LogType.Info);
@@ -203,11 +215,11 @@ namespace OnlineSetup
             {
                 if (!dev)
                 {
-                    File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "AppUpdater.exe"), true);
+                    File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "Setup.exe"), true);
                 }
                 else
                 {
-                    File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "dev", "AppUpdater.exe"), true);
+                    File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "dev", "Setup.exe"), true);
                 }
             }
             catch (Exception ex)
