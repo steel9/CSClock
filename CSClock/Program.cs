@@ -287,9 +287,9 @@ namespace CSClock
         private static void RemoveUninstallerFromReg()
         {
             Guid uninstallGuid = new Guid("924c5816-7549-4556-ac2f-f1ab1af211b3");
-            const string uninstallRegKeyPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+            const string uninstallRegKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Uninstall";
 
-            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(uninstallRegKeyPath, true))
+            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(uninstallRegKeyPath, true))
             {
                 if (key == null)
                 {

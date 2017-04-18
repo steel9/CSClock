@@ -58,6 +58,7 @@ namespace OnlineSetup
 
         public static void Main(string[] args)
         {
+            /*
             if (args == null || args.Length == 0 || !args.Contains("-update"))
             {
                 if (!IsAdmin() && MessageBox.Show("The setup requires administrator permissions to write the uninstaller to the registry. A warning will be displayed" +
@@ -74,6 +75,7 @@ namespace OnlineSetup
                     return;
                 }
             }
+            */
 
             if (!Directory.Exists(installFolder))
             {
@@ -290,9 +292,9 @@ namespace OnlineSetup
         static void CreateUninstaller()
         {
             Guid uninstallGuid = new Guid("924c5816-7549-4556-ac2f-f1ab1af211b3");
-            const string uninstallRegKeyPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+            const string uninstallRegKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Uninstall";
 
-            using (RegistryKey parent = Registry.LocalMachine.OpenSubKey(
+            using (RegistryKey parent = Registry.CurrentUser.OpenSubKey(
                          uninstallRegKeyPath, true))
             {
                 if (parent == null)
