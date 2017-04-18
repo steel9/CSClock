@@ -53,8 +53,11 @@ namespace OnlineSetup
 
         private void Install_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = true;
-            MessageBox.Show("Please wait until the installation is finished", "CSClock Setup", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (Program.antiExit)
+            {
+                e.Cancel = true;
+                MessageBox.Show("Please wait until the installation is finished", "CSClock Setup", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -36,6 +36,8 @@ namespace OnlineSetup
     {
         const string className = "Program.cs";
 
+        public static bool antiExit = true;
+
         public static bool dev = false;
 
         static string installFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");
@@ -122,7 +124,7 @@ namespace OnlineSetup
                 Application.SetCompatibleTextRenderingDefault(false);
 
                 Install installForm = new Install();
-                installForm.Show();
+                Application.Run(installForm);
             }
             else if (args.Contains("-update"))
             {
@@ -291,6 +293,9 @@ namespace OnlineSetup
             {
                 Process.Start(devExePath, "-np -dev");
             }
+
+            antiExit = false;
+            Application.Exit();
         }
 
         static void CreateUninstaller()
