@@ -149,7 +149,6 @@ namespace OnlineSetup
             }
         }
 
-        [PrincipalPermission(SecurityAction.Demand, Role = @"BUILTIN\Administrators")]
         static void Install()
         {
             logger.Log(className, "--INSTALLATION--", Logger.LogType.Info);
