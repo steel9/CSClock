@@ -24,6 +24,9 @@ using System.Net;
 using System.Linq;
 using CSClock;
 using System.Globalization;
+using Microsoft.Win32;
+using System.Reflection;
+using System.Runtime.InteropServices;
 
 namespace OnlineSetup
 {
@@ -244,6 +247,8 @@ namespace OnlineSetup
                 MessageBox.Show("Error while creating shortcuts: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+            CreateUninstaller();
+
             //Start CSClock
             logger.Log(className, "Starting CSClock", Logger.LogType.Info);
             if (!dev)
@@ -253,6 +258,73 @@ namespace OnlineSetup
             else
             {
                 Process.Start(devExePath, "-np -dev");
+            }
+        }
+
+        static void CreateUninstaller()
+        {
+            Guid uninstallGuid = new Guid("924c5816-7549-4556-ac2f-f1ab1af211b3");
+            const string uninstallRegKeyPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+
+            using (RegistryKey parent = Registry.LocalMachine.OpenSubKey(
+                         uninstallRegKeyPath, true))
+            {
+                if (parent == null)
+                {
+                    throw new Exception("Uninstall registry key not found.");
+                }
+                try
+                {
+                    RegistryKey key = null;
+
+                    try
+                    {
+                        string guidText = uninstallGuid.ToString("B");
+                        key = parent.OpenSubKey(guidText, true) ??
+                              parent.CreateSubKey(guidText);
+
+                        if (key == null)
+                        {
+                            throw new Exception(string.Format("Unable to create uninstaller '{0}\\{1}'", uninstallRegKeyPath,
+                                guidText));
+                        }
+
+                        Version v = new Version(FileVersionInfo.GetVersionInfo(exePath).ProductVersion);
+                        string exe;
+
+                        if (!dev)
+                        {
+                            exe = exePath;
+                            key.SetValue("DisplayName", "CSClock");
+                        }
+                        else
+                        {
+                            key.SetValue("DisplayName", "CSClock DEV");
+                            exe = devExePath;
+                        }
+                        key.SetValue("ApplicationVersion", v.ToString());
+                        key.SetValue("Publisher", "steel9");
+                        key.SetValue("DisplayIcon", exe);
+                        key.SetValue("DisplayVersion", v.ToString(2));
+                        key.SetValue("URLInfoAbout", "https://steel9apps.wixsite.com/csclock");
+                        key.SetValue("Contact", "steel9apps@gmail.com");
+                        key.SetValue("InstallDate", DateTime.Now.ToString("yyyyMMdd"));
+                        key.SetValue("UninstallString", exe + " -removal");
+                    }
+                    finally
+                    {
+                        if (key != null)
+                        {
+                            key.Close();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(
+                        "An error occurred writing uninstall information to the registry.  The service is fully installed but can only be uninstalled manually through the command line.",
+                        ex);
+                }
             }
         }
 

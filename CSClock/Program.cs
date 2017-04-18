@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
 using System.Resources;
+using Microsoft.Win32;
 
 namespace CSClock
 {
@@ -271,6 +272,8 @@ namespace CSClock
             if (!confirmMsg || MessageBox.Show(rm_Messages.GetString("removalQuestion"), "CSClock",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
+                RemoveUninstallerFromReg();
+
                 string path = Path.Combine(Path.GetTempPath(), "CSClockRemovalTool.bat");
 
                 StreamWriter sw = new StreamWriter(path);
@@ -278,6 +281,36 @@ namespace CSClock
                 sw.Close();
 
                 Process.Start(path, "\"" + Application.ExecutablePath + "\" \"" + Path.GetFileNameWithoutExtension(Application.ExecutablePath) + "\"");
+            }
+        }
+
+        private static void RemoveUninstallerFromReg()
+        {
+            Guid uninstallGuid = new Guid("924c5816-7549-4556-ac2f-f1ab1af211b3");
+            const string uninstallRegKeyPath = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall";
+
+            using (RegistryKey key = Registry.LocalMachine.OpenSubKey(uninstallRegKeyPath, true))
+            {
+                if (key == null)
+                {
+                    return;
+                }
+                try
+                {
+                    string guidText = uninstallGuid.ToString("B");
+                    RegistryKey child = key.OpenSubKey(guidText);
+                    if (child != null)
+                    {
+                        child.Close();
+                        key.DeleteSubKey(guidText);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(
+                        "An error occurred removing uninstall information from the registry.  The service was uninstalled will still show up in the add/remove program list.  To remove it manually delete the entry HKLM\\" +
+                        uninstallRegKeyPath + "\\" + uninstallGuid, ex);
+                }
             }
         }
 
