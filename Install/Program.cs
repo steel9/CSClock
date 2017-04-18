@@ -118,6 +118,9 @@ namespace OnlineSetup
 
             if (args == null || args.Length == 0 || !args.Contains("-update"))
             {
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+
                 Install installForm = new Install();
                 installForm.Show();
                 Install();
