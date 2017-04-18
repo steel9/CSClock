@@ -393,21 +393,17 @@ namespace OnlineSetup
             }
 
             //Check if update is needed
-            logger.Log(className, "Initializing WebClient", Logger.LogType.Info);
             WebClient webClient = new WebClient();
-            logger.Log(className, "Current version without dots --> int", Logger.LogType.Info);
             FileVersionInfo currVer = FileVersionInfo.GetVersionInfo(exePath);
-            MessageBox.Show(string.Format("{0}.{1}{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
-                currVer.FileBuildPart.ToString()));
-            decimal currentVersion = decimal.Parse(string.Format("{0}.{1}{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
+            decimal currentVersion = decimal.Parse(string.Format("{0}.{1}.{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
                 currVer.FileBuildPart.ToString()), CultureInfo.InvariantCulture);
             if (!dev)
             {
-                logger.Log(className, "Downloading VERSION file from master branch", Logger.LogType.Info);
+                logger.Log(className, "Downloading VERSION2 file from master branch", Logger.LogType.Info);
             }
             else
             {
-                logger.Log(className, "Downloading VERSION file from development branch", Logger.LogType.Info);
+                logger.Log(className, "Downloading VERSION2 file from development branch", Logger.LogType.Info);
             }
             string latestVersionText = null;
             try
@@ -427,8 +423,7 @@ namespace OnlineSetup
                 return;
             }
             logger.Log(className, "Parsing version", Logger.LogType.Info);
-            string latestVersion_s = latestVersionText.Split(',')[0];
-            latestVersion_s = latestVersion_s.Insert(1, ".");
+            string latestVersion_s = latestVersionText.Split(',', '#')[1];
             logger.Log(className, "Current version is: " + currentVersion, Logger.LogType.Info);
             logger.Log(className, "Latest version is: " + latestVersion_s, Logger.LogType.Info);
             decimal latestVersion = decimal.Parse(latestVersion_s, CultureInfo.InvariantCulture);
