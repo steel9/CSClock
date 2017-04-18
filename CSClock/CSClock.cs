@@ -165,12 +165,12 @@ namespace CSClock
 
             if (timer.Enabled)
             {
-                button3.Image = Properties.Resources.pause_97625_640;
+                button3.Image = Properties.Resources.pause;
                 toolTip1.SetToolTip(button3, Program.rm_GUI.GetString("button3_toolTip_pause_text"));
             }
             else
             {
-                button3.Image = Properties.Resources.play_97626_640;
+                button3.Image = Properties.Resources.play;
                 toolTip1.SetToolTip(button3, Program.rm_GUI.GetString("button3_toolTip_resume_text"));
             }
 
@@ -464,7 +464,7 @@ namespace CSClock
             Program.contextMenu1.MenuItems[1].Text = Program.rm_GUI.GetString("resume");
             if (updateGUI)
             {
-                button3.Image = Properties.Resources.play_97626_640;
+                button3.Image = Properties.Resources.play;
                 toolTip1.SetToolTip(button3, Program.rm_GUI.GetString("resume"));
             }
         }
@@ -488,7 +488,7 @@ namespace CSClock
             Program.contextMenu1.MenuItems[1].Text = Program.rm_GUI.GetString("pause");
             if (updateGUI)
             {
-                button3.Image = Properties.Resources.pause_97625_640;
+                button3.Image = Properties.Resources.pause;
                 toolTip1.SetToolTip(button3, Program.rm_GUI.GetString("pause"));
             }
         }
