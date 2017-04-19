@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Windows.Forms;
@@ -130,6 +129,7 @@ namespace CSClock
             catch (Exception ex)
             {
                 logger.Log(className, "Error when closing app updater, aborting updater update. Error: " + ex.ToString(), Logger.LogType.Error);
+                return;
             }
 
 
@@ -142,6 +142,7 @@ namespace CSClock
             catch (Exception ex)
             {
                 logger.Log(className, "Error when downloading CSClock, aborting update. Error: " + ex.ToString(), Logger.LogType.Info);
+                return;
             }
 
             //Install CSClock
