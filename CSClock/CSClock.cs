@@ -23,6 +23,8 @@ using System.Resources;
 using Microsoft.Win32;
 using System.Diagnostics;
 using CSClock;
+using System.Threading;
+using System.IO;
 
 namespace CSClock
 {
@@ -32,6 +34,7 @@ namespace CSClock
 
         public bool startMinimized = false;
         public bool instantExit = false;
+        private static bool exiting = false;
 
         public int maximumSeconds = 0;
         public int maximumSecondsOvertime = 0;
@@ -49,9 +52,60 @@ namespace CSClock
 
         public DateTime startDateTime = default(DateTime);
 
+        public bool properExitLast = true;
+
         public CSClock()
         {
             InitializeComponent();
+        }
+
+        public static void Form1_UIThreadException(object sender, ThreadExceptionEventArgs t)
+        {
+            DialogResult result = DialogResult.Cancel;
+            try
+            {
+                result = ShowThreadExceptionDialog("CSClock: Windows Forms Error", t.Exception);
+                if (exiting)
+                {
+                    Environment.Exit(1);
+                }
+            }
+            catch
+            {
+                try
+                {
+                    MessageBox.Show("Oops! Fatal Windows Forms Error :(",
+                        "CSClock: Fatal Windows Forms Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+                finally
+                {
+                    Environment.Exit(1);
+                }
+            }
+
+            // Exits the program when the user clicks Abort.
+            if (result == DialogResult.Abort)
+                Application.Exit();
+        }
+
+        private static DialogResult ShowThreadExceptionDialog(string title, Exception e)
+        {
+            string errorMsg = "Ouch! An application error occurred. Please contact me (steel9) " +
+                "with the following information:\n\n";
+            errorMsg = errorMsg + e.Message + "\n\nStack Trace:\n" + e.StackTrace;
+            Logger lg = null;
+            try
+            {
+                lg = new Logger("CSClock", "exc.txt", Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
+            }
+            catch
+            {
+                File.Delete("exc.txt");
+                lg = new Logger("CSClock", "exc.txt", Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
+            }
+            lg.Log(className, errorMsg, Logger.LogType.Error);
+            return MessageBox.Show("Ouch! An application error occurred. Please contact me (steel9), and provide the 'exc.txt' file, and a description of" +
+                " what you did when this happened", title, MessageBoxButtons.OK, MessageBoxIcon.Stop);
         }
 
         protected override void OnLoad(EventArgs e)
@@ -96,7 +150,7 @@ namespace CSClock
             }
             else
             {
-
+                exiting = true;
                 Program.logger.Log(className, "executing CSClock closing event", Logger.LogType.Info);
 
                 Program.logger.Log(className, "Quitting CSClock", Logger.LogType.Info);
@@ -109,6 +163,10 @@ namespace CSClock
                     SystemEvents.SessionSwitch -= SystemEvents_SessionSwitch;
                 }
                 Program.notifyIcon1.Visible = false;
+
+                Properties.Settings.Default.properExit = true;
+                Properties.Settings.Default.Save();
+
                 Program.logger.Log(className, "Done", Logger.LogType.Info);
             }
         }
@@ -534,6 +592,16 @@ namespace CSClock
                 == DialogResult.Yes)
             {
                 Process.Start("https://github.com/steel9/CSClock");
+            }
+        }
+
+        private void CSClock_Shown(object sender, EventArgs e)
+        {
+            if (!Program.properExitLast)
+            {
+                MessageBox.Show("Ouch! It looks like CSClock crashed or was killed last exit. Sorry for any inconvenience. If you believe it was a bug, " +
+                    "contact me by pressing the help button now", "CSClock", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1,
+                    0, "https://steel9apps.wixsite.com/csclock/contact");
             }
         }
     }

@@ -334,18 +334,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\clock-1292829_640.png" />
-    <None Include="Resources\play-97626_640.png" />
-    <None Include="Resources\pause-97625_640.png" />
-    <None Include="Resources\gear-1077563_640.png" />
-    <None Include="Resources\earth-2092185_640.png" />
+    <None Include="Resources\clock.png" />
+    <None Include="Resources\play.png" />
+    <None Include="Resources\pause.png" />
+    <None Include="Resources\gear.png" />
+    <None Include="Resources\earth.png" />
     <None Include="bin\Release\CSClock.exe" />
     <None Include="Resources\Logo.ico" />
     <None Include="Resources\Logo.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Logo.ico" />
-    <None Include="Resources\analytics-54x40.png" />
+    <None Include="Resources\analytics.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

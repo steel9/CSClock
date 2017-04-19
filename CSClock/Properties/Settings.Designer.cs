@@ -284,5 +284,17 @@ namespace CSClock.Properties {
                 this["portableWarnHasAppeared"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool properExit {
+            get {
+                return ((bool)(this["properExit"]));
+            }
+            set {
+                this["properExit"] = value;
+            }
+        }
     }
 }

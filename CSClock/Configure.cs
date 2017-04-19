@@ -204,7 +204,7 @@ namespace CSClock
                     File.Delete("log.txt");
                 }
 
-                Application.Exit();
+                Environment.Exit(0);
             }
         }
 

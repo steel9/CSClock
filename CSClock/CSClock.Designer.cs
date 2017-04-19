@@ -243,6 +243,7 @@ namespace CSClock
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.CSClock_HelpButtonClicked);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.CSClock_Load);
+            this.Shown += new System.EventHandler(this.CSClock_Shown);
             this.panel_home.ResumeLayout(false);
             this.panel_home.PerformLayout();
             this.ResumeLayout(false);

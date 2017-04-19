@@ -66,6 +66,8 @@ namespace CSClock
 
         private static bool portable = true;
 
+        public static bool properExitLast = true;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -78,6 +80,13 @@ namespace CSClock
 #if DEBUG
             debug = true;
 #endif
+            
+            Application.ThreadException += new
+                ThreadExceptionEventHandler(CSClock.Form1_UIThreadException);
+
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            AppDomain.CurrentDomain.UnhandledException += new
+                UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
             if (args != null && args.Length > 0 && args.Contains("-np"))
             {
@@ -100,9 +109,6 @@ namespace CSClock
                 }
             }
 
-            logger = new Logger("CSClock", Path.Combine(logDir, "log.txt"),
-                Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
-
             bool createdNew = true;
             using (Mutex mutex = new Mutex(true, "CSClock", out createdNew))
             {
@@ -113,11 +119,27 @@ namespace CSClock
                         UpdUpdater.UpdUpdate();
                         Update();
                     }
+
+                    if (!Properties.Settings.Default.properExit)
+                    {
+                        properExitLast = false;
+                    }
+                    else
+                    {
+                        Properties.Settings.Default.properExit = false;
+                        Properties.Settings.Default.Save();
+                    }
+
+                    logger = new Logger("CSClock", Path.Combine(logDir, "log.txt"),
+                        Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
                     logger.Log(className, "createdNew=true", Logger.LogType.Info, true);
+
                     StartApplication(args);
                 }
                 else
                 {
+                    logger = new Logger("CSClock", Path.Combine(logDir, "log.txt"),
+                        Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
 
 #if DEBUG
                     logger.Log(className, "createdNew=false, debug=true", Logger.LogType.Info, true);
@@ -149,8 +171,45 @@ namespace CSClock
             }
         }
 
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            try
+            {
+                Exception ex = (Exception)e.ExceptionObject;
+                string errorMsg = "Ouch! An application error occurred :(\r\nPlease contact me (steel9) " +
+                    "and tell me what you did when this happened";
+                MessageBox.Show(errorMsg, "CSClock", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                // Since we can't prevent the app from terminating, log this to the event log.
+                if (!EventLog.SourceExists("ThreadException"))
+                {
+                    EventLog.CreateEventSource("ThreadException", "Application");
+                }
+
+                // Create an EventLog instance and assign its source.
+                EventLog myLog = new EventLog();
+                myLog.Source = "ThreadException";
+                myLog.WriteEntry(errorMsg + ex.Message + "\n\nStack Trace:\n" + ex.StackTrace);
+            }
+            catch (Exception exc)
+            {
+                try
+                {
+                    MessageBox.Show("Ouch! An error occurred. Sorry about that :(\r\nCould not write the error to the event log. Reason: "
+                        + exc.Message, "CSClock: Fatal Non-UI Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                }
+                finally
+                {
+                    Application.Exit();
+                }
+            }
+        }
+
         static void Update()
         {
+            Properties.Settings.Default.properExit = true;
+            Properties.Settings.Default.Save();
+
             try
             {
                 string updaterPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock", "Setup.exe");
@@ -161,6 +220,9 @@ namespace CSClock
                 start.WindowStyle = ProcessWindowStyle.Hidden;
                 var updateProc = Process.Start(start);
                 updateProc.WaitForExit();
+
+                Properties.Settings.Default.properExit = false;
+                Properties.Settings.Default.Save();
             }
             catch (Exception ex)
             {
@@ -223,6 +285,8 @@ namespace CSClock
 
                 if (((args == null && args.Length > 0) || !args.Contains("-deletelogs")) || (!File.Exists("log.txt") && !File.Exists("setuplog.txt")))
                 {
+                    Properties.Settings.Default.properExit = true;
+                    Properties.Settings.Default.Save();
                     return;
                 }
             }
@@ -231,6 +295,8 @@ namespace CSClock
             {
                 File.Delete("log.txt");
                 File.Delete("setuplog.txt");
+                Properties.Settings.Default.properExit = true;
+                Properties.Settings.Default.Save();
                 return;
             }
 
@@ -255,6 +321,8 @@ namespace CSClock
             {
                 MessageBox.Show("ERROR: " + ex.Message + "\r\n\r\n\r\nFull error details: " + ex, "CSClock", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 logger.Log(className, Convert.ToString(ex), Logger.LogType.Error);
+                Properties.Settings.Default.properExit = true;
+                Properties.Settings.Default.Save();
                 Application.Exit();
                 return;
             }
@@ -279,6 +347,9 @@ namespace CSClock
                 StreamWriter sw = new StreamWriter(path);
                 sw.Write(Properties.Resources.removaltool);
                 sw.Close();
+
+                Properties.Settings.Default.properExit = true;
+                Properties.Settings.Default.Save();
 
                 Process.Start(path, "\"" + Application.ExecutablePath + "\" \"" + Path.GetFileNameWithoutExtension(Application.ExecutablePath) + "\"");
             }

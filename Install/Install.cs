@@ -15,9 +15,10 @@ namespace OnlineSetup
 
         private void Install_Load(object sender, EventArgs e)
         {
-            pictureBox1.Image = ResizeImage(Properties.Resources.Logo, pictureBox1.Size.Width, pictureBox1.Size.Height);
-
-            Program.Install();
+            if (pictureBox1.Size != new Size(76, 76))
+            {
+                pictureBox1.Image = ResizeImage(Properties.Resources.Logo, pictureBox1.Size.Width, pictureBox1.Size.Height);
+            }
         }
 
         public static Bitmap ResizeImage(Image image, int width, int height)
@@ -52,6 +53,16 @@ namespace OnlineSetup
                 e.Cancel = true;
                 MessageBox.Show("Please wait until the installation is finished", "CSClock Setup", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void Install_Shown(object sender, EventArgs e)
+        {
+            backgroundWorker1.RunWorkerAsync();
+        }
+
+        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            Program.Install();
         }
     }
 }
