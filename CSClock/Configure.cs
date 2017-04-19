@@ -240,7 +240,7 @@ namespace CSClock
 
         private void button_remove_Click(object sender, EventArgs e)
         {
-            Program.Uninstall(true);
+            Program.Uninstall();
         }
     }
 }

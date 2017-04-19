@@ -129,23 +129,5 @@ namespace CSClock.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to @REM 		CSClock - a program which keeps track of your computer time
-        ///@REM 		Copyright (C) 2017  Viktor J
-        ///
-        ///@REM 		This program is free software: you can redistribute it and/or modify
-        ///@REM 		it under the terms of the GNU General Public License as published by
-        ///@REM 		the Free Software Foundation, either version 3 of the License, or
-        ///@REM 		(at your option) any later version.
-        ///
-        ///@REM 		This program is distributed in the hope that it will be useful,
-        ///@REM 		but WITHOUT ANY WARRANTY; without even the implied w [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string removaltool {
-            get {
-                return ResourceManager.GetString("removaltool", resourceCulture);
-            }
-        }
     }
 }
