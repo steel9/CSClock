@@ -461,7 +461,7 @@ namespace OnlineSetup
             }
 
             //Install CSClock
-            logger.Log("Installing CSClock", className, Logger.LogType.Info);
+            logger.Log(className, "Installing CSClock", Logger.LogType.Info);
             try
             {
                 File.Copy(tempExePath, exePath, true);
@@ -472,6 +472,15 @@ namespace OnlineSetup
                 logger.Log(className, "CSClock installation error: " + ex.ToString(), Logger.LogType.Error);
                 MessageBox.Show("Error when installing CSClock: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
+            }
+
+            //Add uninstaller to uninstall list in Windows if not added
+            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Uninstall\CSClock"))
+            {
+                if (key == null)
+                {
+                    CreateUninstaller();
+                }
             }
 
             //Start CSClock
