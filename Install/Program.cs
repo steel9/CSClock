@@ -329,7 +329,7 @@ namespace OnlineSetup
                 catch (Exception ex)
                 {
                     throw new Exception(
-                        "An error occurred writing uninstall information to the registry.  The service is fully installed but can only be uninstalled manually through the command line.",
+                        "An error occurred writing uninstall information to the registry.  The service is fully installed but can only be uninstalled manually through the application or the command line.",
                         ex);
                 }
             }
