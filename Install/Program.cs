@@ -56,25 +56,6 @@ namespace OnlineSetup
 
         public static void Main(string[] args)
         {
-            /*
-            if (args == null || args.Length == 0 || !args.Contains("-update"))
-            {
-                if (!IsAdmin() && MessageBox.Show("The setup requires administrator permissions to write the uninstaller to the registry. A warning will be displayed" +
-                " saying that the developer is unknown, but that is because it costs money to be a verified publisher. Press OK now, and then 'Yes' on the warning" +
-                " to install CSClock", "CSClock", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
-                {
-                    ProcessStartInfo start = new ProcessStartInfo(Application.ExecutablePath);
-                    start.Verb = "runas";
-                    Process.Start(start);
-                    return;
-                }
-                else if (!IsAdmin())
-                {
-                    return;
-                }
-            }
-            */
-
             if (!Directory.Exists(installFolder))
             {
                 Directory.CreateDirectory(installFolder);
@@ -126,13 +107,6 @@ namespace OnlineSetup
             {
                 Update();
             }
-        }
-
-        private static bool IsAdmin()
-        {
-            WindowsIdentity identity = WindowsIdentity.GetCurrent();
-            WindowsPrincipal principal = new WindowsPrincipal(identity);
-            return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
 
         public static bool CheckForInternetConnection()
