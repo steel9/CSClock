@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace OnlineSetup.Properties {
+namespace OnlineSetup.Languages.Swedish {
     using System;
     
     
@@ -22,14 +22,14 @@ namespace OnlineSetup.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    internal class Messages {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Messages() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace OnlineSetup.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("OnlineSetup.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("OnlineSetup.Languages.Swedish.Messages", typeof(Messages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,40 +61,11 @@ namespace OnlineSetup.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized string similar to Är du säker på att du vill ta bort CSClock från denna användare? All användardata och alla loggar kommer även att tas bort.
         /// </summary>
-        internal static System.Drawing.Bitmap Logo {
+        internal static string removalQuestion {
             get {
-                object obj = ResourceManager.GetObject("Logo", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Logo_76x76 {
-            get {
-                object obj = ResourceManager.GetObject("Logo_76x76", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to @REM 		CSClock - a program which keeps track of your computer time
-        ///@REM 		Copyright (C) 2017  Viktor J
-        ///
-        ///@REM 		This program is free software: you can redistribute it and/or modify
-        ///@REM 		it under the terms of the GNU General Public License as published by
-        ///@REM 		the Free Software Foundation, either version 3 of the License, or
-        ///@REM 		(at your option) any later version.
-        ///
-        ///@REM 		This program is distributed in the hope that it will be useful,
-        ///@REM 		but WITHOUT ANY WARRANTY; without even the implied w [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string removaltool {
-            get {
-                return ResourceManager.GetString("removaltool", resourceCulture);
+                return ResourceManager.GetString("removalQuestion", resourceCulture);
             }
         }
     }

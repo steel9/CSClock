@@ -267,9 +267,9 @@ namespace CSClock
                 Update();
             }
 
-            if (args != null && args.Length > 0 && args.Contains("-removal"))
+            if (args != null && args.Length > 0 && args.Contains("-uninstall"))
             {
-                Removal(true);
+                Uninstall();
                 return;
             }
 
@@ -335,54 +335,9 @@ namespace CSClock
             Application.Run(CSClockForm);
         }
 
-        public static void Removal(bool confirmMsg)
+        public static void Uninstall()
         {
-            if (!confirmMsg || MessageBox.Show(rm_Messages.GetString("removalQuestion"), "CSClock",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-            {
-                RemoveUninstallerFromReg();
-
-                string path = Path.Combine(Path.GetTempPath(), "CSClockRemovalTool.bat");
-
-                StreamWriter sw = new StreamWriter(path);
-                sw.Write(Properties.Resources.removaltool);
-                sw.Close();
-
-                Properties.Settings.Default.properExit = true;
-                Properties.Settings.Default.Save();
-
-                Process.Start(path, "\"" + Application.ExecutablePath + "\" \"" + Path.GetFileNameWithoutExtension(Application.ExecutablePath) + "\"");
-            }
-        }
-
-        private static void RemoveUninstallerFromReg()
-        {
-            Guid uninstallGuid = new Guid("924c5816-7549-4556-ac2f-f1ab1af211b3");
-            const string uninstallRegKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Uninstall";
-
-            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(uninstallRegKeyPath, true))
-            {
-                if (key == null)
-                {
-                    return;
-                }
-                try
-                {
-                    string guidText = uninstallGuid.ToString("B");
-                    RegistryKey child = key.OpenSubKey(guidText);
-                    if (child != null)
-                    {
-                        child.Close();
-                        key.DeleteSubKey(guidText);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(
-                        "An error occurred removing uninstall information from the registry.  The service was uninstalled will still show up in the add/remove program list.  To remove it manually delete the entry HKLM\\" +
-                        uninstallRegKeyPath + "\\" + uninstallGuid, ex);
-                }
-            }
+            Process.Start(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock", "Setup.exe"), "-uninstall");
         }
 
         public static void Reload()

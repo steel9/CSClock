@@ -24,13 +24,17 @@ using System.Net;
 using System.Linq;
 using CSClock;
 using Microsoft.Win32;
-using System.Security.Principal;
+using System.Resources;
+using System.Reflection;
 
 namespace OnlineSetup
 {
     static class Program
     {
         const string className = "Program.cs";
+
+        public static string selectedLanguage = "English";
+        static ResourceManager rm_Messages;
 
         public static bool antiExit = true;
 
@@ -56,6 +60,9 @@ namespace OnlineSetup
 
         public static void Main(string[] args)
         {
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            rm_Messages = new ResourceManager(string.Format("OnlineSetup.Languages.{0}.Messages", selectedLanguage), assembly);
+
             if (!Directory.Exists(installFolder))
             {
                 Directory.CreateDirectory(installFolder);
@@ -95,7 +102,7 @@ namespace OnlineSetup
                 logger = new Logger("CSClock Online Setup", logPath, Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
             }
 
-            if (args == null || args.Length == 0 || !args.Contains("-update"))
+            if (args == null || args.Length == 0 || (!args.Contains("-update") && !args.Contains("-uninstall")))
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
@@ -106,6 +113,10 @@ namespace OnlineSetup
             else if (args.Contains("-update"))
             {
                 Update();
+            }
+            else if (args.Contains("-uninstall"))
+            {
+                Uninstall();
             }
         }
 
@@ -125,6 +136,96 @@ namespace OnlineSetup
             {
                 return false;
             }
+        }
+
+        static void CreateUninstaller()
+        {
+            Guid uninstallGuid = new Guid("924c5816-7549-4556-ac2f-f1ab1af211b3");
+            const string uninstallRegKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Uninstall";
+
+            using (RegistryKey parent = Registry.CurrentUser.OpenSubKey(
+                         uninstallRegKeyPath, true))
+            {
+                if (parent == null)
+                {
+                    throw new Exception("Uninstall registry key not found.");
+                }
+                try
+                {
+                    RegistryKey key = null;
+
+                    try
+                    {
+                        string guidText = uninstallGuid.ToString("B");
+                        key = parent.OpenSubKey(guidText, true) ??
+                              parent.CreateSubKey(guidText);
+
+                        if (key == null)
+                        {
+                            throw new Exception(string.Format("Unable to create uninstaller '{0}\\{1}'", uninstallRegKeyPath,
+                                guidText));
+                        }
+
+                        Version v = new Version(FileVersionInfo.GetVersionInfo(exePath).ProductVersion);
+                        string exe;
+
+                        if (!dev)
+                        {
+                            exe = exePath;
+                            key.SetValue("DisplayName", "CSClock");
+                        }
+                        else
+                        {
+                            key.SetValue("DisplayName", "CSClock DEV");
+                            exe = devExePath;
+                        }
+                        key.SetValue("ApplicationVersion", v.ToString());
+                        key.SetValue("Publisher", "steel9");
+                        key.SetValue("DisplayIcon", exe);
+                        key.SetValue("DisplayVersion", v.ToString(2));
+                        key.SetValue("URLInfoAbout", "https://steel9apps.wixsite.com/csclock");
+                        key.SetValue("Contact", "steel9apps@gmail.com");
+                        key.SetValue("InstallDate", DateTime.Now.ToString("yyyyMMdd"));
+                        key.SetValue("UninstallString", exe + " -removal");
+                    }
+                    finally
+                    {
+                        if (key != null)
+                        {
+                            key.Close();
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(
+                        "An error occurred writing uninstall information to the registry.  The service is fully installed but can only be uninstalled manually through the application or the command line.",
+                        ex);
+                }
+            }
+        }
+
+        static void CreateShortcut(string filePath, string shortcutPath,
+            string workingDir, string arguments = "", string description = "", string hotkey = "")
+        {
+            IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShell();
+            string shortcutAddress = shortcutPath;
+            IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(shortcutAddress);
+            if (description != "")
+            {
+                shortcut.Description = description;
+            }
+            if (hotkey != "")
+            {
+                shortcut.Hotkey = hotkey;
+            }
+            if (arguments != "")
+            {
+                shortcut.Arguments = arguments;
+            }
+            shortcut.TargetPath = filePath;
+            shortcut.WorkingDirectory = workingDir;
+            shortcut.Save();
         }
 
         public static void Install()
@@ -268,96 +369,6 @@ namespace OnlineSetup
             Application.Exit();
         }
 
-        static void CreateUninstaller()
-        {
-            Guid uninstallGuid = new Guid("924c5816-7549-4556-ac2f-f1ab1af211b3");
-            const string uninstallRegKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Uninstall";
-
-            using (RegistryKey parent = Registry.CurrentUser.OpenSubKey(
-                         uninstallRegKeyPath, true))
-            {
-                if (parent == null)
-                {
-                    throw new Exception("Uninstall registry key not found.");
-                }
-                try
-                {
-                    RegistryKey key = null;
-
-                    try
-                    {
-                        string guidText = uninstallGuid.ToString("B");
-                        key = parent.OpenSubKey(guidText, true) ??
-                              parent.CreateSubKey(guidText);
-
-                        if (key == null)
-                        {
-                            throw new Exception(string.Format("Unable to create uninstaller '{0}\\{1}'", uninstallRegKeyPath,
-                                guidText));
-                        }
-
-                        Version v = new Version(FileVersionInfo.GetVersionInfo(exePath).ProductVersion);
-                        string exe;
-
-                        if (!dev)
-                        {
-                            exe = exePath;
-                            key.SetValue("DisplayName", "CSClock");
-                        }
-                        else
-                        {
-                            key.SetValue("DisplayName", "CSClock DEV");
-                            exe = devExePath;
-                        }
-                        key.SetValue("ApplicationVersion", v.ToString());
-                        key.SetValue("Publisher", "steel9");
-                        key.SetValue("DisplayIcon", exe);
-                        key.SetValue("DisplayVersion", v.ToString(2));
-                        key.SetValue("URLInfoAbout", "https://steel9apps.wixsite.com/csclock");
-                        key.SetValue("Contact", "steel9apps@gmail.com");
-                        key.SetValue("InstallDate", DateTime.Now.ToString("yyyyMMdd"));
-                        key.SetValue("UninstallString", exe + " -removal");
-                    }
-                    finally
-                    {
-                        if (key != null)
-                        {
-                            key.Close();
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception(
-                        "An error occurred writing uninstall information to the registry.  The service is fully installed but can only be uninstalled manually through the application or the command line.",
-                        ex);
-                }
-            }
-        }
-
-        static void CreateShortcut(string filePath, string shortcutPath,
-            string workingDir, string arguments = "", string description = "", string hotkey = "")
-        {
-            IWshRuntimeLibrary.WshShell shell = new IWshRuntimeLibrary.WshShell();
-            string shortcutAddress = shortcutPath;
-            IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut(shortcutAddress);
-            if (description != "")
-            {
-                shortcut.Description = description;
-            }
-            if (hotkey != "")
-            {
-                shortcut.Hotkey = hotkey;
-            }
-            if (arguments != "")
-            {
-                shortcut.Arguments = arguments;
-            }
-            shortcut.TargetPath = filePath;
-            shortcut.WorkingDirectory = workingDir;
-            shortcut.Save();
-        }
-
         static void Update()
         {
             logger.Log(className, "--APP UPDATE--", Logger.LogType.Info);
@@ -492,6 +503,121 @@ namespace OnlineSetup
             else
             {
                 Process.Start(devExePath);
+            }
+        }
+
+        private static void RemoveUninstallerFromReg()
+        {
+            Guid uninstallGuid = new Guid("924c5816-7549-4556-ac2f-f1ab1af211b3");
+            const string uninstallRegKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Uninstall";
+
+            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(uninstallRegKeyPath, true))
+            {
+                if (key == null)
+                {
+                    return;
+                }
+                try
+                {
+                    string guidText = uninstallGuid.ToString("B");
+                    RegistryKey child = key.OpenSubKey(guidText);
+                    if (child != null)
+                    {
+                        child.Close();
+                        key.DeleteSubKey(guidText);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception(
+                        "An error occurred removing uninstall information from the registry.  The service was uninstalled will still show up in the add/remove program list.  To remove it manually delete the entry HKLM\\" +
+                        uninstallRegKeyPath + "\\" + uninstallGuid, ex);
+                }
+            }
+        }
+
+        static void Uninstall(bool confirmMsg = true)
+        {
+            if (!confirmMsg || MessageBox.Show(rm_Messages.GetString("removalQuestion"), "CSClock",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                logger.Log(className, "--UNINSTALL--", Logger.LogType.Info);
+                if (dev)
+                {
+                    logger.Log(className, "-DEV-", Logger.LogType.Info);
+                }
+
+                //Close CSClock
+                logger.Log(className, "Closing CSClock", Logger.LogType.Info);
+                Process[] processes;
+                string procName = "CSClock";
+                processes = Process.GetProcessesByName(procName);
+                try
+                {
+                    foreach (Process proc in processes)
+                    {
+                        proc.CloseMainWindow();
+                        proc.WaitForExit();
+                    }
+                }
+                catch (NullReferenceException)
+                {
+                    logger.Log(className, "NullReferenceException occurred", Logger.LogType.Warning);
+                }
+                catch (Exception ex)
+                {
+                    logger.Log(className, "Error when closing CSClock, aborting uninstallation. Error: " + ex.ToString(), Logger.LogType.Error);
+                    return;
+                }
+
+                if (!dev)
+                {
+                    File.Delete(startupShortcutPath);
+                    File.Delete(startmenuShortcutPath);
+
+                    File.Delete(Path.Combine(installFolder, "CSClock.exe"));
+                    File.Delete(Path.Combine(installFolder, "log.txt"));
+                    File.Delete(Path.Combine(installFolder, "setuplog.txt"));
+                    File.Delete(Path.Combine(installFolder, "updupdaterlog.txt"));
+                    File.Delete(Path.Combine(installFolder, "exc.txt"));
+                    File.Delete(Path.Combine(installFolder, "statistics.xml"));
+
+                    RemoveUninstallerFromReg();
+                }
+                else
+                {
+                    File.Delete(devStartupShortcutPath);
+                    File.Delete(devStartmenuShortcutPath);
+
+                    File.Delete(Path.Combine(installFolder, "dev", "CSClock.exe"));
+                    File.Delete(Path.Combine(installFolder, "dev", "log.txt"));
+                    File.Delete(Path.Combine(installFolder, "dev", "setuplog.txt"));
+                    File.Delete(Path.Combine(installFolder, "dev", "updupdaterlog.txt"));
+                    File.Delete(Path.Combine(installFolder, "dev", "exc.txt"));
+                    File.Delete(Path.Combine(installFolder, "dev", "statistics.xml"));
+
+                    if (File.Exists(Path.Combine(installFolder, "CSClock.exe")))
+                    {
+                        File.Delete(Path.Combine(installFolder, "CSClock.exe"));
+                        File.Delete(Path.Combine(installFolder, "log.txt"));
+                        File.Delete(Path.Combine(installFolder, "setuplog.txt"));
+                        File.Delete(Path.Combine(installFolder, "updupdaterlog.txt"));
+                        File.Delete(Path.Combine(installFolder, "exc.txt"));
+                        File.Delete(Path.Combine(installFolder, "statistics.xml"));
+
+                        RemoveUninstallerFromReg();
+                    }
+                }
+
+                MessageBox.Show("CSClock is now uninstalled (almost). Press OK to finish", "CSClock Setup", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                string finisherScriptPath = Path.Combine(Path.GetTempPath(), "CSClockRemovalFinish.bat");
+                StreamWriter sw = new StreamWriter(finisherScriptPath);
+                sw.Write(Properties.Resources.removaltool);
+                sw.Close();
+
+                Process.Start(finisherScriptPath);
             }
         }
     }

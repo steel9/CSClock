@@ -56,6 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Resources\removaltool.bat" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.cs" />
@@ -64,6 +65,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </Compile>
     <Compile Include="Install.Designer.cs">
       <DependentUpon>Install.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Languages\English\Messages.Designer.cs">
+      <DependentUpon>Messages.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Languages\Swedish\Messages1.Designer.cs">
+      <DependentUpon>Messages.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Logger.cs" />
     <Compile Include="Program.cs" />
@@ -96,6 +107,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <ItemGroup>
     <EmbeddedResource Include="Install.resx">
       <DependentUpon>Install.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Languages\English\Messages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Languages\Swedish\Messages.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Messages1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
