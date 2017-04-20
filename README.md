@@ -5,6 +5,9 @@
 
 If everything works as it should, CSClock should automatically update at next app start (if an Internet connection is available). You should not have to update manually. In some cases, the update will not be installed immediately due to caching. To update manually, download the latest CSClock.exe and replace the old CSClock.exe with the new one (%localappdata%\CSClock\CSClock.exe). **NOTE:** The portable version (if you only download CSClock.exe and run it) does NOT contain the automatic updater. The portable version also still stores the user data in the CSClock folder in local appdata.   
    
+**3rd party libraries used:**  
+Json.NET by Newtonsoft - License is located in "JSON.NET_LICENSE.md"  
+  
 **NEWS:**  
 See NEWS.md  
    
