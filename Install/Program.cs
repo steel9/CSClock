@@ -45,6 +45,9 @@ namespace OnlineSetup
         static string exePath = Path.Combine(installFolder, "CSClock.exe");
         static string devExePath = Path.Combine(installFolder, "dev", "CSClock.exe");
 
+        static string setupExePath = Path.Combine(installFolder, "Setup.exe");
+        static string devSetupExePath = Path.Combine(installFolder, "dev", "Setup.exe");
+
         static string tempExePath = Path.Combine(Path.GetTempPath(), "CSClock.exe");
 
         static string logPath = Path.Combine(installFolder, "setuplog.txt");
@@ -138,7 +141,7 @@ namespace OnlineSetup
             }
         }
 
-        static void CreateUninstaller()
+        static void CreateUninstallerReg()
         {
             Guid uninstallGuid = new Guid("924c5816-7549-4556-ac2f-f1ab1af211b3");
             const string uninstallRegKeyPath = @"Software\Microsoft\Windows\CurrentVersion\Uninstall";
@@ -182,11 +185,18 @@ namespace OnlineSetup
                         key.SetValue("ApplicationVersion", v.ToString());
                         key.SetValue("Publisher", "steel9");
                         key.SetValue("DisplayIcon", exe);
-                        key.SetValue("DisplayVersion", v.ToString(2));
+                        key.SetValue("DisplayVersion", v.ToString(3));
                         key.SetValue("URLInfoAbout", "https://steel9apps.wixsite.com/csclock");
                         key.SetValue("Contact", "steel9apps@gmail.com");
                         key.SetValue("InstallDate", DateTime.Now.ToString("yyyyMMdd"));
-                        key.SetValue("UninstallString", exe + " -removal");
+                        if (!dev)
+                        {
+                            key.SetValue("UninstallString", setupExePath + " -uninstall");
+                        }
+                        else
+                        {
+                            key.SetValue("UninstallString", devSetupExePath + " -uninstall");
+                        }
                     }
                     finally
                     {
@@ -352,7 +362,7 @@ namespace OnlineSetup
                 MessageBox.Show("Error while creating shortcuts: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
-            CreateUninstaller();
+            CreateUninstallerReg();
 
             //Start CSClock
             logger.Log(className, "Starting CSClock", Logger.LogType.Info);
@@ -490,7 +500,7 @@ namespace OnlineSetup
             {
                 if (key == null)
                 {
-                    CreateUninstaller();
+                    CreateUninstallerReg();
                 }
             }
 
@@ -596,15 +606,8 @@ namespace OnlineSetup
                     File.Delete(Path.Combine(installFolder, "dev", "exc.txt"));
                     File.Delete(Path.Combine(installFolder, "dev", "statistics.xml"));
 
-                    if (File.Exists(Path.Combine(installFolder, "CSClock.exe")))
+                    if (!File.Exists(Path.Combine(installFolder, "CSClock.exe")))
                     {
-                        File.Delete(Path.Combine(installFolder, "CSClock.exe"));
-                        File.Delete(Path.Combine(installFolder, "log.txt"));
-                        File.Delete(Path.Combine(installFolder, "setuplog.txt"));
-                        File.Delete(Path.Combine(installFolder, "updupdaterlog.txt"));
-                        File.Delete(Path.Combine(installFolder, "exc.txt"));
-                        File.Delete(Path.Combine(installFolder, "statistics.xml"));
-
                         RemoveUninstallerFromReg();
                     }
                 }
