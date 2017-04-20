@@ -184,5 +184,12 @@ namespace CSClock
         {
             Process.Start("https://github.com/steel9/CSClock");
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Licenses lc = new Licenses();
+            lc.TopMost = this.TopMost;
+            lc.ShowDialog();
+        }
     }
 }

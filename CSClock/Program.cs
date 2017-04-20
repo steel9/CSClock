@@ -39,6 +39,7 @@ namespace CSClock
         static extern bool SetForegroundWindow(IntPtr hWnd);
 
         public static bool debug = false;
+        public static bool dev = false;
 
         public static Logger logger;
 
@@ -87,9 +88,17 @@ namespace CSClock
             AppDomain.CurrentDomain.UnhandledException += new
                 UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
-            if (args != null && args.Length > 0 && args.Contains("-np"))
+            if (args != null && args.Length > 0)
             {
-                portable = false;
+                if (args.Contains("-dev"))
+                {
+                    dev = true;
+                }
+
+                if (args.Contains("-np"))
+                {
+                    portable = false;
+                }
             }
 
             string logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");

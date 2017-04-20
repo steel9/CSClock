@@ -40,18 +40,18 @@ namespace OnlineSetup
 
         public static bool dev = false;
 
-        static string installFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");
+        static string installDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");
 
-        static string exePath = Path.Combine(installFolder, "CSClock.exe");
-        static string devExePath = Path.Combine(installFolder, "dev", "CSClock.exe");
+        static string exePath = Path.Combine(installDir, "CSClock.exe");
+        static string devExePath = Path.Combine(installDir, "dev", "CSClock.exe");
 
-        static string setupExePath = Path.Combine(installFolder, "Setup.exe");
-        static string devSetupExePath = Path.Combine(installFolder, "dev", "Setup.exe");
+        static string setupExePath = Path.Combine(installDir, "Setup.exe");
+        static string devSetupExePath = Path.Combine(installDir, "dev", "Setup.exe");
 
         static string tempExePath = Path.Combine(Path.GetTempPath(), "CSClock.exe");
 
-        static string logPath = Path.Combine(installFolder, "setuplog.txt");
-        static string devLogPath = Path.Combine(installFolder, "dev", "setuplog.txt");
+        static string logPath = Path.Combine(installDir, "setuplog.txt");
+        static string devLogPath = Path.Combine(installDir, "dev", "setuplog.txt");
 
         static string startupShortcutPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "CSClock.lnk");
         static string startmenuShortcutPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu), "CSClock.lnk");
@@ -66,9 +66,9 @@ namespace OnlineSetup
             Assembly assembly = Assembly.GetExecutingAssembly();
             rm_Messages = new ResourceManager(string.Format("OnlineSetup.Languages.{0}.Messages", selectedLanguage), assembly);
 
-            if (!Directory.Exists(installFolder))
+            if (!Directory.Exists(installDir))
             {
-                Directory.CreateDirectory(installFolder);
+                Directory.CreateDirectory(installDir);
             }
 
             if (args != null && args.Length > 0 && args.Contains("-dev"))
@@ -93,9 +93,9 @@ namespace OnlineSetup
                         MessageBoxIcon.Error);
                     return;
                 }
-                if (!Directory.Exists(Path.Combine(installFolder, "dev")))
+                if (!Directory.Exists(Path.Combine(installDir, "dev")))
                 {
-                    Directory.CreateDirectory(Path.Combine(installFolder, "dev"));
+                    Directory.CreateDirectory(Path.Combine(installDir, "dev"));
                 }
 
                 logger = new Logger("CSClock Online Setup", devLogPath, Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
@@ -254,6 +254,18 @@ namespace OnlineSetup
                 return;
             }
 
+            WebClient webClient = new WebClient();
+
+            logger.Log(className, "Downloading licenses", Logger.LogType.Info);
+            string licensesDir = Path.Combine(installDir, "licenses");
+            if (!Directory.Exists(licensesDir))
+            {
+                Directory.CreateDirectory(licensesDir);
+            }
+            webClient.DownloadFile("https://raw.githubusercontent.com/steel9/CSClock/master/LICENSE", Path.Combine(licensesDir, "CSClock-LICENSE"));
+            webClient.DownloadFile("https://raw.githubusercontent.com/steel9/CSClock/master/3rd-party-licenses/Json.NET-LICENSE.md", Path.Combine(licensesDir,
+                    "Json.NET-LICENSE.md"));
+
             //Download CSClock
             if (!dev)
             {
@@ -268,7 +280,6 @@ namespace OnlineSetup
             {
                 if (!dev)
                 {
-                    WebClient webClient = new WebClient();
                     webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/CSClock.exe", tempExePath);
                 }
                 else
@@ -318,11 +329,11 @@ namespace OnlineSetup
             {
                 if (!dev)
                 {
-                    File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "Setup.exe"), true);
+                    File.Copy(Application.ExecutablePath, Path.Combine(installDir, "Setup.exe"), true);
                 }
                 else
                 {
-                    File.Copy(Application.ExecutablePath, Path.Combine(installFolder, "dev", "Setup.exe"), true);
+                    File.Copy(Application.ExecutablePath, Path.Combine(installDir, "dev", "Setup.exe"), true);
                 }
             }
             catch (Exception ex)
@@ -394,8 +405,26 @@ namespace OnlineSetup
                 return;
             }
 
-            //Check if update is needed
             WebClient webClient = new WebClient();
+
+            logger.Log(className, "Downloading licenses", Logger.LogType.Info);
+            string licensesDir = Path.Combine(installDir, "licenses");
+            if (!Directory.Exists(licensesDir))
+            {
+                Directory.CreateDirectory(licensesDir);
+            }
+            if (!File.Exists(Path.Combine(licensesDir, "CSClock-LICENSE")))
+            {
+                webClient.DownloadFile("https://raw.githubusercontent.com/steel9/CSClock/master/LICENSE", Path.Combine(licensesDir, "CSClock-LICENSE"));
+            }
+            if (!File.Exists(Path.Combine(licensesDir, "Json.NET-LICENSE.md")))
+            {
+                webClient.DownloadFile("https://raw.githubusercontent.com/steel9/CSClock/master/3rd-party-licenses/Json.NET-LICENSE.md", Path.Combine(licensesDir,
+                    "Json.NET-LICENSE.md"));
+            }
+
+
+            //Check if update is needed
             FileVersionInfo currVer = FileVersionInfo.GetVersionInfo(exePath);
             Version currentVersion = new Version(string.Format("{0}.{1}.{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
                 currVer.FileBuildPart.ToString()));
@@ -585,12 +614,12 @@ namespace OnlineSetup
                     File.Delete(startupShortcutPath);
                     File.Delete(startmenuShortcutPath);
 
-                    File.Delete(Path.Combine(installFolder, "CSClock.exe"));
-                    File.Delete(Path.Combine(installFolder, "log.txt"));
-                    File.Delete(Path.Combine(installFolder, "setuplog.txt"));
-                    File.Delete(Path.Combine(installFolder, "updupdaterlog.txt"));
-                    File.Delete(Path.Combine(installFolder, "exc.txt"));
-                    File.Delete(Path.Combine(installFolder, "statistics.xml"));
+                    File.Delete(Path.Combine(installDir, "CSClock.exe"));
+                    File.Delete(Path.Combine(installDir, "log.txt"));
+                    File.Delete(Path.Combine(installDir, "setuplog.txt"));
+                    File.Delete(Path.Combine(installDir, "updupdaterlog.txt"));
+                    File.Delete(Path.Combine(installDir, "exc.txt"));
+                    File.Delete(Path.Combine(installDir, "statistics.xml"));
 
                     RemoveUninstallerFromReg();
                 }
@@ -599,14 +628,14 @@ namespace OnlineSetup
                     File.Delete(devStartupShortcutPath);
                     File.Delete(devStartmenuShortcutPath);
 
-                    File.Delete(Path.Combine(installFolder, "dev", "CSClock.exe"));
-                    File.Delete(Path.Combine(installFolder, "dev", "log.txt"));
-                    File.Delete(Path.Combine(installFolder, "dev", "setuplog.txt"));
-                    File.Delete(Path.Combine(installFolder, "dev", "updupdaterlog.txt"));
-                    File.Delete(Path.Combine(installFolder, "dev", "exc.txt"));
-                    File.Delete(Path.Combine(installFolder, "dev", "statistics.xml"));
+                    File.Delete(Path.Combine(installDir, "dev", "CSClock.exe"));
+                    File.Delete(Path.Combine(installDir, "dev", "log.txt"));
+                    File.Delete(Path.Combine(installDir, "dev", "setuplog.txt"));
+                    File.Delete(Path.Combine(installDir, "dev", "updupdaterlog.txt"));
+                    File.Delete(Path.Combine(installDir, "dev", "exc.txt"));
+                    File.Delete(Path.Combine(installDir, "dev", "statistics.xml"));
 
-                    if (!File.Exists(Path.Combine(installFolder, "CSClock.exe")))
+                    if (!File.Exists(Path.Combine(installDir, "CSClock.exe")))
                     {
                         RemoveUninstallerFromReg();
                     }
