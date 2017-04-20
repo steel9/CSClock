@@ -26,7 +26,6 @@ using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
 using System.Resources;
-using Microsoft.Win32;
 
 namespace CSClock
 {
@@ -456,6 +455,8 @@ namespace CSClock
             if (MessageBox.Show(rm_Messages.GetString("quitConfirmationDialog_text"), "CSClock", MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question) == DialogResult.Yes)
             {
+                Properties.Settings.Default.properExit = true;
+                Properties.Settings.Default.Save();
                 Application.Exit();
             }
         }

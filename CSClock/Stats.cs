@@ -27,21 +27,23 @@ namespace CSClock
         public static string installDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");
         public static string statisticsFile = Path.Combine(installDir, "statistics.json");
 
-        public static uint secondsElapsed = 0;
-        public static uint overtimeSecondsElapsed = 0;
+        public static int secondsElapsed = 0;
+        public static int overtimeSecondsElapsed = 0;
 
         public static void UpdateStatistics()
         {
+            Program.CSClockForm.Save(false);
+
             if (File.Exists(statisticsFile))
             {
                 StreamReader sr = new StreamReader(statisticsFile);
                 Stat statsDz = JsonConvert.DeserializeObject<Stat>(sr.ReadToEnd());
                 sr.Close();
 
-                statsDz.hoursSpent += (secondsElapsed / 1200);
+                statsDz.hoursSpent += (decimal)secondsElapsed / 3600;
                 secondsElapsed = 0;
 
-                statsDz.overtimeHoursSpent += (overtimeSecondsElapsed / 1200);
+                statsDz.overtimeHoursSpent += (decimal)overtimeSecondsElapsed / 3600;
                 overtimeSecondsElapsed = 0;
 
                 if (statsDz.lastDaysSpentUpdate.Date != DateTime.Now.Date)
@@ -60,10 +62,10 @@ namespace CSClock
 
                 stats.startDateTime = DateTime.Now;
 
-                stats.hoursSpent = (secondsElapsed / 1200);
+                stats.hoursSpent = (decimal)secondsElapsed / 3600;
                 secondsElapsed = 0;
 
-                stats.overtimeHoursSpent = (overtimeSecondsElapsed / 1200);
+                stats.overtimeHoursSpent = (decimal)overtimeSecondsElapsed / 3600;
                 overtimeSecondsElapsed = 0;
 
                 stats.daysSpent++;
@@ -84,7 +86,7 @@ namespace CSClock
             return statsDz.startDateTime;
         }
 
-        public static ulong TotalHoursSpent()
+        public static decimal TotalHoursSpent()
         {
             StreamReader sr = new StreamReader(statisticsFile);
             Stat statsDz = JsonConvert.DeserializeObject<Stat>(sr.ReadToEnd());
@@ -93,7 +95,7 @@ namespace CSClock
             return statsDz.hoursSpent;
         }
 
-        public static ulong AverageHoursSpent()
+        public static decimal AverageHoursSpent()
         {
             StreamReader sr = new StreamReader(statisticsFile);
             Stat statsDz = JsonConvert.DeserializeObject<Stat>(sr.ReadToEnd());
@@ -102,7 +104,7 @@ namespace CSClock
             return statsDz.hoursSpent / statsDz.daysSpent;
         }
 
-        public static ulong TotalOvertimeHoursSpent()
+        public static decimal TotalOvertimeHoursSpent()
         {
             StreamReader sr = new StreamReader(statisticsFile);
             Stat statsDz = JsonConvert.DeserializeObject<Stat>(sr.ReadToEnd());
@@ -111,7 +113,7 @@ namespace CSClock
             return statsDz.overtimeHoursSpent;
         }
 
-        public static ulong AverageOvertimeHoursSpent()
+        public static decimal AverageOvertimeHoursSpent()
         {
             StreamReader sr = new StreamReader(statisticsFile);
             Stat statsDz = JsonConvert.DeserializeObject<Stat>(sr.ReadToEnd());

@@ -162,26 +162,27 @@ namespace CSClock
                 {
                     SystemEvents.SessionSwitch -= SystemEvents_SessionSwitch;
                 }
-                Program.notifyIcon1.Visible = false;
+                Program.notifyIcon1.Visible = false; 
+
+                Program.logger.Log(className, "Done", Logger.LogType.Info);
 
                 Properties.Settings.Default.properExit = true;
                 Properties.Settings.Default.Save();
-
-                Program.logger.Log(className, "Done", Logger.LogType.Info);
             }
         }
 
-        public void Save()
+        public void Save(bool updateStatistics = true)
         {
             Program.logger.Log(className, "Saving...", Logger.LogType.Info);
             Properties.Settings.Default.secondsElapsed = secondsElapsed;
             if (overtimeC)
             {
                 Properties.Settings.Default.overtimeMinutes = (decimal)(secondsElapsed - maximumSeconds) / 60;
-                Stats.overtimeSecondsElapsed = (uint)(secondsElapsed - maximumSeconds);
             }
-            Stats.secondsElapsed = (uint)secondsElapsed;
-            Stats.UpdateStatistics();
+            if (updateStatistics)
+            {
+                Stats.UpdateStatistics();
+            }
             Properties.Settings.Default.Save();
             Program.logger.Log(className, "Saved", Logger.LogType.Info);
         }
@@ -409,6 +410,7 @@ namespace CSClock
         private void timer_Tick(object sender, EventArgs e)
         {
             secondsElapsed++;
+            Stats.secondsElapsed++;
 
             timeElapsed = TimeSpan.FromSeconds(secondsElapsed).ToString(@"hh\:mm\:ss");
 
@@ -420,11 +422,13 @@ namespace CSClock
             else if (maximumSeconds > 0 && maximumSeconds + maximumSecondsOvertime >= secondsElapsed)
             {
                 timeRemaining = TimeSpan.FromSeconds((maximumSeconds + maximumSecondsOvertime) - secondsElapsed).ToString(@"hh\:mm\:ss");
+                Stats.overtimeSecondsElapsed++;
             }
             else if (maximumSeconds > 0)
             {
                 timeRemaining = "-" + TimeSpan.FromSeconds((maximumSeconds + maximumSecondsOvertime) - secondsElapsed).ToString(@"hh\:mm\:ss");
                 l_exclM.Visible = true;
+                Stats.overtimeSecondsElapsed++;
             }
             
 
@@ -612,6 +616,12 @@ namespace CSClock
         private void saveTimer_Tick(object sender, EventArgs e)
         {
             Save();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Statistics statistics = new Statistics();
+            statistics.ShowDialog();
         }
     }
 }

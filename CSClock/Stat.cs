@@ -6,11 +6,11 @@ namespace CSClock
     {
         public DateTime startDateTime;
 
-        public ulong daysSpent;
+        public decimal daysSpent;
         public DateTime lastDaysSpentUpdate;
 
-        public ulong hoursSpent;
+        public decimal hoursSpent;
 
-        public ulong overtimeHoursSpent;
+        public decimal overtimeHoursSpent;
     }
 }

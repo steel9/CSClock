@@ -44,9 +44,10 @@ namespace CSClock
         private void Statistics_Load(object sender, EventArgs e)
         {
             Stats.UpdateStatistics();
+
             this.Location = Program.CSClockForm.Location;
 
-            l_startDate.Text = "Since " + Stats.StartDateTime().Date.ToString();
+            l_startDate.Text = "Since " + Stats.StartDateTime().Date.ToString("yyyy-MM-dd");
             l_totalHrsSpent.Text = Stats.TotalHoursSpent().ToString();
             l_avgHrsSpent.Text = Stats.AverageHoursSpent().ToString();
         }

@@ -121,6 +121,7 @@ namespace CSClock
                 && Program.CSClockForm.secondsElapsed + secondsChange > 0)
             {
                 Program.CSClockForm.secondsElapsed += secondsChange;
+                Stats.secondsElapsed += secondsChange;
             }
             else
             {
