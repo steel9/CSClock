@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -39,7 +40,6 @@ namespace CSClock
             if (!Program.dev)
             {
                 sr = new StreamReader(Path.Combine(licensesDir, btnsLicenses[((Button)sender).Name]));
-                
             }
             else
             {
@@ -48,7 +48,17 @@ namespace CSClock
             richTextBox1.Text = sr.ReadToEnd();
             sr.Close();
 
-            l_lcOf.Text = "License of: " + btnsLicensesOf[((Button)sender).Name];
+            l_lcOf.Text = Program.rm_LicensesForm.GetString("l_lcOf_startText") + " " +
+                btnsLicensesOf[((Button)sender).Name];
+        }
+
+        private void Licenses_Load(object sender, EventArgs e)
+        {
+            Program.rm_LicensesForm = new ResourceManager(string.Format("CSClock.Languages.{0}.LicensesForm", Program.selectedLanguage), Program.assembly);
+
+            label2.Text = Program.rm_LicensesForm.GetString("l_3rdpartylibraries_text");
+            label3.Text = Program.rm_LicensesForm.GetString("l_instructions_text");
+            l_lcOf.Text = Program.rm_LicensesForm.GetString("l_lcOf_startText");
         }
     }
 }

@@ -99,8 +99,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <DesignTime>True</DesignTime>
       <DependentUpon>AddSubtractTime.resx</DependentUpon>
     </Compile>
+    <Compile Include="Languages\English\LicensesForm.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>LicensesForm.resx</DependentUpon>
+    </Compile>
     <Compile Include="Languages\Swedish\AddSubtractTime.Designer.cs">
       <DependentUpon>AddSubtractTime.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Languages\Swedish\LicensesForm.Designer.cs">
+      <DependentUpon>LicensesForm.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
@@ -224,10 +234,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AddSubtractTime.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Languages\English\LicensesForm.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LicensesForm.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Languages\Swedish\AddSubtractTime.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AddSubtractTime.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Languages\Swedish\LicensesForm.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>LicensesForm.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Languages\Swedish\Messages.resx">
       <Generator>ResXFileCodeGenerator</Generator>

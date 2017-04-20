@@ -67,7 +67,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Install";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Install";
+            this.Text = "Installing CSClock";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Install_FormClosing);
             this.Load += new System.EventHandler(this.Install_Load);
             this.Shown += new System.EventHandler(this.Install_Shown);
