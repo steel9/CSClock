@@ -406,6 +406,7 @@ namespace CSClock
         private void timer_Tick(object sender, EventArgs e)
         {
             secondsElapsed++;
+            Stats.secondsElapsed++;
 
             timeElapsed = TimeSpan.FromSeconds(secondsElapsed).ToString(@"hh\:mm\:ss");
 

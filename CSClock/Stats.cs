@@ -18,139 +18,106 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 using System;
 using System.IO;
-using System.Xml;
+using Newtonsoft.Json;
 
 namespace CSClock
 {
     static class Stats
     {
         public static string installDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");
-        public static string statisticsFile = Path.Combine(installDir, "statistics.xml");
+        public static string statisticsFile = Path.Combine(installDir, "statistics.json");
 
-        private static XmlDocument statXml_ = null; //do not call statXml_ in code, call statXml !
-        public static XmlDocument statXml
+        public static uint secondsElapsed = 0;
+        public static uint overtimeSecondsElapsed = 0;
+
+        public static void UpdateStatistics()
         {
-            get
+            if (File.Exists(statisticsFile))
             {
-                XmlElement statElement;
-                if (statXml_ != null)
+                StreamReader sr = new StreamReader(statisticsFile);
+                Stat statsDz = JsonConvert.DeserializeObject<Stat>(sr.ReadToEnd());
+                sr.Close();
+
+                statsDz.hoursSpent += (secondsElapsed / 1200);
+                secondsElapsed = 0;
+
+                statsDz.overtimeHoursSpent += (overtimeSecondsElapsed / 1200);
+                overtimeSecondsElapsed = 0;
+
+                if (statsDz.lastDaysSpentUpdate.Date != DateTime.Now.Date)
                 {
-                    //Xml is already loaded
-                    return statXml_;
+                    statsDz.daysSpent++;
+                    statsDz.lastDaysSpentUpdate = DateTime.Now;
                 }
-                else if (!File.Exists(statisticsFile))
-                {
-                    //Xml isn't created
-                    statXml_ = new XmlDocument();
-                    XmlDeclaration xmlDeclaration = statXml_.CreateXmlDeclaration("1.0", "UTF-8", null);
-                    XmlElement root = statXml_.DocumentElement;
-                    statXml_.InsertBefore(xmlDeclaration, root);
-                    statElement = statXml_.CreateElement(string.Empty, "Statistics", string.Empty);
-                    XmlElement weekStatsElement = statXml_.CreateElement(string.Empty, "WeekStatistics", string.Empty);
-                    XmlElement timeSpentElement = statXml_.CreateElement(string.Empty, "TimeSpent", string.Empty);
-                    XmlElement daysTimeSpentElement = statXml_.CreateElement(string.Empty, "DaysTimeSpent", string.Empty);
-                    XmlElement lastUpdateElement = statXml_.CreateElement(string.Empty, "LastUpdate", string.Empty);
-                    XmlText timeSpentText = statXml_.CreateTextNode("0");
-                    XmlText daysTimeSpentText = statXml_.CreateTextNode("0");
-                    XmlText lastUpdateText = statXml_.CreateTextNode("-");
-                    timeSpentElement.AppendChild(timeSpentText);
-                    daysTimeSpentElement.AppendChild(daysTimeSpentText);
-                    lastUpdateElement.AppendChild(lastUpdateText);
-                    weekStatsElement.AppendChild(timeSpentElement);
-                    weekStatsElement.AppendChild(daysTimeSpentElement);
-                    weekStatsElement.AppendChild(lastUpdateElement);
-                    statElement.AppendChild(weekStatsElement);
-                    statXml_.AppendChild(statElement);
-                    statXml_.Save(statisticsFile);
-                 }
-                 else
-                 {
-                    //Xml is created, but not loaded
-                    statXml_ = new XmlDocument();
-                    statXml_.Load(statisticsFile);
-                 }
-                return statXml_;
-            }
-            set
-            {
-                statXml_ = value;
-            }
-        }
 
-        public static void UpdateStatistics(int secsElapsed)
-        {
-            //Week statistics
-            int timeSpent = int.Parse(statXml.SelectSingleNode("//WeekStatistics/TimeSpent").InnerText);
-            int daysTimeSpent_ = int.Parse(statXml.SelectSingleNode("//WeekStatistics/DaysTimeSpent").InnerText);
-            timeSpent += secsElapsed;
-
-            var lastUpd_ = statXml.SelectSingleNode("//WeekStatistics/LastUpdate").InnerText;
-            ulong lastUpd;
-            if (lastUpd_ == "-")
-            {
-                lastUpd = 0;
+                StreamWriter sw = new StreamWriter(statisticsFile, false);
+                sw.Write(JsonConvert.SerializeObject(statsDz));
+                sw.Close();
             }
             else
             {
-                lastUpd = ulong.Parse(lastUpd_);
-            }
+                Stat stats = new Stat();
 
-            var currentDate = ulong.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"));
-            if (currentDate > lastUpd)
-            {
-                daysTimeSpent_ += 1;
-            }
+                stats.startDateTime = DateTime.Now;
 
-            statXml.SelectSingleNode("//WeekStatistics/TimeSpent").InnerText = timeSpent.ToString();
-            statXml.SelectSingleNode("//WeekStatistics/LastUpdate").InnerText = DateTime.Now.ToString("yyyyMMddHHmmss");
-            statXml.Save(Path.GetFileName(statisticsFile));
-        }
+                stats.hoursSpent = (secondsElapsed / 1200);
+                secondsElapsed = 0;
 
-        public static int averageWeekTimeSpent()
-        {
-            CheckFixWeekStatDate();
+                stats.overtimeHoursSpent = (overtimeSecondsElapsed / 1200);
+                overtimeSecondsElapsed = 0;
 
-            var timeSpent = int.Parse(statXml.SelectSingleNode("//WeekStatistics/TimeSpent").InnerText);
-            var days = int.Parse(statXml.SelectSingleNode("//WeekStatistics/DaysTimeSpent").InnerText);
+                stats.daysSpent++;
+                stats.lastDaysSpentUpdate = DateTime.Now;
 
-            try
-            {
-                return timeSpent / days;
-            }
-            catch (DivideByZeroException)
-            {
-                return 0;
+                StreamWriter sw = new StreamWriter(statisticsFile, false);
+                sw.Write(JsonConvert.SerializeObject(stats));
+                sw.Close();
             }
         }
 
-        public static void CheckFixWeekStatDate()
+        public static DateTime startDateTime()
         {
-            var lastUpd_ = statXml.SelectSingleNode("//WeekStatistics/LastUpdate").InnerText;
-            ulong lastUpd;
-            if (lastUpd_ == "-")
-            {
-                lastUpd = 0;
-            }
-            else
-            {
-                lastUpd = ulong.Parse(lastUpd_);
-            }
+            StreamReader sr = new StreamReader(statisticsFile);
+            Stat statsDz = JsonConvert.DeserializeObject<Stat>(sr.ReadToEnd());
+            sr.Close();
 
-            var currentDate = ulong.Parse(DateTime.Now.ToString("yyyyMMddHHmmss"));
-            var currentWeekDay = (ulong)DateTime.Now.DayOfWeek;
-
-            if (currentDate - lastUpd > currentWeekDay)
-            {
-                ClearWeekStatistics();
-            }
+            return statsDz.startDateTime;
         }
 
-        private static void ClearWeekStatistics()
+        public static ulong HoursSpent()
         {
-            statXml.SelectSingleNode("//WeekStatistics/TimeSpent").InnerText = "0";
-            statXml.SelectSingleNode("//WeekStatistics/DaysTimeSpent").InnerText = "0";
-            statXml.SelectSingleNode("//WeekStatistics/LastUpdate").InnerText = DateTime.Now.ToString("yyyyMMddHHmmss");
-            statXml.Save(Path.GetFileName(statisticsFile));
+            StreamReader sr = new StreamReader(statisticsFile);
+            Stat statsDz = JsonConvert.DeserializeObject<Stat>(sr.ReadToEnd());
+            sr.Close();
+
+            return statsDz.hoursSpent;
+        }
+
+        public static ulong AverageHoursSpent()
+        {
+            StreamReader sr = new StreamReader(statisticsFile);
+            Stat statsDz = JsonConvert.DeserializeObject<Stat>(sr.ReadToEnd());
+            sr.Close();
+
+            return statsDz.hoursSpent / statsDz.daysSpent;
+        }
+
+        public static ulong OvertimeHoursSpent()
+        {
+            StreamReader sr = new StreamReader(statisticsFile);
+            Stat statsDz = JsonConvert.DeserializeObject<Stat>(sr.ReadToEnd());
+            sr.Close();
+
+            return statsDz.overtimeHoursSpent;
+        }
+
+        public static ulong AverageOvertimeHoursSpent()
+        {
+            StreamReader sr = new StreamReader(statisticsFile);
+            Stat statsDz = JsonConvert.DeserializeObject<Stat>(sr.ReadToEnd());
+            sr.Close();
+
+            return statsDz.overtimeHoursSpent / statsDz.daysSpent;
         }
     }
 }
