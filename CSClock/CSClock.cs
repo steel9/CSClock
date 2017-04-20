@@ -178,7 +178,10 @@ namespace CSClock
             if (overtimeC)
             {
                 Properties.Settings.Default.overtimeMinutes = (decimal)(secondsElapsed - maximumSeconds) / 60;
+                Stats.overtimeSecondsElapsed = (uint)(secondsElapsed - maximumSeconds);
             }
+            Stats.secondsElapsed = (uint)secondsElapsed;
+            Stats.UpdateStatistics();
             Properties.Settings.Default.Save();
             Program.logger.Log(className, "Saved", Logger.LogType.Info);
         }
@@ -406,10 +409,10 @@ namespace CSClock
         private void timer_Tick(object sender, EventArgs e)
         {
             secondsElapsed++;
-            Stats.secondsElapsed++;
 
             timeElapsed = TimeSpan.FromSeconds(secondsElapsed).ToString(@"hh\:mm\:ss");
 
+            //checking if maximumSeconds > 0 because if maximumSeconds is 0, limitation is disabled
             if (maximumSeconds > 0 && !overtimeC && !overtimeY)
             {
                 timeRemaining = TimeSpan.FromSeconds(maximumSeconds - secondsElapsed).ToString(@"hh\:mm\:ss");
@@ -604,6 +607,11 @@ namespace CSClock
                     "contact me by pressing the help button now", "CSClock", MessageBoxButtons.OK, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button1,
                     0, "https://steel9apps.wixsite.com/csclock/contact");
             }
+        }
+
+        private void saveTimer_Tick(object sender, EventArgs e)
+        {
+            Save();
         }
     }
 }

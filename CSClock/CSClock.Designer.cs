@@ -65,6 +65,7 @@ namespace CSClock
             this.restartEveryDayTimer = new System.Windows.Forms.Timer(this.components);
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.button_quit = new System.Windows.Forms.Button();
+            this.saveTimer = new System.Windows.Forms.Timer(this.components);
             this.panel_home.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -220,6 +221,11 @@ namespace CSClock
             this.button_quit.UseVisualStyleBackColor = true;
             this.button_quit.Click += new System.EventHandler(this.button_quit_Click);
             // 
+            // saveTimer
+            // 
+            this.saveTimer.Interval = 60000;
+            this.saveTimer.Tick += new System.EventHandler(this.saveTimer_Tick);
+            // 
             // CSClock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -269,6 +275,7 @@ namespace CSClock
         private System.Windows.Forms.Button button_quit;
         private System.Windows.Forms.Button button_fwrdRwndTime;
         private System.Windows.Forms.Label l_exclM;
+        private System.Windows.Forms.Timer saveTimer;
     }
 }
 
