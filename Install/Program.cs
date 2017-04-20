@@ -646,7 +646,7 @@ namespace OnlineSetup
 
                 string finisherScriptPath = Path.Combine(Path.GetTempPath(), "CSClockRemovalFinish.bat");
                 StreamWriter sw = new StreamWriter(finisherScriptPath);
-                sw.Write(Properties.Resources.removaltool);
+                sw.Write(Properties.Resources.removalfinisher);
                 sw.Close();
 
                 Process.Start(finisherScriptPath);

@@ -92,9 +92,9 @@ namespace OnlineSetup.Properties {
         ///@REM 		This program is distributed in the hope that it will be useful,
         ///@REM 		but WITHOUT ANY WARRANTY; without even the implied w [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string removaltool {
+        internal static string removalfinisher {
             get {
-                return ResourceManager.GetString("removaltool", resourceCulture);
+                return ResourceManager.GetString("removalfinisher", resourceCulture);
             }
         }
     }
