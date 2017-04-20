@@ -204,6 +204,7 @@ namespace CSClock
             label3.Text = Program.rm_GUI.GetString("label3_text");
             button_quit.Text = Program.rm_GUI.GetString("quit");
             button_about.Text = Program.rm_GUI.GetString("button_about_text");
+            button_stats.Text = Program.rm_GUI.GetString("button_stats_text");
             toolTip1.SetToolTip(button1, Program.rm_GUI.GetString("button1_toolTip_text"));
             toolTip1.SetToolTip(button_fwrdRwndTime, Program.rm_GUI.GetString("button2_toolTip_text"));
             toolTip1.SetToolTip(l_exclM, Program.rm_GUI.GetString("exclM_toolTip_text"));
@@ -212,7 +213,7 @@ namespace CSClock
             if (Program.debug)
             {
                 this.Text = "CSClock DEBUG";
-                label_version.Text += " DEBUGGING MODE";
+                label_version.Text += " DEBUG";
             }
 
             if (Properties.Settings.Default.configured)

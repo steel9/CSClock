@@ -104,6 +104,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <DesignTime>True</DesignTime>
       <DependentUpon>LicensesForm.resx</DependentUpon>
     </Compile>
+    <Compile Include="Languages\English\Statistics.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Statistics.resx</DependentUpon>
+    </Compile>
     <Compile Include="Languages\Swedish\AddSubtractTime.Designer.cs">
       <DependentUpon>AddSubtractTime.resx</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -190,6 +195,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <DesignTime>True</DesignTime>
       <DependentUpon>SetOvertime.resx</DependentUpon>
     </Compile>
+    <Compile Include="Languages\Swedish\Statistics.Designer.cs">
+      <DependentUpon>Statistics.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Licenses.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -237,6 +247,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <EmbeddedResource Include="Languages\English\LicensesForm.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>LicensesForm.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Languages\English\Statistics.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Statistics.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Languages\Swedish\AddSubtractTime.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -315,6 +329,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>SetOvertime.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Languages\Swedish\Statistics.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Statistics.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Licenses.resx">
       <DependentUpon>Licenses.cs</DependentUpon>

@@ -117,43 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="button1_toolTip_text" xml:space="preserve">
-    <value>Konfigurera</value>
+  <data name="l_avgHrsSpent_text" xml:space="preserve">
+    <value>Timmar spenderade i genomsnitt / dag:</value>
   </data>
-  <data name="button2_toolTip_text" xml:space="preserve">
-    <value>Addera/subtrahera datortid</value>
+  <data name="l_avgOvertimeHrsSpent_text" xml:space="preserve">
+    <value>Övertidstimmar spenderade i genomsnitt / dag:</value>
   </data>
-  <data name="button_about_text" xml:space="preserve">
-    <value>Om</value>
+  <data name="l_since_startText" xml:space="preserve">
+    <value>Sedan:</value>
   </data>
-  <data name="button_stats_text" xml:space="preserve">
-    <value>Statistik</value>
+  <data name="l_totalHrsSpent_text" xml:space="preserve">
+    <value>Timmar spenderade totalt:</value>
   </data>
-  <data name="exclM_toolTip_text" xml:space="preserve">
-    <value>Din datortid är slut!</value>
-  </data>
-  <data name="label1_text" xml:space="preserve">
-    <value>Förfluten tid</value>
-  </data>
-  <data name="label3_text" xml:space="preserve">
-    <value>Återstående tid</value>
-  </data>
-  <data name="label_configRequired_text" xml:space="preserve">
-    <value>Konfiguration behövs, tryck på kugghjulet</value>
-  </data>
-  <data name="pause" xml:space="preserve">
-    <value>Pausa</value>
-  </data>
-  <data name="pauseResume" xml:space="preserve">
-    <value>Pausa/återuppta</value>
-  </data>
-  <data name="quit" xml:space="preserve">
-    <value>Avsluta</value>
-  </data>
-  <data name="resume" xml:space="preserve">
-    <value>Återuppta</value>
-  </data>
-  <data name="showGUI" xml:space="preserve">
-    <value>Öppna</value>
+  <data name="l_totalOvertimeHrsSpent_text" xml:space="preserve">
+    <value>Övertidstimmar spenderade totalt:</value>
   </data>
 </root>

@@ -70,6 +70,15 @@ namespace CSClock.Languages.English {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Stats.
+        /// </summary>
+        internal static string button_stats_text {
+            get {
+                return ResourceManager.GetString("button_stats_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Configure.
         /// </summary>
         internal static string button1_toolTip_text {

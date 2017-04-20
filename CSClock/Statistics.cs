@@ -17,13 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Resources;
 using System.Windows.Forms;
 
 namespace CSClock
@@ -43,13 +37,30 @@ namespace CSClock
 
         private void Statistics_Load(object sender, EventArgs e)
         {
+            Program.rm_Statistics = new ResourceManager(string.Format("CSClock.Languages.{0}.Statistics", Program.selectedLanguage), Program.assembly);
+
             Stats.UpdateStatistics();
 
             this.Location = Program.CSClockForm.Location;
 
-            l_startDate.Text = "Since " + Stats.StartDateTime().Date.ToString("yyyy-MM-dd");
-            l_totalHrsSpent.Text = Stats.TotalHoursSpent().ToString();
-            l_avgHrsSpent.Text = Stats.AverageHoursSpent().ToString();
+            l_startDate.Text = Program.rm_Statistics.GetString("l_since_startText") + " " + Stats.StartDateTime().Date.ToString("yyyy-MM-dd");
+
+            label1.Text = Program.rm_Statistics.GetString("l_totalHrsSpent_text");
+            l_totalHrsSpent.Text = Math.Round(Stats.TotalHoursSpent(), 3).ToString();
+
+            label5.Text = Program.rm_Statistics.GetString("l_avgHrsSpent_text");
+            l_avgHrsSpent.Text = Math.Round(Stats.AverageHoursSpent(), 3).ToString();
+
+            label4.Text = Program.rm_Statistics.GetString("l_totalOvertimeHrsSpent_text");
+            l_totalOvertimeHrsSpent.Text = Math.Round(Stats.TotalOvertimeHoursSpent(), 3).ToString();
+
+            label8.Text = Program.rm_Statistics.GetString("l_avgOvertimeHrsSpent_text");
+            l_avgOvertimeHrsSpent.Text = Math.Round(Stats.AverageOvertimeHoursSpent(), 3).ToString();
+        }
+
+        private void Statistics_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Program.rm_Statistics = null;
         }
     }
 }

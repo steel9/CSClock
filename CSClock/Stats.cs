@@ -53,7 +53,7 @@ namespace CSClock
                 }
 
                 StreamWriter sw = new StreamWriter(statisticsFile, false);
-                sw.Write(JsonConvert.SerializeObject(statsDz));
+                sw.Write(JsonConvert.SerializeObject(statsDz, Formatting.Indented));
                 sw.Close();
             }
             else
@@ -72,7 +72,7 @@ namespace CSClock
                 stats.lastDaysSpentUpdate = DateTime.Now;
 
                 StreamWriter sw = new StreamWriter(statisticsFile, false);
-                sw.Write(JsonConvert.SerializeObject(stats));
+                sw.Write(JsonConvert.SerializeObject(stats, Formatting.Indented));
                 sw.Close();
             }
         }

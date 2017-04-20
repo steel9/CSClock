@@ -64,6 +64,7 @@ namespace CSClock
         public static ResourceManager rm_SetOvertime = null;
         public static ResourceManager rm_AddSubtractTime = null;
         public static ResourceManager rm_LicensesForm = null;
+        public static ResourceManager rm_Statistics = null;
 
         private static bool portable = true;
 

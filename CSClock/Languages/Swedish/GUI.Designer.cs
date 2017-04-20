@@ -70,6 +70,15 @@ namespace CSClock.Languages.Swedish {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Statistik.
+        /// </summary>
+        internal static string button_stats_text {
+            get {
+                return ResourceManager.GetString("button_stats_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Konfigurera.
         /// </summary>
         internal static string button1_toolTip_text {
