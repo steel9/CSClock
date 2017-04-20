@@ -2,73 +2,73 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="CSClock.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="configured" Type="System.Boolean" Scope="User">
+    <Setting Name="configured" Provider="PortableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="maximumHoursMon" Type="System.Decimal" Scope="User">
+    <Setting Name="maximumHoursMon" Provider="PortableSettingsProvider" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="maximumHoursTue" Type="System.Decimal" Scope="User">
+    <Setting Name="maximumHoursTue" Provider="PortableSettingsProvider" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="maximumHoursWed" Type="System.Decimal" Scope="User">
+    <Setting Name="maximumHoursWed" Provider="PortableSettingsProvider" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="maximumHoursThu" Type="System.Decimal" Scope="User">
+    <Setting Name="maximumHoursThu" Provider="PortableSettingsProvider" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="maximumHoursFri" Type="System.Decimal" Scope="User">
+    <Setting Name="maximumHoursFri" Provider="PortableSettingsProvider" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="maximumHoursSat" Type="System.Decimal" Scope="User">
+    <Setting Name="maximumHoursSat" Provider="PortableSettingsProvider" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="maximumHoursSun" Type="System.Decimal" Scope="User">
+    <Setting Name="maximumHoursSun" Provider="PortableSettingsProvider" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="overtimeMinutes" Type="System.Decimal" Scope="User">
+    <Setting Name="overtimeMinutes" Provider="PortableSettingsProvider" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="timerEnabled" Type="System.Boolean" Scope="User">
+    <Setting Name="timerEnabled" Provider="PortableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="secondsElapsed" Type="System.Decimal" Scope="User">
+    <Setting Name="secondsElapsed" Provider="PortableSettingsProvider" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="secondsElapsedDateTime" Type="System.DateTime" Scope="User">
+    <Setting Name="secondsElapsedDateTime" Provider="PortableSettingsProvider" Type="System.DateTime" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="pauseResumeTimerOnComputerLockUnlock" Type="System.Boolean" Scope="User">
+    <Setting Name="pauseResumeTimerOnComputerLockUnlock" Provider="PortableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="upgradeRequired" Type="System.Boolean" Scope="User">
+    <Setting Name="upgradeRequired" Provider="PortableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="guiTopMost" Type="System.Boolean" Scope="User">
+    <Setting Name="guiTopMost" Provider="PortableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="maximumMinutesOvertime" Type="System.Decimal" Scope="User">
+    <Setting Name="maximumMinutesOvertime" Provider="PortableSettingsProvider" Type="System.Decimal" Scope="User">
       <Value Profile="(Default)">0</Value>
     </Setting>
-    <Setting Name="overtimeDateTime" Type="System.DateTime" Scope="User">
+    <Setting Name="overtimeDateTime" Provider="PortableSettingsProvider" Type="System.DateTime" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="timerPaused" Type="System.Boolean" Scope="User">
+    <Setting Name="timerPaused" Provider="PortableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="selectedLanguage" Type="System.String" Scope="User">
+    <Setting Name="selectedLanguage" Provider="PortableSettingsProvider" Type="System.String" Scope="User">
       <Value Profile="(Default)">English</Value>
     </Setting>
-    <Setting Name="closeNoticeFirstTime" Type="System.Boolean" Scope="User">
+    <Setting Name="closeNoticeFirstTime" Provider="PortableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="autoUpdate" Type="System.Boolean" Scope="User">
+    <Setting Name="autoUpdate" Provider="PortableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="portableWarnHasAppeared" Type="System.Boolean" Scope="User">
+    <Setting Name="portableWarnHasAppeared" Provider="PortableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="properExit" Type="System.Boolean" Scope="User">
+    <Setting Name="properExit" Provider="PortableSettingsProvider" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>

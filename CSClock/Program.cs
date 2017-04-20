@@ -250,6 +250,8 @@ namespace CSClock
 
             logger.Log(className, "Starting CSClock", Logger.LogType.Info);
 
+            /*
+            //Not needed with portable settings
             if (Properties.Settings.Default.upgradeRequired && ((args == null && args.Length > 0) || !args.Contains("-donotupgradesettings")))
             {
                 logger.Log(className, "Upgrading user settings...", Logger.LogType.Info);
@@ -260,6 +262,7 @@ namespace CSClock
 
                 logger.Log(className, "Upgrade done", Logger.LogType.Info);
             }
+            */
 
             selectedLanguage = Properties.Settings.Default.selectedLanguage;
             rm_Messages = new ResourceManager(string.Format("CSClock.Languages.{0}.Messages", selectedLanguage), assembly);
@@ -288,7 +291,7 @@ namespace CSClock
                 logger.Log(className, "Resetting CSClock", Logger.LogType.Info);
 
                 Properties.Settings.Default.Reset();
-                Properties.Settings.Default.upgradeRequired = false;
+                //Properties.Settings.Default.upgradeRequired = false;
                 Properties.Settings.Default.Save();
 
                 logger.Log(className, "Reset completed, closing CSClock", Logger.LogType.Info);
