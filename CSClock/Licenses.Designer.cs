@@ -54,6 +54,8 @@ namespace CSClock
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.l_lcOf = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.btn_CustomSettingsProvider = new System.Windows.Forms.Button();
+            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.SuspendLayout();
             // 
             // btn_CSClock
@@ -124,11 +126,33 @@ namespace CSClock
             this.label3.TabIndex = 6;
             this.label3.Text = "Click a button to show the license of that application/library";
             // 
+            // btn_CustomSettingsProvider
+            // 
+            this.btn_CustomSettingsProvider.Location = new System.Drawing.Point(153, 81);
+            this.btn_CustomSettingsProvider.Name = "btn_CustomSettingsProvider";
+            this.btn_CustomSettingsProvider.Size = new System.Drawing.Size(201, 23);
+            this.btn_CustomSettingsProvider.TabIndex = 7;
+            this.btn_CustomSettingsProvider.Text = "CustomSettingsProvider by CodeChimp";
+            this.btn_CustomSettingsProvider.UseVisualStyleBackColor = true;
+            this.btn_CustomSettingsProvider.Click += new System.EventHandler(this.button_Click);
+            // 
+            // webBrowser1
+            // 
+            this.webBrowser1.AllowWebBrowserDrop = false;
+            this.webBrowser1.Location = new System.Drawing.Point(12, 146);
+            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser1.Name = "webBrowser1";
+            this.webBrowser1.Size = new System.Drawing.Size(586, 276);
+            this.webBrowser1.TabIndex = 8;
+            this.webBrowser1.Visible = false;
+            // 
             // Licenses
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(610, 434);
+            this.Controls.Add(this.webBrowser1);
+            this.Controls.Add(this.btn_CustomSettingsProvider);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.l_lcOf);
             this.Controls.Add(this.richTextBox1);
@@ -138,6 +162,7 @@ namespace CSClock
             this.Controls.Add(this.btn_CSClock);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
             this.Name = "Licenses";
             this.Text = "Licenses - CSClock";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Licenses_FormClosing);
@@ -156,5 +181,7 @@ namespace CSClock
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Label l_lcOf;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Button btn_CustomSettingsProvider;
+        private System.Windows.Forms.WebBrowser webBrowser1;
     }
 }

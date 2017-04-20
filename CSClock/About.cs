@@ -134,6 +134,7 @@ namespace CSClock
             button_exportLog.Text = Program.rm_About.GetString("button_exportLog_text");
             button_contact.Text = Program.rm_About.GetString("button_contact_text");
             button_openGitHubPage.Text = Program.rm_About.GetString("button_openGitHubPage_text");
+            button_licenses.Text = Program.rm_About.GetString("button_licenses_text");
         }
 
         private void About_FormClosing(object sender, FormClosingEventArgs e)

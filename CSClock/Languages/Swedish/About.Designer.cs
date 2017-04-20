@@ -79,6 +79,15 @@ namespace CSClock.Languages.Swedish {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Licenser.
+        /// </summary>
+        internal static string button_licenses_text {
+            get {
+                return ResourceManager.GetString("button_licenses_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Öppna GitHub-sidan.
         /// </summary>
         internal static string button_openGitHubPage_text {

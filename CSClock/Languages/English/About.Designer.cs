@@ -79,6 +79,15 @@ namespace CSClock.Languages.English {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Licenses.
+        /// </summary>
+        internal static string button_licenses_text {
+            get {
+                return ResourceManager.GetString("button_licenses_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Open GitHub page.
         /// </summary>
         internal static string button_openGitHubPage_text {

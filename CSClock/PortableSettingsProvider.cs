@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+PortableSettingsProvider by CodeChimp, translated to C# and modified by gpgemini
+
+PortableSettingsProvider is licensed under The Code Project Open License (CPOL) 1.02. If you didn't get the license with this application (the licenses should
+be located in "%localappdata%\CSClock\licenses" or "%localappdata%\CSClock\dev\licenses", it can be found at https://www.codeproject.com/info/cpol10.aspx
+*/
+
+using System;
 using System.Collections;
 using System.Configuration;
 using System.Windows.Forms;

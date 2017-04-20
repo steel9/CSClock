@@ -265,6 +265,8 @@ namespace OnlineSetup
             webClient.DownloadFile("https://raw.githubusercontent.com/steel9/CSClock/master/LICENSE", Path.Combine(licensesDir, "CSClock-LICENSE"));
             webClient.DownloadFile("https://raw.githubusercontent.com/steel9/CSClock/master/3rd-party-licenses/Json.NET-LICENSE.md", Path.Combine(licensesDir,
                     "Json.NET-LICENSE.md"));
+            webClient.DownloadFile("https://raw.githubusercontent.com/steel9/CSClock/master/3rd-party-licenses/CustomSettingsProvider-LICENSE.htm",
+                Path.Combine(licensesDir, "CustomSettingsProvider-LICENSE.htm"));
 
             //Download CSClock
             if (!dev)
@@ -421,6 +423,11 @@ namespace OnlineSetup
             {
                 webClient.DownloadFile("https://raw.githubusercontent.com/steel9/CSClock/master/3rd-party-licenses/Json.NET-LICENSE.md", Path.Combine(licensesDir,
                     "Json.NET-LICENSE.md"));
+            }
+            if (!File.Exists(Path.Combine(licensesDir, "CustomSettingsProvider-LICENSE.htm")))
+            {
+                webClient.DownloadFile("https://raw.githubusercontent.com/steel9/CSClock/master/3rd-party-licenses/CustomSettingsProvider-LICENSE.htm",
+                    Path.Combine(licensesDir, "CustomSettingsProvider-LICENSE.htm"));
             }
 
 

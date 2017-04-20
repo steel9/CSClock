@@ -59,7 +59,7 @@ namespace CSClock
             this.labelCompanyName = new System.Windows.Forms.Label();
             this.textBoxDescription = new System.Windows.Forms.TextBox();
             this.okButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.button_licenses = new System.Windows.Forms.Button();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.SuspendLayout();
@@ -218,22 +218,22 @@ namespace CSClock
             this.okButton.TabIndex = 24;
             this.okButton.Text = "&OK";
             // 
-            // button1
+            // button_licenses
             // 
-            this.button1.Location = new System.Drawing.Point(24, 368);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(387, 23);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Licenses";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button_licenses.Location = new System.Drawing.Point(24, 368);
+            this.button_licenses.Name = "button_licenses";
+            this.button_licenses.Size = new System.Drawing.Size(387, 23);
+            this.button_licenses.TabIndex = 6;
+            this.button_licenses.Text = "Licenses";
+            this.button_licenses.UseVisualStyleBackColor = true;
+            this.button_licenses.Click += new System.EventHandler(this.button1_Click);
             // 
             // About
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(435, 400);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.button_licenses);
             this.Controls.Add(this.tableLayoutPanel);
             this.Controls.Add(this.button_openGitHubPage);
             this.Controls.Add(this.button_contact);
@@ -271,6 +271,6 @@ namespace CSClock
         private System.Windows.Forms.Label labelCompanyName;
         private System.Windows.Forms.TextBox textBoxDescription;
         private System.Windows.Forms.Button okButton;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button_licenses;
     }
 }
