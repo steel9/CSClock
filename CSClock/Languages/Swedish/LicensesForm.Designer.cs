@@ -61,6 +61,15 @@ namespace CSClock.Languages.Swedish {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Licenser - CSClock.
+        /// </summary>
+        internal static string form_title {
+            get {
+                return ResourceManager.GetString("form_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tredjepartsbibliotek:.
         /// </summary>
         internal static string l_3rdpartylibraries_text {

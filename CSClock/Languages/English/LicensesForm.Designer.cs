@@ -61,6 +61,15 @@ namespace CSClock.Languages.English {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Licenses - CSClock.
+        /// </summary>
+        internal static string form_title {
+            get {
+                return ResourceManager.GetString("form_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 3rd party libraries:.
         /// </summary>
         internal static string l_3rdpartylibraries_text {
