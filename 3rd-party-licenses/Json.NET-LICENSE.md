@@ -1,4 +1,4 @@
-**The following license applies to Json.NET by Newtonsoft**
+# The following license applies to Json.NET by Newtonsoft
 
 The MIT License (MIT)
 
