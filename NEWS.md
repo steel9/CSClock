@@ -4,10 +4,12 @@
 New features:  
 - Statistics  
 - Bug fixes  
+  
 Other improvements:  
 - License files included offline  
 - License browser  
 - Bug fixes and improvements  
+  
 And more!
   
 **0.2.2 news:**
