@@ -91,8 +91,8 @@ namespace CSClock
             }
             catch (Exception ex)
             {
-                logger.Log(className, "Error while downloading VERSION2 file from master branch, aborting update. Error: " + ex.ToString(), Logger.LogType.Error);
-                return;
+                logger.Log(className, "Error while downloading VERSION2 file from master branch, updating anyway. Error: " + ex.ToString(), Logger.LogType.Error);
+                goto Update;
             }
             logger.Log(className, "Parsing version", Logger.LogType.Info);
             string latestVersion_s = latestVersionText.Split(',', '#')[1];

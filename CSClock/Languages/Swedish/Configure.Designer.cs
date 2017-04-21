@@ -70,6 +70,24 @@ namespace CSClock.Languages.Swedish {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Automatisk uppdaterare är installerad.
+        /// </summary>
+        internal static string button_dwnldAutoUpdater_done_text {
+            get {
+                return ResourceManager.GetString("button_dwnldAutoUpdater_done_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hämta automatisk uppdaterare (rekommenderas).
+        /// </summary>
+        internal static string button_dwnldAutoUpdater_notdone_text {
+            get {
+                return ResourceManager.GetString("button_dwnldAutoUpdater_notdone_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mindre ↑.
         /// </summary>
         internal static string button_moreless_text__less {

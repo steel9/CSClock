@@ -39,19 +39,17 @@ namespace OnlineSetup
         public static bool antiExit = true;
 
         public static bool dev = false;
+        public static bool portable = false;
 
         static string installDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");
 
-        static string exePath = Path.Combine(installDir, "CSClock.exe");
-        static string devExePath = Path.Combine(installDir, "dev", "CSClock.exe");
+        static string exePath;
 
-        static string setupExePath = Path.Combine(installDir, "Setup.exe");
-        static string devSetupExePath = Path.Combine(installDir, "dev", "Setup.exe");
+        static string setupExePath;
 
         static string tempExePath = Path.Combine(Path.GetTempPath(), "CSClock.exe");
 
-        static string logPath = Path.Combine(installDir, "setuplog.txt");
-        static string devLogPath = Path.Combine(installDir, "dev", "setuplog.txt");
+        static string logPath;
 
         static string startupShortcutPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "CSClock.lnk");
         static string startmenuShortcutPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu), "CSClock.lnk");
@@ -71,19 +69,27 @@ namespace OnlineSetup
                 Directory.CreateDirectory(installDir);
             }
 
-            if (args != null && args.Length > 0 && args.Contains("-dev"))
+            if (args != null && args.Length > 0)
             {
-                dev = true;
+                if (args.Contains("-dev") && !args.Contains("-np"))
+                {
+                    dev = true;
+                    installDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock", "dev");
+                }
+                else if (args.Contains("-np"))
+                {
+                    portable = true;
+                    installDir = Application.ExecutablePath;
+                }
             }
+            exePath = Path.Combine(installDir, "CSClock.exe");
+            setupExePath = Path.Combine(installDir, "Setup.exe");
+            logPath = Path.Combine(installDir, "log.txt");
 
-            if (dev && File.Exists(devLogPath))
-            {
-                File.Delete(devLogPath);
-            }
-            else if (!dev && File.Exists(logPath))
+            if (File.Exists(logPath))
             {
                 File.Delete(logPath);
-            }  
+            }
 
             if (dev)
             {
@@ -97,13 +103,8 @@ namespace OnlineSetup
                 {
                     Directory.CreateDirectory(Path.Combine(installDir, "dev"));
                 }
-
-                logger = new Logger("CSClock Online Setup", devLogPath, Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
             }
-            else
-            {
-                logger = new Logger("CSClock Online Setup", logPath, Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
-            }
+            logger = new Logger("CSClock Online Setup", logPath, Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
 
             if (args == null || args.Length == 0 || (!args.Contains("-update") && !args.Contains("-uninstall")))
             {
@@ -170,33 +171,22 @@ namespace OnlineSetup
                         }
 
                         Version v = new Version(FileVersionInfo.GetVersionInfo(exePath).ProductVersion);
-                        string exe;
-
                         if (!dev)
                         {
-                            exe = exePath;
                             key.SetValue("DisplayName", "CSClock");
                         }
                         else
                         {
                             key.SetValue("DisplayName", "CSClock DEV");
-                            exe = devExePath;
                         }
                         key.SetValue("ApplicationVersion", v.ToString());
                         key.SetValue("Publisher", "steel9");
-                        key.SetValue("DisplayIcon", exe);
+                        key.SetValue("DisplayIcon", exePath);
                         key.SetValue("DisplayVersion", v.ToString(3));
                         key.SetValue("URLInfoAbout", "https://steel9apps.wixsite.com/csclock");
                         key.SetValue("Contact", "steel9apps@gmail.com");
                         key.SetValue("InstallDate", DateTime.Now.ToString("yyyyMMdd"));
-                        if (!dev)
-                        {
-                            key.SetValue("UninstallString", setupExePath + " -uninstall");
-                        }
-                        else
-                        {
-                            key.SetValue("UninstallString", devSetupExePath + " -uninstall");
-                        }
+                        key.SetValue("UninstallString", setupExePath + " -uninstall");
                     }
                     finally
                     {
@@ -308,14 +298,7 @@ namespace OnlineSetup
             logger.Log(className, "Installing CSClock", Logger.LogType.Info);
             try
             {
-                if (!dev)
-                {
-                    File.Copy(tempExePath, exePath, true);
-                }
-                else
-                {
-                    File.Copy(tempExePath, devExePath, true);
-                }
+                File.Copy(tempExePath, exePath, true);
                 File.Delete(tempExePath);
             }
             catch (Exception ex)
@@ -358,9 +341,9 @@ namespace OnlineSetup
                 else
                 {
                     logger.Log(className, "Creating startup shortcut", Logger.LogType.Info);
-                    CreateShortcut(exePath, devStartupShortcutPath, Path.GetDirectoryName(devExePath), "-s -np -dev");
+                    CreateShortcut(exePath, devStartupShortcutPath, Path.GetDirectoryName(exePath), "-s -np -dev");
                     logger.Log(className, "Creating start menu shortcut", Logger.LogType.Info);
-                    CreateShortcut(exePath, devStartmenuShortcutPath, Path.GetDirectoryName(devExePath), "-np -dev");
+                    CreateShortcut(exePath, devStartmenuShortcutPath, Path.GetDirectoryName(exePath), "-np -dev");
                 }
             }
             catch (MissingMethodException ex)
@@ -385,7 +368,7 @@ namespace OnlineSetup
             }
             else
             {
-                Process.Start(devExePath, "-np -dev");
+                Process.Start(exePath, "-np -dev");
             }
 
             antiExit = false;
@@ -457,8 +440,8 @@ namespace OnlineSetup
             }
             catch (Exception ex)
             {
-                logger.Log(className, "Error while downloading VERSION file from master branch, aborting update. Error: " + ex.ToString(), Logger.LogType.Error);
-                return;
+                logger.Log(className, "Error while downloading VERSION2 file from master branch, updating anyway. Error: " + ex.ToString(), Logger.LogType.Error);
+                goto Update;
             }
             logger.Log(className, "Parsing version", Logger.LogType.Info);
             string latestVersion_s = latestVersionText.Split(',')[0];
@@ -480,6 +463,9 @@ namespace OnlineSetup
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+
+
+            Update:
 
             //Close CSClock
             logger.Log(className, "Closing CSClock", Logger.LogType.Info);
@@ -531,25 +517,21 @@ namespace OnlineSetup
                 return;
             }
 
-            //Add uninstaller to uninstall list in Windows if not added
-            using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Uninstall\CSClock"))
+            if (!portable)
             {
-                if (key == null)
+                //Add uninstaller to uninstall list in Windows if not added
+                using (RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Uninstall\CSClock"))
                 {
-                    CreateUninstallerReg();
+                    if (key == null)
+                    {
+                        CreateUninstallerReg();
+                    }
                 }
             }
 
             //Start CSClock
             logger.Log(className, "Starting CSClock", Logger.LogType.Info);
-            if (!dev)
-            {
-                Process.Start(exePath);
-            }
-            else
-            {
-                Process.Start(devExePath);
-            }
+            Process.Start(exePath);
         }
 
         private static void RemoveUninstallerFromReg()

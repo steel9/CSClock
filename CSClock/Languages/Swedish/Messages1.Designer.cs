@@ -157,6 +157,15 @@ namespace CSClock.Languages.Swedish {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hämta automatisk uppdaterare? Uppdateraren kommer att installeras i mappen med CSClock i, och borde inte röra några filer på din dator utanför denna mappen.
+        /// </summary>
+        internal static string portableAutoUpdaterQuestion_text {
+            get {
+                return ResourceManager.GetString("portableAutoUpdaterQuestion_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Är du säker på att du vill avsluta CSClock helt? Timern kommer att stoppas.
         /// </summary>
         internal static string quitConfirmationDialog_text {

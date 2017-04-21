@@ -145,6 +145,20 @@ namespace CSClock
 
         private void Configure_Load(object sender, EventArgs e)
         {
+            if (Program.portable)
+            {
+                button_remove.Visible = false;
+            }
+            if (File.Exists("Setup.exe"))
+            {
+                button_dwnldAutoUpdater.Enabled = false;
+                button_dwnldAutoUpdater.Text = Program.rm_Configure.GetString("button_dwnldAutoUpdater_done_text");
+            }
+            else
+            {
+                button_dwnldAutoUpdater.Text = Program.rm_Configure.GetString("button_dwnldAutoUpdater_notdone_text");
+            }
+
             this.Location = Program.CSClockForm.Location;
             this.Size = new Size(420, 342);
 
@@ -241,6 +255,16 @@ namespace CSClock
         private void button_remove_Click(object sender, EventArgs e)
         {
             Program.Uninstall();
+        }
+
+        private void button_dwnldAutoUpdater_Click(object sender, EventArgs e)
+        {
+            if (MessageBox.Show(Program.rm_Messages.GetString("portableAutoUpdaterQuestion_text"), "CSClock", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+                == DialogResult.Yes)
+            {
+                UpdUpdater.UpdUpdate();
+                Update();
+            }
         }
     }
 }

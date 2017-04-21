@@ -74,6 +74,7 @@ namespace CSClock
             this.l_sun = new System.Windows.Forms.Label();
             this.button_moreless = new System.Windows.Forms.Button();
             this.button_remove = new System.Windows.Forms.Button();
+            this.button_dwnldAutoUpdater = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maximumHoursMon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maximumHoursTue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maximumHoursWed)).BeginInit();
@@ -256,7 +257,7 @@ namespace CSClock
             this.button_reset.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_reset.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_reset.ForeColor = System.Drawing.Color.White;
-            this.button_reset.Location = new System.Drawing.Point(12, 295);
+            this.button_reset.Location = new System.Drawing.Point(12, 338);
             this.button_reset.Name = "button_reset";
             this.button_reset.Size = new System.Drawing.Size(196, 37);
             this.button_reset.TabIndex = 10;
@@ -293,7 +294,7 @@ namespace CSClock
             this.checkBox_startCSClockWithWindows.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox_startCSClockWithWindows.Location = new System.Drawing.Point(18, 230);
             this.checkBox_startCSClockWithWindows.Name = "checkBox_startCSClockWithWindows";
-            this.checkBox_startCSClockWithWindows.Size = new System.Drawing.Size(249, 17);
+            this.checkBox_startCSClockWithWindows.Size = new System.Drawing.Size(254, 17);
             this.checkBox_startCSClockWithWindows.TabIndex = 13;
             this.checkBox_startCSClockWithWindows.Text = "Start CSClock with Windows (recommended)";
             this.checkBox_startCSClockWithWindows.UseVisualStyleBackColor = true;
@@ -400,7 +401,7 @@ namespace CSClock
             this.button_remove.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_remove.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_remove.ForeColor = System.Drawing.Color.White;
-            this.button_remove.Location = new System.Drawing.Point(214, 295);
+            this.button_remove.Location = new System.Drawing.Point(214, 338);
             this.button_remove.Name = "button_remove";
             this.button_remove.Size = new System.Drawing.Size(178, 37);
             this.button_remove.TabIndex = 23;
@@ -409,11 +410,27 @@ namespace CSClock
             this.button_remove.Visible = false;
             this.button_remove.Click += new System.EventHandler(this.button_remove_Click);
             // 
+            // button_dwnldAutoUpdater
+            // 
+            this.button_dwnldAutoUpdater.BackColor = System.Drawing.Color.Green;
+            this.button_dwnldAutoUpdater.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button_dwnldAutoUpdater.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button_dwnldAutoUpdater.ForeColor = System.Drawing.Color.White;
+            this.button_dwnldAutoUpdater.Location = new System.Drawing.Point(12, 295);
+            this.button_dwnldAutoUpdater.Name = "button_dwnldAutoUpdater";
+            this.button_dwnldAutoUpdater.Size = new System.Drawing.Size(380, 37);
+            this.button_dwnldAutoUpdater.TabIndex = 24;
+            this.button_dwnldAutoUpdater.Text = "Download automatic updater (recommended)";
+            this.button_dwnldAutoUpdater.UseVisualStyleBackColor = false;
+            this.button_dwnldAutoUpdater.Visible = false;
+            this.button_dwnldAutoUpdater.Click += new System.EventHandler(this.button_dwnldAutoUpdater_Click);
+            // 
             // Configure
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 344);
+            this.ClientSize = new System.Drawing.Size(404, 387);
+            this.Controls.Add(this.button_dwnldAutoUpdater);
             this.Controls.Add(this.button_remove);
             this.Controls.Add(this.button_moreless);
             this.Controls.Add(this.l_sun);
@@ -486,5 +503,6 @@ namespace CSClock
         private System.Windows.Forms.Label l_sun;
         private System.Windows.Forms.Button button_moreless;
         private System.Windows.Forms.Button button_remove;
+        private System.Windows.Forms.Button button_dwnldAutoUpdater;
     }
 }

@@ -40,6 +40,7 @@ namespace CSClock
 
         public static bool debug = false;
         public static bool dev = false;
+        public static bool portable = true;
 
         public static Logger logger;
 
@@ -65,8 +66,6 @@ namespace CSClock
         public static ResourceManager rm_AddSubtractTime = null;
         public static ResourceManager rm_LicensesForm = null;
         public static ResourceManager rm_Statistics = null;
-
-        private static bool portable = true;
 
         public static bool properExitLast = true;
 
@@ -119,15 +118,38 @@ namespace CSClock
                 }
             }
 
+            assembly = Assembly.GetExecutingAssembly();
+            rm_Messages = new ResourceManager(string.Format("CSClock.Languages.{0}.Messages", selectedLanguage), assembly);
+
             bool createdNew = true;
             using (Mutex mutex = new Mutex(true, "CSClock", out createdNew))
             {
                 if (createdNew || (args != null && args.Contains("-ignorerunning")))
                 {
-                    if (!portable && args != null && args.Length > 0 && !args.Contains("-disup") && Properties.Settings.Default.autoUpdate)
+                    if ((args == null || args.Length == 0 || !args.Contains("-disup")) && Properties.Settings.Default.autoUpdate)
                     {
-                        UpdUpdater.UpdUpdate();
-                        Update();
+                        if (File.Exists("Setup.exe") || !portable)
+                        {
+                            UpdUpdater.UpdUpdate();
+                            Update();
+                        }
+                        else
+                        {
+                            if (!File.Exists("Setup.exe") && !Properties.Settings.Default.portableAutoUpdaterQuestionShown)
+                            {
+                                if (MessageBox.Show(rm_Messages.GetString("portableAutoUpdaterQuestion_text"), "CSClock", MessageBoxButtons.YesNo,
+                                    MessageBoxIcon.Question) == DialogResult.Yes)
+                                {
+                                    UpdUpdater.UpdUpdate();
+                                    Update();
+                                }
+                                else
+                                {
+                                    Properties.Settings.Default.portableAutoUpdaterQuestionShown = true;
+                                    Properties.Settings.Default.Save();
+                                }
+                            }
+                        }
                     }
 
                     if (!Properties.Settings.Default.properExit)
@@ -245,8 +267,6 @@ namespace CSClock
 
         static void StartApplication(string[] args)
         {
-            assembly = Assembly.GetExecutingAssembly();
-
 
             logger.Log(className, "Starting CSClock", Logger.LogType.Info);
 
@@ -265,7 +285,6 @@ namespace CSClock
             */
 
             selectedLanguage = Properties.Settings.Default.selectedLanguage;
-            rm_Messages = new ResourceManager(string.Format("CSClock.Languages.{0}.Messages", selectedLanguage), assembly);
             rm_GUI = new ResourceManager(string.Format("CSClock.Languages.{0}.GUI", selectedLanguage), assembly);
 
             if (args != null && args.Length > 0 && args.Contains("-disup"))
@@ -282,7 +301,15 @@ namespace CSClock
 
             if (args != null && args.Length > 0 && args.Contains("-uninstall"))
             {
-                Uninstall();
+                if (!portable)
+                {
+                    Uninstall();
+                }
+                else
+                {
+                    MessageBox.Show("Uninstallation not available nor needed in portable version", "CSClock", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
                 return;
             }
 

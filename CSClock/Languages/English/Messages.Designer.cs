@@ -157,6 +157,15 @@ namespace CSClock.Languages.English {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Download automatic updater? The updater will install in the directory with CSClock in, and shouldn&apos;t touch any files on your computer outside this directory.
+        /// </summary>
+        internal static string portableAutoUpdaterQuestion_text {
+            get {
+                return ResourceManager.GetString("portableAutoUpdaterQuestion_text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to quit CSClock completely? This will stop the timer.
         /// </summary>
         internal static string quitConfirmationDialog_text {

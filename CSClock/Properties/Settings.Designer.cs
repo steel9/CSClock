@@ -319,5 +319,17 @@ namespace CSClock.Properties {
                 this["properExit"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool portableAutoUpdaterQuestionShown {
+            get {
+                return ((bool)(this["portableAutoUpdaterQuestionShown"]));
+            }
+            set {
+                this["portableAutoUpdaterQuestionShown"] = value;
+            }
+        }
     }
 }

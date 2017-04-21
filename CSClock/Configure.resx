@@ -1,23 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
-<!--
-CSClock - a program which keeps track of your computer time
-Copyright (C) 2017  Viktor J
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
--->
-
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -139,39 +120,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="button_selectLanguage.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfhAwoVMgjAl0XrAAAHHElEQVRYR5VXe0xTVxjv
-        ZmayRTMR2jJ84FQUtC2gtPe2pUBfQAt93BYRmTIfoMMhtIAwMzUajY89NU6dJsZFt2zZO5vbVDbnRF4i
-        7sV/S6bLzLJlLnNxf7j5+PZ9595Cudw6PMkv91LO+X7f+R6/c64q0dAaQtKbSqXRhx7SGIRJCJ9GL+xH
-        XNDog9fUuuDt1JzgrYXLPL9FuvnOaB+/q6WftzV18xOaeizjpOWqSLdFehvD0GZXqDSGIHufaa57AMls
-        iH1IeAMBDLogTDEFINNXBt4dDnjqMwu0XjRBS7+IaB93NdLLb4728tnMEI6mbrP0NsahyQ49jmRHEH8O
-        EUtQzw9CRkk5rP3CDO3fG+HJt/Oh8nAhVBwohMpDhdBwxgzNFziI9nI/RXu4nQ1dtglks3Ugj9lOODDE
-        4lMvWJDoBzkxISVLgEmzQjDT7oOiFjdklpXBVM4PU4wBSMsTsWCZBxo7eWjBqKATdzE93WtOWtPJdtUR
-        J+MYMSjssYFOmJDoppyYkDIvCEWtblj9iQVWfmAF10Ync0g+Tz1fAF3Iy9IT6eIh0kPR4C+v7bBOJY6a
-        o3rGNTTUugB7YrHloYFbcoNDwNzP9ZRDpJuD1gETNJw1Q3ImOoC/y+eSs0mzBTbft9tOkcB1/OVojzmN
-        uNZ1SjUxHPZQOi68IjckB4W4/rSZFd3yd/Jh8lwBtNnS/9GRpAyB1UjMKXJkusXP5jb3YSR6uK7akwWP
-        EGdjp9QdGq76QZx8LEaSCMlItuhgoVjpuCN66oQyKNniZJFIzQ2A/0U7zCjwiWskJ8hJ33NiFAhN3dwO
-        kVkaOKkQ8RdblACTcWfhfUWx6mag9yVHCyC8v4jtvHizE5a9YWPpqXnTxqJFa2c6fOB4xgWN53hxbQ93
-        BWvDIJIbhPE46WA8mRxaQxByqz3QdF4yEAdyouYtGwh7iiD3CQ/rDqr+tm+N4NnmwBQIzJGqIwVsfcNZ
-        tEGp6OU2RvtQrLDlUpBkWGRkoPy6N7mg4UvzKHICObAcdcDe7oIV7+WDWicwZ8iJ9u9MkJ7vh0lYjDlL
-        PFD3sRXM9SWw/msT1cNl7IyJFAG/EjGBcu7Y4GbGWAHJyOn3/MZiVmQZxeWs9xfUlEJBxM0EitJhWORl
-        LYmSDXUnrJC3vBTavhFrqHWA5yj/r8qJCUzt0Gis4JRAuSbCdJuP7VrYa2cKWbLVCesw39N4P7hRK0wr
-        SwHlndnTo0OUHkpDfYdlKzlwUU5OmDxHQKFx3dMBQh2KUm61l4XVhtGgnBtXlUDZTgfrimQUKhKrxxYG
-        oPq1Aije5ITWSyYGdKyDHBil9QRywLfbMaLqlbD2czPUfmRljm4YNMJcbzlryWmYlpg+4KmJ0QiA61kX
-        a2OKHKUDi/ZncuBOPHEMKVli8f1fBCiU5GTdCQv7uxDPB+p7IpXbpN8CL9th1YdW1ppYtP+QA4rSS6Ez
-        1ZYyxRtFKgM5UH/KAjOwFkj/yQElm1RXhsUe8L9gh5wqPLDO8bfJgV/kEwkkLIGXROEh7V/3VexQGYmn
-        8UimfJPQZC/2gr7Cy8KvFAFybA3eHag71nyKEevj/kAHhDPyiWwy1oB3u1gDwb1FMMvlQyI71GIvN/cj
-        MZ75S1+34VEcYH1Oxkn3CUrkBCrGcqwrcroFbaAD/eTANqXJZIQUjHp7IbbaxOkhZjwLb0FETP09zYw7
-        pYNHYb0SyKbYhlJa+/j9JERGpckEMp67FBUMK9b3vINdOlKxsinU7B6QYKeJQMJGhxJ1gZhC3kMReBTx
-        o9ICAp0DTmwfe5sb1Pg3XkAhDXtaae69QJuZ5fSx/pfq5wYiie5+43DCFvmCIeAu55SWw4r3rXjM+lFS
-        A2BDqU23+Zm6Ka5RAF1OQq8UDutKD38AL6rjxRNRH9QhrsYviAcdKCQgVN0kMmmYCjr5SOmU5iuBirT+
-        tKgViOsYfhsjjw2ctBNxN35RPOYHy1jhGVeUwmx3+X0VX6xWqJXXUwr6uGPRgVqJWLqS0cBJgyMWxoAG
-        kjJC7PJBykfy69zgwggozE0AamvPdidYG4p/LdvhTpYoxaExhMWnPqTBySOFCckNlV52ux3KHzpBxUS7
-        0YW9YjTG0BHYBX9PmFrBEZe9rZhxDg3sBPFpCM3DycORQMN0npPwSPkbBjpCYaU7AbXo0Bpl4MaEkniu
-        UQPJpacwGyd1xBbTqbYYr1RKlxL6LdLFYX14WKWza/pIYsIg2mQ7T0guH6kLqrA9hXYyQEYp53QmyB2I
-        gRSz8lAB5VjWnsJhbU6YfZqNeWhzFqnU83zSe1idnBU6jg783tTF31QiZ8BI0K03uMf+L0r4dbwbnsIv
-        bB0zgkObLdbZfQ1t9vAn+tarxjQkWN3YaT6OjlxCXMNb7u3G8/wdfL+OqRjkV5e8+7A23JyiC2dKy0Z8
-        5o8eKtV/OaQ0bA6Krl0AAAAASUVORK5CYII=
+        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
+        XQAAAABJRU5ErkJggg==
 </value>
   </data>
   <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
