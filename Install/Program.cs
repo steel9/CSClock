@@ -80,12 +80,12 @@ namespace OnlineSetup
 
             if (args != null && args.Length > 0)
             {
-                if (args.Contains("-dev") && !args.Contains("-np"))
+                if (args.Contains("-dev") && !args.Contains("-p"))
                 {
                     dev = true;
                     installDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock", "dev");
                 }
-                else if (!args.Contains("-np"))
+                else if (args.Contains("-p"))
                 {
                     portable = true;
                     installDir = Path.GetDirectoryName(Application.ExecutablePath);
@@ -93,8 +93,7 @@ namespace OnlineSetup
             }
             else
             {
-                portable = true;
-                installDir = Path.GetDirectoryName(Application.ExecutablePath);
+                portable = false;
             }
             exePath = Path.Combine(installDir, "CSClock.exe");
             setupExePath = Path.Combine(installDir, "Setup.exe");
