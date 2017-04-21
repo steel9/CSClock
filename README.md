@@ -1,5 +1,4 @@
-# CSClock DEV
-**DEVELOPMENT BRANCH - THIS BRANCH CONTAINS UNFINISHED FUNCTIONS. THE APPLICATION MAY OR MAY NOT WORK. DO NOT DOWNLOAD DEVELOPMENT BUILDS FOR USAGE.**   
+# CSClock
    
 **A C# application which keeps track of the time you spend on your computer, by setting limits. It will then alert you when your computer time is out. Note that CSClock doesn't *prevent* you from using the computer after the limit is reached, but it *alerts* you.** 
 
