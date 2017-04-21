@@ -16,16 +16,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace CSClock
 {
     class ExtraVersionInfo
     {
-        public static bool developmentRelease = true; //change to false when making a release
+        public static bool developmentRelease = false; //change to false when making a release
     }
 }
