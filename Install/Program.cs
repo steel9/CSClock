@@ -352,13 +352,13 @@ namespace OnlineSetup
             try
             {
                 File.Copy(Path.Combine(tempLibPath, "Newtonsoft.Json.dll"), Path.Combine(installDir, "Newtonsoft.Json.dll"), true);
-                Directory.Delete(tempCSClockPath);
+                Directory.Delete(tempCSClockPath, true);
             }
             catch (Exception ex)
             {
                 logger.Log(className, "Libraries installation error: " + ex.ToString(), Logger.LogType.Error);
                 MessageBox.Show("Error when installing libraries: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Directory.Delete(tempCSClockPath);
+                Directory.Delete(tempCSClockPath, true);
                 return;
             }
 
