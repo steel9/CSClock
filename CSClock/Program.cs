@@ -132,7 +132,7 @@ namespace CSClock
                         if (File.Exists("Setup.exe") || !portable)
                         {
                             UpdUpdater.UpdUpdate();
-                            Update();
+                            AppUpdate();
                         }
                         else
                         {
@@ -142,7 +142,7 @@ namespace CSClock
                                     MessageBoxIcon.Question) == DialogResult.Yes)
                                 {
                                     UpdUpdater.UpdUpdate();
-                                    Update();
+                                    AppUpdate();
                                 }
                                 else
                                 {
@@ -238,7 +238,7 @@ namespace CSClock
             }
         }
 
-        static void Update()
+        static void AppUpdate()
         {
             Properties.Settings.Default.properExit = true;
             Properties.Settings.Default.Save();
@@ -287,7 +287,7 @@ namespace CSClock
 
             WebClient webClient = new WebClient();
 
-            string licensesDir = "licenses";
+            string licensesDir = Path.Combine(Path.GetDirectoryName(Application.ExecutablePath), "licenses");
             if (!Directory.Exists(licensesDir))
             {
                 Directory.CreateDirectory(licensesDir);
@@ -331,7 +331,7 @@ namespace CSClock
             {
                 Properties.Settings.Default.autoUpdate = true;
                 Properties.Settings.Default.Save();
-                Update();
+                AppUpdate();
             }
 
             if (args != null && args.Length > 0 && args.Contains("-uninstall"))

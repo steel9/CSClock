@@ -145,9 +145,11 @@ namespace CSClock
 
         private void Configure_Load(object sender, EventArgs e)
         {
+            Program.rm_Configure = new ResourceManager(string.Format("CSClock.Languages.{0}.Configure", Program.selectedLanguage), Program.assembly);
+
             if (Program.portable)
             {
-                button_remove.Visible = false;
+                button_remove.Enabled = false;
             }
             if (File.Exists("Setup.exe"))
             {
@@ -161,8 +163,6 @@ namespace CSClock
 
             this.Location = Program.CSClockForm.Location;
             this.Size = new Size(420, 342);
-
-            Program.rm_Configure = new ResourceManager(string.Format("CSClock.Languages.{0}.Configure", Program.selectedLanguage), Program.assembly);
 
             //Load strings
             this.Text = Program.rm_Configure.GetString("form_title");
@@ -208,9 +208,7 @@ namespace CSClock
             {
                 Program.logger.Log(className, "Resetting CSClock...", Logger.LogType.Info);
                 Program.CSClockForm.timer.Stop();
-                Properties.Settings.Default.Reset();
-                Properties.Settings.Default.upgradeRequired = false;
-                Properties.Settings.Default.Save();
+                File.Delete("CSClock.settings");
 
                 if (File.Exists("log.txt") && MessageBox.Show("Do you also want to delete the log?",
                     "CSClock", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
@@ -238,10 +236,11 @@ namespace CSClock
             expanded = !expanded;
             if (expanded)
             {
-                this.Size = new Size(420, 383);
+                this.Size = new Size(420, 426);
                 button_moreless.Text = Program.rm_Configure.GetString("button_moreless_text__less");
                 button_reset.Visible = true;
                 button_remove.Visible = true;
+                button_dwnldAutoUpdater.Visible = true;
             }
             else
             {
@@ -249,6 +248,7 @@ namespace CSClock
                 button_moreless.Text = Program.rm_Configure.GetString("button_moreless_text__more");
                 button_reset.Visible = false;
                 button_remove.Visible = false;
+                button_dwnldAutoUpdater.Visible = false;
             }
         }
 
@@ -263,6 +263,11 @@ namespace CSClock
                 == DialogResult.Yes)
             {
                 UpdUpdater.UpdUpdate();
+                if (File.Exists("Setup.exe"))
+                {
+                    button_dwnldAutoUpdater.Enabled = false;
+                    button_dwnldAutoUpdater.Text = Program.rm_Configure.GetString("button_dwnldAutoUpdater_done_text");
+                }
                 Update();
             }
         }

@@ -29,7 +29,7 @@ namespace CSClock
         private const string className = "UpdUpdater.cs";
 
         static string installFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");
-        static string exePath = Path.Combine(installFolder, "Setup.exe");
+        static string exePath => Path.Combine(installFolder, "Setup.exe");
         static string tempExePath = Path.Combine(Path.GetTempPath(), "Setup.exe");
 
         static string logPath = Path.Combine(installFolder, "updupdaterlog.txt");
@@ -67,6 +67,11 @@ namespace CSClock
                 return;
             }
 
+            if (Program.portable)
+            {
+                installFolder = Path.GetDirectoryName(Application.ExecutablePath);
+            }
+
             //Check if update is needed
             WebClient webClient = new WebClient();
             FileVersionInfo currVer;
@@ -76,8 +81,7 @@ namespace CSClock
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error while getting current updater version: " + ex.Message, "CSClock", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                logger.Log(className, "Error while getting current updater version: " + ex.ToString(), Logger.LogType.Error);
+                logger.Log(className, "Error while getting current updater version, updating anyway. Error: " + ex.ToString(), Logger.LogType.Error);
                 currVer = null;
                 goto Update;
             }

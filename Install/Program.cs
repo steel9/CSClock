@@ -22,7 +22,6 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.Net;
 using System.Linq;
-using CSClock;
 using Microsoft.Win32;
 using System.Resources;
 using System.Reflection;
@@ -47,7 +46,9 @@ namespace OnlineSetup
 
         static string setupExePath;
 
-        static string tempExePath = Path.Combine(Path.GetTempPath(), "CSClock.exe");
+        static string tempCSClockPath = Path.Combine(Path.GetTempPath(), "CSClock");
+        static string tempLibPath = Path.Combine(tempCSClockPath, "lib");
+        static string tempExePath = Path.Combine(tempCSClockPath, "CSClock.exe");
 
         static string logPath;
 
@@ -57,7 +58,7 @@ namespace OnlineSetup
         static string devStartupShortcutPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Startup), "CSClock Dev.lnk");
         static string devStartmenuShortcutPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.StartMenu), "CSClock Dev.lnk");
 
-        static Logger logger = null;
+        public static Logger logger = null;
 
         public static void Main(string[] args)
         {
@@ -68,6 +69,14 @@ namespace OnlineSetup
             {
                 Directory.CreateDirectory(installDir);
             }
+            if (!Directory.Exists(tempCSClockPath))
+            {
+                Directory.CreateDirectory(tempCSClockPath);
+            }
+            if (!Directory.Exists(tempLibPath))
+            {
+                Directory.CreateDirectory(tempLibPath);
+            }
 
             if (args != null && args.Length > 0)
             {
@@ -76,10 +85,10 @@ namespace OnlineSetup
                     dev = true;
                     installDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock", "dev");
                 }
-                else if (args.Contains("-np"))
+                else if (!args.Contains("-np"))
                 {
                     portable = true;
-                    installDir = Application.ExecutablePath;
+                    installDir = Path.GetDirectoryName(Application.ExecutablePath);
                 }
             }
             exePath = Path.Combine(installDir, "CSClock.exe");
@@ -116,11 +125,29 @@ namespace OnlineSetup
             }
             else if (args.Contains("-update"))
             {
-                Update();
+                try
+                {
+                    Update();
+                }
+                catch (Exception ex)
+                {
+                    logger.Log(className, "Update error: " + ex.ToString(), Logger.LogType.Error);
+                    MessageBox.Show("Error while updating CSClock, see log.txt for more details. Error: " + ex.Message, "CSClock", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
             }
             else if (args.Contains("-uninstall"))
             {
-                Uninstall();
+                try
+                {
+                    Uninstall();
+                }
+                catch (Exception ex)
+                {
+                    logger.Log(className, "Uninstall error: " + ex.ToString(), Logger.LogType.Error);
+                    MessageBox.Show("Error while uninstalling CSClock, see log.txt for more details. Error: " + ex.Message, "CSClock", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -294,6 +321,18 @@ namespace OnlineSetup
                 return;
             }
 
+            logger.Log(className, "Downloading libraries", Logger.LogType.Info);
+            try
+            {
+                webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/lib/Newtonsoft.Json.dll",
+                    Path.Combine(tempLibPath, "Newtonsoft.Json.dll"));
+            }
+            catch (Exception ex)
+            {
+                logger.Log(className, "Error when downloading libraries, aborting update. Error: " + ex.ToString(), Logger.LogType.Info);
+                return;
+            }
+
             //Install CSClock
             logger.Log(className, "Installing CSClock", Logger.LogType.Info);
             try
@@ -305,6 +344,21 @@ namespace OnlineSetup
             {
                 logger.Log("CSClock installation error: " + ex.ToString(), className, Logger.LogType.Error);
                 MessageBox.Show("Error when installing CSClock: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            //Install libraries
+            logger.Log(className, "Installing libraries", Logger.LogType.Info);
+            try
+            {
+                File.Copy(Path.Combine(tempLibPath, "Newtonsoft.Json.dll"), Path.Combine(installDir, "Newtonsoft.Json.dll"), true);
+                Directory.Delete(tempCSClockPath);
+            }
+            catch (Exception ex)
+            {
+                logger.Log(className, "Libraries installation error: " + ex.ToString(), Logger.LogType.Error);
+                MessageBox.Show("Error when installing libraries: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Directory.Delete(tempCSClockPath);
                 return;
             }
 
@@ -503,17 +557,44 @@ namespace OnlineSetup
                 return;
             }
 
+            logger.Log(className, "Downloading libraries", Logger.LogType.Info);
+            try
+            {
+                webClient.DownloadFile("https://github.com/steel9/CSClock/raw/master/lib/Newtonsoft.Json.dll",
+                    Path.Combine(tempLibPath, "Newtonsoft.Json.dll"));
+            }
+            catch (Exception ex)
+            {
+                logger.Log(className, "Error when downloading libraries, aborting update. Error: " + ex.ToString(), Logger.LogType.Info);
+                return;
+            }
+
             //Install CSClock
             logger.Log(className, "Installing CSClock", Logger.LogType.Info);
             try
             {
                 File.Copy(tempExePath, exePath, true);
-                File.Delete(tempExePath);
             }
             catch (Exception ex)
             {
                 logger.Log(className, "CSClock installation error: " + ex.ToString(), Logger.LogType.Error);
                 MessageBox.Show("Error when installing CSClock: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Directory.Delete(tempCSClockPath);
+                return;
+            }
+
+            //Install libraries
+            logger.Log(className, "Installing libraries", Logger.LogType.Info);
+            try
+            {
+                File.Copy(Path.Combine(tempLibPath, "Newtonsoft.Json.dll"), Path.Combine(installDir, "Newtonsoft.Json.dll"), true);
+                Directory.Delete(tempCSClockPath);
+            }
+            catch (Exception ex)
+            {
+                logger.Log(className, "Libraries installation error: " + ex.ToString(), Logger.LogType.Error);
+                MessageBox.Show("Error when installing libraries: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Directory.Delete(tempCSClockPath);
                 return;
             }
 
