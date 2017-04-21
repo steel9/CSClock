@@ -42,7 +42,7 @@ namespace OnlineSetup
 
         static string installDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");
 
-        static string exePath;
+        public static string exePath;
 
         static string setupExePath;
 
@@ -90,6 +90,11 @@ namespace OnlineSetup
                     portable = true;
                     installDir = Path.GetDirectoryName(Application.ExecutablePath);
                 }
+            }
+            else
+            {
+                portable = true;
+                installDir = Path.GetDirectoryName(Application.ExecutablePath);
             }
             exePath = Path.Combine(installDir, "CSClock.exe");
             setupExePath = Path.Combine(installDir, "Setup.exe");
@@ -362,24 +367,27 @@ namespace OnlineSetup
                 return;
             }
 
-            //Install updater
-            logger.Log(className, "Installing updater", Logger.LogType.Info);
-            try
+            if (!portable)
             {
-                if (!dev)
+                //Install updater
+                logger.Log(className, "Installing updater", Logger.LogType.Info);
+                try
                 {
-                    File.Copy(Application.ExecutablePath, Path.Combine(installDir, "Setup.exe"), true);
+                    if (!dev)
+                    {
+                        File.Copy(Application.ExecutablePath, Path.Combine(installDir, "Setup.exe"), true);
+                    }
+                    else
+                    {
+                        File.Copy(Application.ExecutablePath, Path.Combine(installDir, "dev", "Setup.exe"), true);
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    File.Copy(Application.ExecutablePath, Path.Combine(installDir, "dev", "Setup.exe"), true);
+                    logger.Log(className, "Updater installation error: " + ex.ToString(), Logger.LogType.Error);
+                    MessageBox.Show("Error when installing updater: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
                 }
-            }
-            catch (Exception ex)
-            {
-                logger.Log(className, "Updater installation error: " + ex.ToString(), Logger.LogType.Error);
-                MessageBox.Show("Error when installing updater: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
             }
 
             //Make shortcuts
@@ -413,20 +421,6 @@ namespace OnlineSetup
             }
 
             CreateUninstallerReg();
-
-            //Start CSClock
-            logger.Log(className, "Starting CSClock", Logger.LogType.Info);
-            if (!dev)
-            {
-                 Process.Start(exePath, "-np");
-            }
-            else
-            {
-                 Process.Start(exePath, "-np -dev");
-            }
-
-            antiExit = false;
-            Application.Exit();
         }
 
         static void Update()

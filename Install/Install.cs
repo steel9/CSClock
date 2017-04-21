@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -26,6 +27,8 @@ namespace OnlineSetup
 {
     public partial class Install : Form
     {
+        private const string className = "Install.cs";
+
         public Install()
         {
             InitializeComponent();
@@ -80,14 +83,34 @@ namespace OnlineSetup
 
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            //try
-            //{
+            try
+            {
                 Program.Install();
-            //}
-            //catch (Exception ex)
-            //{
-                //Program.logger.Log("Program.cs", "Update error: " + ex.ToString(), Logger.LogType.Error);
-            //}
+            }
+            catch (Exception ex)
+            {
+                Program.logger.Log(className, "Update error: " + ex.ToString(), Logger.LogType.Error);
+            }
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            MessageBox.Show("Installation finished", "CSClock", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            /*
+            //Start CSClock
+            Program.logger.Log(className, "Starting CSClock", Logger.LogType.Info);
+            if (!Program.dev)
+            {
+                Process.Start(Program.exePath, "-np");
+            }
+            else
+            {
+                Process.Start(Program.exePath, "-np -dev");
+            }
+
+            */
+            Program.antiExit = false;
+            Application.Exit();
         }
     }
 }
