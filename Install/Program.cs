@@ -474,6 +474,7 @@ namespace OnlineSetup
             {
                 logger.Log(className, "Downloading VERSION2 file from development branch", Logger.LogType.Info);
             }
+            Version latestVersion;
             string latestVersionText = null;
             try
             {
@@ -489,11 +490,12 @@ namespace OnlineSetup
             catch (Exception ex)
             {
                 logger.Log(className, "Error while downloading VERSION2 file from master branch, updating anyway. Error: " + ex.ToString(), Logger.LogType.Error);
+                latestVersion = null;
                 goto Update;
             }
             logger.Log(className, "Parsing version", Logger.LogType.Info);
             string latestVersion_s = latestVersionText.Split(',')[0];
-            Version latestVersion = new Version(latestVersion_s);
+            latestVersion = new Version(latestVersion_s);
             logger.Log(className, "Current version is: " + currentVersion.ToString(), Logger.LogType.Info);
             logger.Log(className, "Latest version is: " + latestVersion.ToString(), Logger.LogType.Info);
 
@@ -604,9 +606,23 @@ namespace OnlineSetup
                 }
             }
 
+            if (latestVersion != null)
+            {
+                MessageBox.Show("CSClock updated to: " + latestVersion.ToString() +
+                    "\r\nPlease launch CSClock manually as a bug prevents CSClock from auto-starting", "CSClock Setup", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("CSClock updated"+
+                    "\r\nPlease launch CSClock manually as a bug prevents CSClock from auto-starting", "CSClock Setup", MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
+            /*
             //Start CSClock
             logger.Log(className, "Starting CSClock", Logger.LogType.Info);
             Process.Start(exePath);
+            */
         }
 
         private static void RemoveUninstallerFromReg()
