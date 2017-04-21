@@ -26,6 +26,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
 using System.Resources;
+using System.Net;
 
 namespace CSClock
 {
@@ -283,6 +284,40 @@ namespace CSClock
                 logger.Log(className, "Upgrade done", Logger.LogType.Info);
             }
             */
+
+            WebClient webClient = new WebClient();
+
+            string licensesDir = "licenses";
+            if (!Directory.Exists(licensesDir))
+            {
+                Directory.CreateDirectory(licensesDir);
+            }
+
+            try
+            {
+                if (!File.Exists(Path.Combine(licensesDir, "CSClock-LICENSE")))
+                {
+                    webClient.DownloadFile("https://raw.githubusercontent.com/steel9/CSClock/master/LICENSE", Path.Combine(licensesDir, "CSClock-LICENSE"));
+                }
+                if (!File.Exists(Path.Combine(licensesDir, "Json.NET-LICENSE.md")))
+                {
+                    webClient.DownloadFile("https://raw.githubusercontent.com/steel9/CSClock/master/3rd-party-licenses/Json.NET-LICENSE.md", Path.Combine(licensesDir,
+                        "Json.NET-LICENSE.md"));
+                }
+                if (!File.Exists(Path.Combine(licensesDir, "CustomSettingsProvider-LICENSE.htm")))
+                {
+                    webClient.DownloadFile("https://raw.githubusercontent.com/steel9/CSClock/master/3rd-party-licenses/CustomSettingsProvider-LICENSE.htm",
+                        Path.Combine(licensesDir, "CustomSettingsProvider-LICENSE.htm"));
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Log(className, "Error while downloading license files for CSClock and 3rd party libraries: " + ex.ToString(), Logger.LogType.Error);
+                MessageBox.Show("Could not download license files for CSClock and 3rd party libraries. Sorry, but CSClock won't start without" +
+                    " these files for legal reasons.\r\n\r\nError: " + ex.Message + "\r\n\r\nSee log.txt for more details", "CSClock", MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
+                return;
+            }
 
             selectedLanguage = Properties.Settings.Default.selectedLanguage;
             rm_GUI = new ResourceManager(string.Format("CSClock.Languages.{0}.GUI", selectedLanguage), assembly);
