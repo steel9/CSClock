@@ -418,11 +418,11 @@ namespace OnlineSetup
             logger.Log(className, "Starting CSClock", Logger.LogType.Info);
             if (!dev)
             {
-                Process.Start(exePath, "-np");
+                 Process.Start(exePath, "-np");
             }
             else
             {
-                Process.Start(exePath, "-np -dev");
+                 Process.Start(exePath, "-np -dev");
             }
 
             antiExit = false;
@@ -588,13 +588,13 @@ namespace OnlineSetup
             try
             {
                 File.Copy(Path.Combine(tempLibPath, "Newtonsoft.Json.dll"), Path.Combine(installDir, "Newtonsoft.Json.dll"), true);
-                Directory.Delete(tempCSClockPath);
+                Directory.Delete(tempCSClockPath, true);
             }
             catch (Exception ex)
             {
                 logger.Log(className, "Libraries installation error: " + ex.ToString(), Logger.LogType.Error);
                 MessageBox.Show("Error when installing libraries: " + ex.Message, "CSClock Installer", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Directory.Delete(tempCSClockPath);
+                Directory.Delete(tempCSClockPath, true);
                 return;
             }
 

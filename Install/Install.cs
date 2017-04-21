@@ -80,14 +80,14 @@ namespace OnlineSetup
 
         private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            try
-            {
+            //try
+            //{
                 Program.Install();
-            }
-            catch (Exception ex)
-            {
-                Program.logger.Log("Program.cs", "Update error: " + ex.ToString(), Logger.LogType.Error);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+                //Program.logger.Log("Program.cs", "Update error: " + ex.ToString(), Logger.LogType.Error);
+            //}
         }
     }
 }
