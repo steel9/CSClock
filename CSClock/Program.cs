@@ -249,7 +249,14 @@ namespace CSClock
                 ProcessStartInfo start =
                     new ProcessStartInfo();
                 start.FileName = updaterPath;
-                start.Arguments = "-update";
+                if (!portable)
+                {
+                    start.Arguments = "-update";
+                }
+                else
+                {
+                    start.Arguments = "-p -update";
+                }
                 start.WindowStyle = ProcessWindowStyle.Hidden;
                 var updateProc = Process.Start(start);
                 updateProc.WaitForExit();

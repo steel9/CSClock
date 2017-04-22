@@ -97,7 +97,7 @@ namespace OnlineSetup
             }
             exePath = Path.Combine(installDir, "CSClock.exe");
             setupExePath = Path.Combine(installDir, "Setup.exe");
-            logPath = Path.Combine(installDir, "log.txt");
+            logPath = Path.Combine(installDir, "setuplog.txt");
 
             if (File.Exists(logPath))
             {
