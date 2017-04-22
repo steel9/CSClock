@@ -223,7 +223,16 @@ namespace CSClock
                 Properties.Settings.Default.Save();
                 using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/steel9/CSClock"))
                 {
-                    await mgr.Result.UpdateApp();
+                    try
+                    {
+                        await mgr.Result.UpdateApp();
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Log(className, "Update error: " + ex.ToString(), Logger.LogType.Error);
+                        MessageBox.Show("Update error: " + ex.Message + "\r\nFull error details: " + ex.ToString(), "CSClock",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
                 Properties.Settings.Default.properExit = false;
                 Properties.Settings.Default.Save();
@@ -243,7 +252,16 @@ namespace CSClock
                 Properties.Settings.Default.Save();
                 using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/steel9/CSClock"))
                 {
-                    await mgr.Result.UpdateApp();
+                    try
+                    {
+                        await mgr.Result.UpdateApp();
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Log(className, "Update error: " + ex.ToString(), Logger.LogType.Error);
+                        MessageBox.Show("Update error: " + ex.Message + "\r\nFull error details: " + ex.ToString(), "CSClock",
+                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
 
