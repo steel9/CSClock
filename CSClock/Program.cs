@@ -221,7 +221,7 @@ namespace CSClock
             {
                 Properties.Settings.Default.properExit = true;
                 Properties.Settings.Default.Save();
-                using (var mgr = new UpdateManager("https://github.com/steel9/CSClock/tree/dev/Releases"))
+                using (var mgr = new UpdateManager("https://raw.githubusercontent.com/steel9/CSClock/dev/Releases/"))
                 {
                     await mgr.UpdateApp();
                 }
@@ -241,7 +241,7 @@ namespace CSClock
             {
                 Properties.Settings.Default.autoUpdate = true;
                 Properties.Settings.Default.Save();
-                using (var mgr = new UpdateManager("https://github.com/steel9/CSClock/tree/dev/Releases"))
+                using (var mgr = new UpdateManager("https://raw.githubusercontent.com/steel9/CSClock/dev/Releases/"))
                 {
                     await mgr.UpdateApp();
                 }
