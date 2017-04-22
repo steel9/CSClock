@@ -27,6 +27,7 @@ using System.IO;
 using System.Reflection;
 using System.Resources;
 using System.Net;
+using Squirrel;
 
 namespace CSClock
 {
@@ -82,7 +83,7 @@ namespace CSClock
 #if DEBUG
             debug = true;
 #endif
-            
+
             Application.ThreadException += new
                 ThreadExceptionEventHandler(CSClock.Form1_UIThreadException);
 
@@ -127,32 +128,6 @@ namespace CSClock
             {
                 if (createdNew || (args != null && args.Contains("-ignorerunning")))
                 {
-                    if ((args == null || args.Length == 0 || !args.Contains("-disup")) && Properties.Settings.Default.autoUpdate)
-                    {
-                        if (File.Exists("Setup.exe") || !portable)
-                        {
-                            UpdUpdater.UpdUpdate();
-                            AppUpdate();
-                        }
-                        else
-                        {
-                            if (!File.Exists("Setup.exe") && !Properties.Settings.Default.portableAutoUpdaterQuestionShown)
-                            {
-                                if (MessageBox.Show(rm_Messages.GetString("portableAutoUpdaterQuestion_text"), "CSClock", MessageBoxButtons.YesNo,
-                                    MessageBoxIcon.Question) == DialogResult.Yes)
-                                {
-                                    UpdUpdater.UpdUpdate();
-                                    AppUpdate();
-                                }
-                                else
-                                {
-                                    Properties.Settings.Default.portableAutoUpdaterQuestionShown = true;
-                                    Properties.Settings.Default.Save();
-                                }
-                            }
-                        }
-                    }
-
                     if (!Properties.Settings.Default.properExit)
                     {
                         properExitLast = false;
@@ -238,59 +213,21 @@ namespace CSClock
             }
         }
 
-        static void AppUpdate()
+        static async void StartApplication(string[] args)
         {
-            Properties.Settings.Default.properExit = true;
-            Properties.Settings.Default.Save();
+            logger.Log(className, "Starting CSClock", Logger.LogType.Info);
 
-            try
+            if ((args == null || args.Length == 0 || !args.Contains("-disup")) && Properties.Settings.Default.autoUpdate)
             {
-                string updaterPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock", "Setup.exe");
-                ProcessStartInfo start =
-                    new ProcessStartInfo();
-                start.FileName = updaterPath;
-                if (!portable)
+                Properties.Settings.Default.properExit = true;
+                Properties.Settings.Default.Save();
+                using (var mgr = new UpdateManager("https://github.com/steel9/CSClock/tree/dev/Releases"))
                 {
-                    start.Arguments = "-update";
+                    await mgr.UpdateApp();
                 }
-                else
-                {
-                    start.Arguments = "-p -update";
-                }
-                start.WindowStyle = ProcessWindowStyle.Hidden;
-                var updateProc = Process.Start(start);
-                updateProc.WaitForExit();
-
                 Properties.Settings.Default.properExit = false;
                 Properties.Settings.Default.Save();
             }
-            catch (Exception ex)
-            {
-                logger.Log(className, "Error when running auto-updater at app launch: " + ex.ToString(), Logger.LogType.Error);
-                MessageBox.Show("Error when running auto-updater: " + ex.Message + "\r\n\r\nSee '" + Path.Combine(Environment.GetFolderPath(
-                    Environment.SpecialFolder.LocalApplicationData), @"CSClock\log.txt") + "' for more details", "CSClock",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        static void StartApplication(string[] args)
-        {
-
-            logger.Log(className, "Starting CSClock", Logger.LogType.Info);
-
-            /*
-            //Not needed with portable settings
-            if (Properties.Settings.Default.upgradeRequired && ((args == null && args.Length > 0) || !args.Contains("-donotupgradesettings")))
-            {
-                logger.Log(className, "Upgrading user settings...", Logger.LogType.Info);
-
-                Properties.Settings.Default.Upgrade();
-                Properties.Settings.Default.upgradeRequired = false;
-                Properties.Settings.Default.Save();
-
-                logger.Log(className, "Upgrade done", Logger.LogType.Info);
-            }
-            */
 
             WebClient webClient = new WebClient();
 
@@ -338,7 +275,10 @@ namespace CSClock
             {
                 Properties.Settings.Default.autoUpdate = true;
                 Properties.Settings.Default.Save();
-                AppUpdate();
+                using (var mgr = new UpdateManager("https://github.com/steel9/CSClock/tree/dev/Releases"))
+                {
+                    await mgr.UpdateApp();
+                }
             }
 
             if (args != null && args.Length > 0 && args.Contains("-uninstall"))
