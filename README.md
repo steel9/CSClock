@@ -37,7 +37,7 @@ See NEWS.md
   - Windows PowerShell, used by the removal tool. You can use CSClock without Windows PowerShell, but you can't use the removal tool. 
   
 **HOW TO INSTALL:**  
-FOR INSTALLATION: Download Install.exe, open it, press 'More info' on the SmartScreen warning, then press 'Run anyway'.   
+FOR INSTALLATION: Download 'Setup.exe' in 'Releases' folder, open it, press 'More info' on the SmartScreen warning, then press 'Run anyway'.   
 FOR NON-INSTALLATION: You can still just download and run CSClock.exe, but it does NOT auto update, and it still stores settings in its local appdata folder.
 
 **HOW TO UNINSTALL:**  
