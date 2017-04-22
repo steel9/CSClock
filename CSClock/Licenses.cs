@@ -37,16 +37,18 @@ namespace CSClock
 
         private Dictionary<string, string> btnsLicenses = new Dictionary<string, string>
         {
-            { "btn_CSClock", "CSClock-LICENSE" },
-            { "btn_JsonNET", "Json.NET-LICENSE.md" },
-            { "btn_CustomSettingsProvider", "CustomSettingsProvider-LICENSE.htm" }
+            { "btn_CSClock", "CSClock_LICENSE" },
+            { "btn_JsonNET", "Json_NET_LICENSE" },
+            { "btn_CustomSettingsProvider", "CustomSettingsProvider_LICENSE_htm" },
+            { "btn_Squirrel_Windows", "Squirrel_Windows_LICENSE" }
         };
 
         private Dictionary<string, string> btnsLicensesOf = new Dictionary<string, string>
         {
             { "btn_CSClock", "CSClock" },
             { "btn_JsonNET", "Json.NET by Newtonsoft" },
-            { "btn_CustomSettingsProvider", "CustomSettingsProvider by CodeChimp" }
+            { "btn_CustomSettingsProvider", "CustomSettingsProvider by CodeChimp" },
+            { "btn_Squirrel_Windows", "Squirrel.Windows by GitHub" }
         };
 
         public Licenses()
@@ -56,37 +58,19 @@ namespace CSClock
 
         private void button_Click(object sender, EventArgs e)
         {
-            if (!btnsLicenses[((Button)sender).Name].EndsWith(".htm"))
+            if (!btnsLicenses[((Button)sender).Name].EndsWith("_htm"))
             {
                 webBrowser1.Navigate("about:blank");
                 webBrowser1.Visible = false;
                 richTextBox1.Visible = true;
-
-                StreamReader sr;
-                if (!Program.dev)
-                {
-                    sr = new StreamReader(Path.Combine(licensesDir, btnsLicenses[((Button)sender).Name]));
-                }
-                else
-                {
-                    sr = new StreamReader(Path.Combine(devLicensesDir, btnsLicenses[((Button)sender).Name]));
-                }
-                richTextBox1.Text = sr.ReadToEnd();
-                sr.Close();
+                richTextBox1.Text = Properties.Resources.ResourceManager.GetString(btnsLicenses[((Button)sender).Name]);
             }
             else
             {
                 richTextBox1.Text = string.Empty;
                 richTextBox1.Visible = false;
                 webBrowser1.Visible = true;
-                if (!Program.dev)
-                {
-                    webBrowser1.Navigate(Path.Combine(licensesDir, btnsLicenses[((Button)sender).Name]));
-                }
-                else
-                {
-                    webBrowser1.Navigate(Path.Combine(devLicensesDir, btnsLicenses[((Button)sender).Name]));
-                }
+                webBrowser1.DocumentText = Properties.Resources.ResourceManager.GetString(btnsLicenses[((Button)sender).Name]);
             }
 
             l_lcOf.Text = Program.rm_LicensesForm.GetString("l_lcOf_startText") + " " +

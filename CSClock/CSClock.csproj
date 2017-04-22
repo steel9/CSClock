@@ -430,6 +430,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\clock.png" />
+    <None Include="Resources\LICENSE" />
     <None Include="Resources\play.png" />
     <None Include="Resources\pause.png" />
     <None Include="Resources\gear.png" />
@@ -440,7 +441,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </ItemGroup>
   <ItemGroup>
     <Content Include="Logo.ico" />
+    <None Include="Resources\CustomSettingsProvider-LICENSE.htm" />
+    <None Include="Resources\Json_NET_LICENSE.txt" />
+    <None Include="Resources\Squirrel.Windows-LICENSE.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

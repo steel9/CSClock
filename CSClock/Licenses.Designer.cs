@@ -56,6 +56,7 @@ namespace CSClock
             this.label3 = new System.Windows.Forms.Label();
             this.btn_CustomSettingsProvider = new System.Windows.Forms.Button();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.btn_Squirrel_Windows = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_CSClock
@@ -146,11 +147,22 @@ namespace CSClock
             this.webBrowser1.TabIndex = 8;
             this.webBrowser1.Visible = false;
             // 
+            // btn_Squirrel_Windows
+            // 
+            this.btn_Squirrel_Windows.Location = new System.Drawing.Point(360, 81);
+            this.btn_Squirrel_Windows.Name = "btn_Squirrel_Windows";
+            this.btn_Squirrel_Windows.Size = new System.Drawing.Size(157, 23);
+            this.btn_Squirrel_Windows.TabIndex = 9;
+            this.btn_Squirrel_Windows.Text = "Squirrel.Windows by GitHub";
+            this.btn_Squirrel_Windows.UseVisualStyleBackColor = true;
+            this.btn_Squirrel_Windows.Click += new System.EventHandler(this.button_Click);
+            // 
             // Licenses
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(610, 434);
+            this.Controls.Add(this.btn_Squirrel_Windows);
             this.Controls.Add(this.webBrowser1);
             this.Controls.Add(this.btn_CustomSettingsProvider);
             this.Controls.Add(this.label3);
@@ -183,5 +195,6 @@ namespace CSClock
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btn_CustomSettingsProvider;
         private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.Button btn_Squirrel_Windows;
     }
 }
