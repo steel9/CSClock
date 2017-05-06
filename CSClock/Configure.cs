@@ -201,10 +201,18 @@ namespace CSClock
                 Program.CSClockForm.timer.Stop();
                 File.Delete("CSClock.settings");
 
-                if (File.Exists("log.txt") && MessageBox.Show("Do you also want to delete the log?",
+                if (File.Exists("statistics.json") && MessageBox.Show("Do you also want to reset the statistics?",
+                    "CSClock", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    File.Delete("statistics.json");
+                }
+
+                if ((File.Exists("log.txt") || File.Exists("exc.txt")) && MessageBox.Show("Do you also want to delete the logs?",
                     "CSClock", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
                 {
                     File.Delete("log.txt");
+                    File.Delete("exc.txt");
+                    Program.logger.Log(className, "Reset done", Logger.LogType.Info);
                 }
 
                 Environment.Exit(0);

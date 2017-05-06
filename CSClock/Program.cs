@@ -26,8 +26,8 @@ using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
 using System.Resources;
-using System.Net;
 using Squirrel;
+using System.Net;
 
 namespace CSClock
 {
@@ -98,22 +98,21 @@ namespace CSClock
                     dev = true;
                 }
 
-                if (args.Contains("-np"))
+                if (args.Contains("-np") || Path.GetDirectoryName(Application.ExecutablePath).EndsWith(@"AppData\Local\CSClock"))
                 {
                     portable = false;
                 }
             }
 
-            string logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");
+            string logDir;
 
-            if (!Directory.Exists(logDir))
+            if (debug || portable)
             {
-                Directory.CreateDirectory(logDir);
+                logDir = Path.GetDirectoryName(Application.ExecutablePath);
             }
-
-            if (debug)
+            else
             {
-                logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock", "debug");
+                logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");
                 if (!Directory.Exists(logDir))
                 {
                     Directory.CreateDirectory(logDir);
@@ -185,8 +184,22 @@ namespace CSClock
             {
                 Exception ex = (Exception)e.ExceptionObject;
                 string errorMsg = "Ouch! An application error occurred :(\r\nPlease contact me (steel9) " +
-                    "and tell me what you did when this happened";
+                    ", provide the 'exc.txt' file and tell me what you did when this happened";
+
+                Logger lg = null;
+                try
+                {
+                    lg = new Logger("CSClock", "exc.txt", Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
+                }
+                catch
+                {
+                    File.Delete("exc.txt");
+                    lg = new Logger("CSClock", "exc.txt", Logger.LogTimeDateOptions.YearMonthDayHourMinuteSecond, true);
+                }
+                lg.Log(className, ex.ToString(), Logger.LogType.Error);
+
                 MessageBox.Show(errorMsg, "CSClock", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
 
                 // Since we can't prevent the app from terminating, log this to the event log.
                 if (!EventLog.SourceExists("ThreadException"))
@@ -217,10 +230,11 @@ namespace CSClock
         {
             logger.Log(className, "Starting CSClock", Logger.LogType.Info);
 
-            if ((args == null || args.Length == 0 || !args.Contains("-disup")) && Properties.Settings.Default.autoUpdate)
+            if ((args == null || args.Length == 0 || !args.Contains("-disup")) && Properties.Settings.Default.autoUpdate && !portable)
             {
                 Properties.Settings.Default.properExit = true;
                 Properties.Settings.Default.Save();
+                /*
                 using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/steel9/CSClock"))
                 {
                     try
@@ -234,6 +248,10 @@ namespace CSClock
                             MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
+                */
+
+                CheckForUpdate();
+
                 Properties.Settings.Default.properExit = false;
                 Properties.Settings.Default.Save();
             }
@@ -250,19 +268,25 @@ namespace CSClock
             {
                 Properties.Settings.Default.autoUpdate = true;
                 Properties.Settings.Default.Save();
-                using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/steel9/CSClock"))
+                /*
+                if (!portable)
                 {
-                    try
+                    using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/steel9/CSClock"))
                     {
-                        await mgr.Result.UpdateApp();
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.Log(className, "Update error: " + ex.ToString(), Logger.LogType.Error);
-                        MessageBox.Show("Update error: " + ex.Message + "\r\nFull error details: " + ex.ToString(), "CSClock",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        try
+                        {
+                            await mgr.Result.UpdateApp();
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Log(className, "Update error: " + ex.ToString(), Logger.LogType.Error);
+                            MessageBox.Show("Update error: " + ex.Message + "\r\nFull error details: " + ex.ToString(), "CSClock",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                 }
+                */
+                CheckForUpdate();
             }
 
             if (args != null && args.Length > 0 && args.Contains("-uninstall"))
@@ -339,6 +363,56 @@ namespace CSClock
             }
 
             Application.Run(CSClockForm);
+        }
+
+        static void CheckForUpdate()
+        {
+            WebClient webClient = new WebClient();
+
+            FileVersionInfo currVer = FileVersionInfo.GetVersionInfo(Application.ExecutablePath);
+            Version currentVersion = new Version(string.Format("{0}.{1}.{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
+                currVer.FileBuildPart.ToString()));
+            if (!dev)
+            {
+                logger.Log(className, "Downloading VERSION2 file from master branch", Logger.LogType.Info);
+            }
+            else
+            {
+                logger.Log(className, "Downloading VERSION2 file from development branch", Logger.LogType.Info);
+            }
+            Version latestVersion;
+            string latestVersionText = null;
+            try
+            {
+                if (!dev)
+                {
+                    latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/master/VERSION2");
+                }
+                else
+                {
+                    latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/development/VERSION2");
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Log(className, "Error while downloading VERSION2 file from master branch. Error: " + ex.ToString(), Logger.LogType.Error);
+                latestVersion = null;
+                return;
+            }
+            logger.Log(className, "Parsing version", Logger.LogType.Info);
+            string latestVersion_s = latestVersionText.Split(',')[0];
+            latestVersion = new Version(latestVersion_s);
+            logger.Log(className, "Current version is: " + currentVersion.ToString(), Logger.LogType.Info);
+            logger.Log(className, "Latest version is: " + latestVersion.ToString(), Logger.LogType.Info);
+
+            if (currentVersion < latestVersion)
+            {
+                if (MessageBox.Show("Update is available: " + latestVersion.ToString() + "\r\n\r\nUpdate to get latest features and fixes (recommended)?", "CSClock",
+                    MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                {
+                    Process.Start("https://github.com/steel9/CSClock/blob/master/Releases/Setup.exe");
+                }
+            }
         }
 
         public static void Uninstall()
