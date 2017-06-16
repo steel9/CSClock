@@ -1,5 +1,8 @@
 **CSClock, with exceptions for the (partly) portable version and for the development builds, will automatically update at next program start, so there's no need to update manually.**  
   
+**0.4.1 news:**  
+- Bug fixes  
+    
 **0.4.0 news:**  
 - Switched from using own installer and updater, to using Squirrel.Windows  
   
