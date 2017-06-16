@@ -33,7 +33,6 @@ See NEWS.md
   
 **SYSTEM REQUIREMENTS:**
   - .NET Framework 4.5.2  
-  - Windows PowerShell, used by the removal tool. You can use CSClock without Windows PowerShell, but you can't use the removal tool. 
   
 **HOW TO INSTALL:**  
 FOR INSTALLATION: Download 'Setup.exe' in 'Releases' folder, open it, press 'More info' on the SmartScreen warning, then press 'Run anyway'.   
