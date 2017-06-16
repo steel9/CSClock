@@ -71,49 +71,6 @@ namespace CSClock.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to                     GNU GENERAL PUBLIC LICENSE
-        ///                       Version 3, 29 June 2007
-        ///
-        /// Copyright (C) 2007 Free Software Foundation, Inc. &lt;http://fsf.org/&gt;
-        /// Everyone is permitted to copy and distribute verbatim copies
-        /// of this license document, but changing it is not allowed.
-        ///
-        ///                            Preamble
-        ///
-        ///  The GNU General Public License is a free, copyleft license for
-        ///software and other kinds of works.
-        ///
-        ///  The licenses for most software and other practical works are designed
-        ///to [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string CSClock_LICENSE {
-            get {
-                return ResourceManager.GetString("CSClock_LICENSE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to ?&lt;html&gt;
-        ///&lt;head&gt;
-        ///&lt;title&gt;The Code Project Open License (CPOL)&lt;/title&gt;
-        ///&lt;Style&gt;
-        ///BODY, P, TD { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10pt }
-        ///H1,H2,H3,H4,H5 { color: #ff9900; font-weight: bold; }
-        ///H1 { font-size: 14pt;color:black }
-        ///H2 { font-size: 13pt; }
-        ///H3 { font-size: 12pt; }
-        ///H4 { font-size: 10pt; color: black; }
-        ///PRE { BACKGROUND-COLOR: #FBEDBB; FONT-FAMILY: &quot;Courier New&quot;, Courier, mono; WHITE-SPACE: pre; }
-        ///CODE { COLOR: #990000; FONT-FAMILY: &quot;Courier New&quot;, Courier, mono; }
-        ///.S [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string CustomSettingsProvider_LICENSE_htm {
-            get {
-                return ResourceManager.GetString("CustomSettingsProvider_LICENSE_htm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap earth {
@@ -130,26 +87,6 @@ namespace CSClock.Properties {
             get {
                 object obj = ResourceManager.GetObject("gear", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The MIT License (MIT)
-        ///
-        ///Copyright (c) 2007 James Newton-King
-        ///
-        ///Permission is hereby granted, free of charge, to any person obtaining a copy of
-        ///this software and associated documentation files (the &quot;Software&quot;), to deal in
-        ///the Software without restriction, including without limitation the rights to
-        ///use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
-        ///the Software, and to permit persons to whom the Software is furnished to do so,
-        ///subject to the following conditions:
-        ///
-        ///The ab [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string Json_NET_LICENSE {
-            get {
-                return ResourceManager.GetString("Json_NET_LICENSE", resourceCulture);
             }
         }
         
@@ -180,24 +117,6 @@ namespace CSClock.Properties {
             get {
                 object obj = ResourceManager.GetObject("play", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Copyright (c) 2012 GitHub, Inc.
-        ///
-        ///Permission is hereby granted,  free of charge,  to any person obtaining a
-        ///copy of this software and associated documentation files (the &quot;Software&quot;),
-        ///to deal in the Software without restriction, including without limitation
-        ///the rights to  use, copy, modify, merge, publish, distribute, sublicense,
-        ///and/or sell copies of the Software, and to permit persons to whom the
-        ///Software is furnished to do so, subject to the following conditions:
-        ///
-        ///The above copyright notice and th [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string Squirrel_Windows_LICENSE {
-            get {
-                return ResourceManager.GetString("Squirrel_Windows_LICENSE", resourceCulture);
             }
         }
     }

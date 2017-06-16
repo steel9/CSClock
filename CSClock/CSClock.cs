@@ -571,6 +571,7 @@ namespace CSClock
                 Properties.Settings.Default.Save();
 
                 Program.Reload();
+                startDateTime = DateTime.Now;
             }
         }
 

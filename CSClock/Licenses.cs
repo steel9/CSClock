@@ -23,6 +23,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,46 +36,11 @@ namespace CSClock
         private string licensesDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock", "Licenses");
         private string devLicensesDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock", "dev", "Licenses");
 
-        private Dictionary<string, string> btnsLicenses = new Dictionary<string, string>
-        {
-            { "btn_CSClock", "CSClock_LICENSE" },
-            { "btn_JsonNET", "Json_NET_LICENSE" },
-            { "btn_CustomSettingsProvider", "CustomSettingsProvider_LICENSE_htm" },
-            { "btn_Squirrel_Windows", "Squirrel_Windows_LICENSE" }
-        };
-
-        private Dictionary<string, string> btnsLicensesOf = new Dictionary<string, string>
-        {
-            { "btn_CSClock", "CSClock" },
-            { "btn_JsonNET", "Json.NET by Newtonsoft" },
-            { "btn_CustomSettingsProvider", "CustomSettingsProvider by CodeChimp" },
-            { "btn_Squirrel_Windows", "Squirrel.Windows by GitHub" }
-        };
+        private List<string> licensePaths = new List<string>();
 
         public Licenses()
         {
             InitializeComponent();
-        }
-
-        private void button_Click(object sender, EventArgs e)
-        {
-            if (!btnsLicenses[((Button)sender).Name].EndsWith("_htm"))
-            {
-                webBrowser1.Navigate("about:blank");
-                webBrowser1.Visible = false;
-                richTextBox1.Visible = true;
-                richTextBox1.Text = Properties.Resources.ResourceManager.GetString(btnsLicenses[((Button)sender).Name]);
-            }
-            else
-            {
-                richTextBox1.Text = string.Empty;
-                richTextBox1.Visible = false;
-                webBrowser1.Visible = true;
-                webBrowser1.DocumentText = Properties.Resources.ResourceManager.GetString(btnsLicenses[((Button)sender).Name]);
-            }
-
-            l_lcOf.Text = Program.rm_LicensesForm.GetString("l_lcOf_startText") + " " +
-                btnsLicensesOf[((Button)sender).Name];
         }
 
         private void Licenses_Load(object sender, EventArgs e)
@@ -82,14 +48,74 @@ namespace CSClock
             Program.rm_LicensesForm = new ResourceManager(string.Format("CSClock.Languages.{0}.LicensesForm", Program.selectedLanguage), Program.assembly);
 
             this.Text = Program.rm_LicensesForm.GetString("form_title");
-            label2.Text = Program.rm_LicensesForm.GetString("l_3rdpartylibraries_text");
-            label3.Text = Program.rm_LicensesForm.GetString("l_instructions_text");
             l_lcOf.Text = Program.rm_LicensesForm.GetString("l_lcOf_startText");
+
+            foreach (string licenseFile in Assembly.GetExecutingAssembly().GetManifestResourceNames()
+                .Where(x => x.StartsWith("CSClock.Licenses") && !x.StartsWith("CSClock.Licenses.ExtraInfo") && !x.EndsWith("resources")))
+            {
+                listBox1.Items.Add(
+                    licenseFile
+                    .Replace("CSClock.Licenses.", "")
+                    .Replace("_LICENSE", "")
+                    .Replace(".txt", "")
+                    .Replace(".htm", "")
+                    );
+                licensePaths.Add(licenseFile);
+            }
         }
 
         private void Licenses_FormClosing(object sender, FormClosingEventArgs e)
         {
             Program.rm_LicensesForm = null;
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (licensePaths[listBox1.SelectedIndex].EndsWith(".htm"))
+            {
+                richTextBox1.Visible = false;
+                webBrowser1.Visible = true;
+
+                var stream = Program.assembly.GetManifestResourceStream(licensePaths[listBox1.SelectedIndex]);
+                webBrowser1.DocumentStream = stream;
+            }
+            else
+            {
+                webBrowser1.Navigate("about:blank");
+                webBrowser1.Visible = false;
+                richTextBox1.Visible = true;
+
+                var stream = Program.assembly.GetManifestResourceStream(licensePaths[listBox1.SelectedIndex]);
+                using (var sr = new StreamReader(stream))
+                {
+                    richTextBox1.Text = sr.ReadToEnd();
+                }
+            }
+
+            l_lcOf.Text = "License of: " + listBox1.Items[listBox1.SelectedIndex].ToString();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            var selectedLicense = listBox1.Items[listBox1.SelectedIndex].ToString();
+
+            foreach (string infoFile_ in Assembly.GetExecutingAssembly().GetManifestResourceNames()
+                .Where(x => x.StartsWith("CSClock.Licenses.ExtraInfo")
+                && !x.EndsWith("resources")))
+            {
+                var infoFile = infoFile_
+                    .Replace("CSClock.Licenses.ExtraInfo.", "")
+                    .Replace(".txt", "");
+
+                if (infoFile == selectedLicense)
+                {
+                    var stream = Program.assembly.GetManifestResourceStream(infoFile_);
+                    using (var sr = new StreamReader(stream))
+                    {
+                        MessageBox.Show(sr.ReadToEnd(), selectedLicense, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
         }
     }
 }

@@ -1,0 +1,1 @@
+﻿Squirrel.Windows by GitHub (https://github.com/Squirrel/Squirrel.Windows)

@@ -71,6 +71,8 @@ namespace CSClock
 
         public static bool properExitLast = true;
 
+        static SaveFileDialog sfd_update;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -234,7 +236,6 @@ namespace CSClock
             {
                 Properties.Settings.Default.properExit = true;
                 Properties.Settings.Default.Save();
-                /*
                 using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/steel9/CSClock"))
                 {
                     try
@@ -244,11 +245,8 @@ namespace CSClock
                     catch (Exception ex)
                     {
                         logger.Log(className, "Update error: " + ex.ToString(), Logger.LogType.Error);
-                        MessageBox.Show("Update error: " + ex.Message + "\r\nFull error details: " + ex.ToString(), "CSClock",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                */
 
                 CheckForUpdate();
 
@@ -268,7 +266,7 @@ namespace CSClock
             {
                 Properties.Settings.Default.autoUpdate = true;
                 Properties.Settings.Default.Save();
-                /*
+
                 if (!portable)
                 {
                     using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/steel9/CSClock"))
@@ -280,12 +278,9 @@ namespace CSClock
                         catch (Exception ex)
                         {
                             logger.Log(className, "Update error: " + ex.ToString(), Logger.LogType.Error);
-                            MessageBox.Show("Update error: " + ex.Message + "\r\nFull error details: " + ex.ToString(), "CSClock",
-                                MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
                 }
-                */
                 CheckForUpdate();
             }
 
@@ -407,10 +402,21 @@ namespace CSClock
 
             if (currentVersion < latestVersion)
             {
-                if (MessageBox.Show("Update is available: " + latestVersion.ToString() + "\r\n\r\nUpdate to get latest features and fixes (recommended)?", "CSClock",
+                if (MessageBox.Show("Update is available: v" + latestVersion.ToString() + "\r\n\r\nUpdate to get latest features and fixes (recommended)?", "CSClock",
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
                 {
-                    Process.Start("https://github.com/steel9/CSClock/blob/master/Releases/Setup.exe");
+                    sfd_update = new SaveFileDialog();
+                    sfd_update.FileName = "CSClock_Setup.exe";
+                    sfd_update.Filter = "Executable file|*.exe";
+                    sfd_update.InitialDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+                    if (sfd_update.ShowDialog() == DialogResult.OK)
+                    {
+                        WebClient wc = new WebClient();
+                        wc.DownloadFile("https://github.com/steel9/CSClock/blob/master/Releases/Setup.exe", sfd_update.FileName);
+
+                        var process = Process.Start(sfd_update.FileName);
+                        process.WaitForExit();
+                    }
                 }
             }
         }

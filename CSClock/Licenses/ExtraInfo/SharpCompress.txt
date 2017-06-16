@@ -1,0 +1,1 @@
+﻿SharpCompress by Adam Hathcock (https://github.com/adamhathcock/sharpcompress)

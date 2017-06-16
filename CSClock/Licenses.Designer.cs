@@ -47,64 +47,20 @@ namespace CSClock
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Licenses));
-            this.btn_CSClock = new System.Windows.Forms.Button();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.btn_JsonNET = new System.Windows.Forms.Button();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.l_lcOf = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.btn_CustomSettingsProvider = new System.Windows.Forms.Button();
             this.webBrowser1 = new System.Windows.Forms.WebBrowser();
-            this.btn_Squirrel_Windows = new System.Windows.Forms.Button();
+            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // btn_CSClock
-            // 
-            this.btn_CSClock.Location = new System.Drawing.Point(12, 29);
-            this.btn_CSClock.Name = "btn_CSClock";
-            this.btn_CSClock.Size = new System.Drawing.Size(75, 23);
-            this.btn_CSClock.TabIndex = 0;
-            this.btn_CSClock.Text = "CSClock";
-            this.btn_CSClock.UseVisualStyleBackColor = true;
-            this.btn_CSClock.Click += new System.EventHandler(this.button_Click);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 13);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "CSClock:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 65);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(100, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "3rd party libraries:";
-            // 
-            // btn_JsonNET
-            // 
-            this.btn_JsonNET.Location = new System.Drawing.Point(12, 81);
-            this.btn_JsonNET.Name = "btn_JsonNET";
-            this.btn_JsonNET.Size = new System.Drawing.Size(135, 23);
-            this.btn_JsonNET.TabIndex = 2;
-            this.btn_JsonNET.Text = "Json.NET by Newtonsoft";
-            this.btn_JsonNET.UseVisualStyleBackColor = true;
-            this.btn_JsonNET.Click += new System.EventHandler(this.button_Click);
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(12, 146);
+            this.richTextBox1.Location = new System.Drawing.Point(178, 41);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(586, 276);
+            this.richTextBox1.Size = new System.Drawing.Size(533, 381);
             this.richTextBox1.TabIndex = 4;
             this.richTextBox1.Text = "";
             // 
@@ -112,66 +68,62 @@ namespace CSClock
             // 
             this.l_lcOf.AutoSize = true;
             this.l_lcOf.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.l_lcOf.Location = new System.Drawing.Point(12, 122);
+            this.l_lcOf.Location = new System.Drawing.Point(174, 10);
             this.l_lcOf.Name = "l_lcOf";
             this.l_lcOf.Size = new System.Drawing.Size(82, 21);
             this.l_lcOf.TabIndex = 5;
             this.l_lcOf.Text = "License of:";
             // 
-            // label3
-            // 
-            this.label3.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(124, 13);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(474, 54);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "Click a button to show the license of that application/library";
-            // 
-            // btn_CustomSettingsProvider
-            // 
-            this.btn_CustomSettingsProvider.Location = new System.Drawing.Point(153, 81);
-            this.btn_CustomSettingsProvider.Name = "btn_CustomSettingsProvider";
-            this.btn_CustomSettingsProvider.Size = new System.Drawing.Size(201, 23);
-            this.btn_CustomSettingsProvider.TabIndex = 7;
-            this.btn_CustomSettingsProvider.Text = "CustomSettingsProvider by CodeChimp";
-            this.btn_CustomSettingsProvider.UseVisualStyleBackColor = true;
-            this.btn_CustomSettingsProvider.Click += new System.EventHandler(this.button_Click);
-            // 
             // webBrowser1
             // 
             this.webBrowser1.AllowWebBrowserDrop = false;
-            this.webBrowser1.Location = new System.Drawing.Point(12, 146);
+            this.webBrowser1.Location = new System.Drawing.Point(178, 41);
             this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
             this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(586, 276);
+            this.webBrowser1.Size = new System.Drawing.Size(533, 381);
             this.webBrowser1.TabIndex = 8;
             this.webBrowser1.Visible = false;
             // 
-            // btn_Squirrel_Windows
+            // listBox1
             // 
-            this.btn_Squirrel_Windows.Location = new System.Drawing.Point(360, 81);
-            this.btn_Squirrel_Windows.Name = "btn_Squirrel_Windows";
-            this.btn_Squirrel_Windows.Size = new System.Drawing.Size(157, 23);
-            this.btn_Squirrel_Windows.TabIndex = 9;
-            this.btn_Squirrel_Windows.Text = "Squirrel.Windows by GitHub";
-            this.btn_Squirrel_Windows.UseVisualStyleBackColor = true;
-            this.btn_Squirrel_Windows.Click += new System.EventHandler(this.button_Click);
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.Location = new System.Drawing.Point(12, 41);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(160, 355);
+            this.listBox1.TabIndex = 9;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(125, 21);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Select a license:";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(12, 399);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(160, 23);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "About application/library";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Licenses
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(610, 434);
-            this.Controls.Add(this.btn_Squirrel_Windows);
+            this.ClientSize = new System.Drawing.Size(723, 434);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.listBox1);
             this.Controls.Add(this.webBrowser1);
-            this.Controls.Add(this.btn_CustomSettingsProvider);
-            this.Controls.Add(this.label3);
             this.Controls.Add(this.l_lcOf);
             this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.btn_JsonNET);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.btn_CSClock);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
@@ -185,16 +137,11 @@ namespace CSClock
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btn_CSClock;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button btn_JsonNET;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Label l_lcOf;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Button btn_CustomSettingsProvider;
         private System.Windows.Forms.WebBrowser webBrowser1;
-        private System.Windows.Forms.Button btn_Squirrel_Windows;
+        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button button1;
     }
 }

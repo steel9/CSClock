@@ -1,0 +1,1 @@
+﻿CustomSettingsProvider by CodeChimp, fixed and modified by 'gpgemini' (https://www.codeproject.com/Articles/20917/Creating-a-Custom-Settings-Provider?msg=2934144#xx2934144xx)

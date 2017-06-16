@@ -1,0 +1,1 @@
+﻿DeltaCompressionDotNet by taspeotis (https://github.com/taspeotis/DeltaCompressionDotNet)
