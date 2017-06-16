@@ -2,11 +2,15 @@
    
 **A C# application which keeps track of the time you spend on your computer, by setting limits. It will then alert you when your computer time is out. Note that CSClock doesn't *prevent* you from using the computer after the limit is reached, but it *alerts* you.** 
 
+[**Click here to download latest version!**](https://github.com/steel9/CSClock/raw/master/Releases/Setup.exe)  
+  
 If everything works as it should, CSClock should automatically update at next app start (if an Internet connection is available). You should not have to update manually. In some cases, the update will not be installed immediately due to caching. To update manually, download the latest CSClock.exe and replace the old CSClock.exe with the new one (%localappdata%\CSClock\CSClock.exe). **NOTE:** The portable version (if you only download CSClock.exe and run it) does NOT contain the automatic updater. The portable version also still stores the user data in the CSClock folder in local appdata.   
    
 **3rd party libraries used:**  
-- Json.NET by Newtonsoft - License is located in "3rd-party-licenses/Json.NET-LICENSE.md"  
+*License files are located in the '3rd-party-licenses' folder*
+- Json.NET by Newtonsoft  
 - CustomSettingsProvider by CodeChimp, fixed and translated to C# by gpgemini  
+- Squirrel.Windows by GitHub - https://github.com/Squirrel/Squirrel.Windows  
   
 **NEWS:**  
 See NEWS.md  
@@ -35,7 +39,7 @@ See NEWS.md
   - Windows PowerShell, used by the removal tool. You can use CSClock without Windows PowerShell, but you can't use the removal tool. 
   
 **HOW TO INSTALL:**  
-FOR INSTALLATION: Download Install.exe, open it, press 'More info' on the SmartScreen warning, then press 'Run anyway'.   
+FOR INSTALLATION: Download 'Setup.exe' in 'Releases' folder, open it, press 'More info' on the SmartScreen warning, then press 'Run anyway'.   
 FOR NON-INSTALLATION: You can still just download and run CSClock.exe, but it does NOT auto update, and it still stores settings in its local appdata folder.
 
 **HOW TO UNINSTALL:**  
