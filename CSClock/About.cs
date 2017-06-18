@@ -149,7 +149,7 @@ namespace CSClock
 
         private void button_openLog_Click(object sender, EventArgs e)
         {
-            if (!Program.debug)
+            if (Application.ExecutablePath.StartsWith(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock")))
             {
                 Process.Start(Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
@@ -157,9 +157,7 @@ namespace CSClock
             }
             else
             {
-                Process.Start(Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                    "CSClock", "debug", "log.txt"));
+                Process.Start("log.txt");
             }
         }
 

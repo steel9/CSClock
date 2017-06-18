@@ -247,7 +247,7 @@ namespace CSClock
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "About";
+            this.Text = "About - CSClock";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.About_FormClosing);
             this.Load += new System.EventHandler(this.About_Load);
             this.tableLayoutPanel.ResumeLayout(false);

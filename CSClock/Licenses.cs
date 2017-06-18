@@ -97,6 +97,12 @@ namespace CSClock
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (listBox1.SelectedIndex == -1)
+            {
+                MessageBox.Show("Please choose a library/application first", "CSClock", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             var selectedLicense = listBox1.Items[listBox1.SelectedIndex].ToString();
 
             foreach (string infoFile_ in Assembly.GetExecutingAssembly().GetManifestResourceNames()

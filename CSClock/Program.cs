@@ -41,8 +41,8 @@ namespace CSClock
         static extern bool SetForegroundWindow(IntPtr hWnd);
 
         public static bool debug = false;
-        public static bool dev = false;
-        public static bool portable = true;
+        //public static bool dev = false;
+        //public static bool portable = true;
 
         public static Logger logger;
 
@@ -93,28 +93,15 @@ namespace CSClock
             AppDomain.CurrentDomain.UnhandledException += new
                 UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
-            if (args != null && args.Length > 0)
-            {
-                if (args.Contains("-dev"))
-                {
-                    dev = true;
-                }
-
-                if (args.Contains("-np") || Path.GetDirectoryName(Application.ExecutablePath).EndsWith(@"AppData\Local\CSClock"))
-                {
-                    portable = false;
-                }
-            }
-
             string logDir;
 
-            if (debug || portable)
+            if (Application.ExecutablePath.StartsWith(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock")))
             {
-                logDir = Path.GetDirectoryName(Application.ExecutablePath);
+                logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");
             }
             else
             {
-                logDir = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock");
+                logDir = Path.GetDirectoryName(Application.ExecutablePath);
                 if (!Directory.Exists(logDir))
                 {
                     Directory.CreateDirectory(logDir);
@@ -232,7 +219,7 @@ namespace CSClock
         {
             logger.Log(className, "Starting CSClock", Logger.LogType.Info);
 
-            if ((args == null || args.Length == 0 || !args.Contains("-disup")) && Properties.Settings.Default.autoUpdate && !portable)
+            if ((args == null || args.Length == 0 || !args.Contains("-disup")) && Properties.Settings.Default.autoUpdate)
             {
                 Properties.Settings.Default.properExit = true;
                 Properties.Settings.Default.Save();
@@ -267,26 +254,23 @@ namespace CSClock
                 Properties.Settings.Default.autoUpdate = true;
                 Properties.Settings.Default.Save();
 
-                if (!portable)
-                {
-                    using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/steel9/CSClock"))
-                    {
-                        try
-                        {
-                            await mgr.Result.UpdateApp();
-                        }
-                        catch (Exception ex)
-                        {
-                            logger.Log(className, "Update error: " + ex.ToString(), Logger.LogType.Error);
-                        }
-                    }
-                }
+                 using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/steel9/CSClock"))
+                 {
+                     try
+                     {
+                         await mgr.Result.UpdateApp();
+                     }
+                     catch (Exception ex)
+                     {
+                         logger.Log(className, "Update error: " + ex.ToString(), Logger.LogType.Error);
+                     }
+                 }
                 CheckForUpdate();
             }
 
             if (args != null && args.Length > 0 && args.Contains("-uninstall"))
             {
-                if (!portable)
+                if (Application.ExecutablePath.StartsWith(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock")))
                 {
                     Uninstall();
                 }
@@ -367,26 +351,26 @@ namespace CSClock
             FileVersionInfo currVer = FileVersionInfo.GetVersionInfo(Application.ExecutablePath);
             Version currentVersion = new Version(string.Format("{0}.{1}.{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
                 currVer.FileBuildPart.ToString()));
-            if (!dev)
-            {
-                logger.Log(className, "Downloading VERSION2 file from master branch", Logger.LogType.Info);
-            }
-            else
-            {
-                logger.Log(className, "Downloading VERSION2 file from development branch", Logger.LogType.Info);
-            }
+            //if (!dev)
+            //{
+            logger.Log(className, "Downloading VERSION2 file from master branch", Logger.LogType.Info);
+            //}
+            //else
+            //{
+                //logger.Log(className, "Downloading VERSION2 file from development branch", Logger.LogType.Info);
+            //}
             Version latestVersion;
             string latestVersionText = null;
             try
             {
-                if (!dev)
-                {
-                    latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/master/VERSION2");
-                }
-                else
-                {
-                    latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/development/VERSION2");
-                }
+                //if (!dev)
+                //{
+                latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/master/VERSION2");
+                //}
+                //else
+                //{
+                    //latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/development/VERSION2");
+                //}
             }
             catch (Exception ex)
             {
@@ -423,7 +407,8 @@ namespace CSClock
 
         public static void Uninstall()
         {
-            Process.Start(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CSClock", "Setup.exe"), "-uninstall");
+            //not available
+            MessageBox.Show("Please uninstall CSClock from Windows uninstall list", "CSClock", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         public static void Reload()

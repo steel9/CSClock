@@ -131,7 +131,7 @@ namespace CSClock
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SetOvertime";
-            this.Text = "Set overtime";
+            this.Text = "Set overtime - CSClock";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.SetOvertime_FormClosing);
             this.Load += new System.EventHandler(this.SetOvertime_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maximumMinutesOvertime)).EndInit();

@@ -73,7 +73,6 @@ namespace CSClock
             this.l_sat = new System.Windows.Forms.Label();
             this.l_sun = new System.Windows.Forms.Label();
             this.button_moreless = new System.Windows.Forms.Button();
-            this.button_remove = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maximumHoursMon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maximumHoursTue)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_maximumHoursWed)).BeginInit();
@@ -256,9 +255,9 @@ namespace CSClock
             this.button_reset.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_reset.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_reset.ForeColor = System.Drawing.Color.White;
-            this.button_reset.Location = new System.Drawing.Point(12, 338);
+            this.button_reset.Location = new System.Drawing.Point(12, 295);
             this.button_reset.Name = "button_reset";
-            this.button_reset.Size = new System.Drawing.Size(196, 37);
+            this.button_reset.Size = new System.Drawing.Size(380, 37);
             this.button_reset.TabIndex = 10;
             this.button_reset.Text = "Reset";
             this.button_reset.UseVisualStyleBackColor = false;
@@ -394,27 +393,11 @@ namespace CSClock
             this.button_moreless.UseVisualStyleBackColor = false;
             this.button_moreless.Click += new System.EventHandler(this.button_moreless_Click);
             // 
-            // button_remove
-            // 
-            this.button_remove.BackColor = System.Drawing.Color.Red;
-            this.button_remove.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button_remove.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button_remove.ForeColor = System.Drawing.Color.White;
-            this.button_remove.Location = new System.Drawing.Point(214, 338);
-            this.button_remove.Name = "button_remove";
-            this.button_remove.Size = new System.Drawing.Size(178, 37);
-            this.button_remove.TabIndex = 23;
-            this.button_remove.Text = "Remove CSClock from this user";
-            this.button_remove.UseVisualStyleBackColor = false;
-            this.button_remove.Visible = false;
-            this.button_remove.Click += new System.EventHandler(this.button_remove_Click);
-            // 
             // Configure
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 387);
-            this.Controls.Add(this.button_remove);
+            this.ClientSize = new System.Drawing.Size(404, 342);
             this.Controls.Add(this.button_moreless);
             this.Controls.Add(this.l_sun);
             this.Controls.Add(this.l_sat);
@@ -485,6 +468,5 @@ namespace CSClock
         private System.Windows.Forms.Label l_sat;
         private System.Windows.Forms.Label l_sun;
         private System.Windows.Forms.Button button_moreless;
-        private System.Windows.Forms.Button button_remove;
     }
 }

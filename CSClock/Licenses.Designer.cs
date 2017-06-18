@@ -128,7 +128,7 @@ namespace CSClock
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Licenses";
-            this.Text = "Licenses - CSClock";
+            this.Text = "License Browser - CSClock";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Licenses_FormClosing);
             this.Load += new System.EventHandler(this.Licenses_Load);
             this.ResumeLayout(false);
