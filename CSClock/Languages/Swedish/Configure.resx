@@ -166,9 +166,6 @@
   <data name="l_wed_text" xml:space="preserve">
     <value>Ons</value>
   </data>
-  <data name="button_remove_text" xml:space="preserve">
-    <value>Ta bort CSClock från denna användare</value>
-  </data>
   <data name="button_remove_toolTip" xml:space="preserve">
     <value>Tar bort all data från CSClock för denna användare</value>
   </data>

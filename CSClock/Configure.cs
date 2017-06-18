@@ -147,18 +147,12 @@ namespace CSClock
         {
             Program.rm_Configure = new ResourceManager(string.Format("CSClock.Languages.{0}.Configure", Program.selectedLanguage), Program.assembly);
 
-            if (Program.portable)
-            {
-                button_remove.Enabled = false;
-            }
-
             this.Location = Program.CSClockForm.Location;
             this.Size = new Size(420, 342);
 
             //Load strings
             this.Text = Program.rm_Configure.GetString("form_title");
             toolTip1.SetToolTip(button_selectLanguage, Program.rm_Configure.GetString("button_selectLanguage_toolTip"));
-            toolTip1.SetToolTip(button_remove, Program.rm_Configure.GetString("button_remove_toolTip"));
             label1.Text = Program.rm_Configure.GetString("label1_text");
             l_mon.Text = Program.rm_Configure.GetString("l_mon_text");
             l_tue.Text = Program.rm_Configure.GetString("l_tue_text");
@@ -173,7 +167,6 @@ namespace CSClock
             checkBox_startCSClockWithWindows.Text = Program.rm_Configure.GetString("checkBox_startCSClockWithWindows_text");
             button_apply.Text = Program.rm_Configure.GetString("button_apply_text");
             button_reset.Text = Program.rm_Configure.GetString("button_reset_text");
-            button_remove.Text = Program.rm_Configure.GetString("button_remove_text");
             button_moreless.Text = Program.rm_Configure.GetString("button_moreless_text__more");
             //
 
@@ -238,14 +231,12 @@ namespace CSClock
                 this.Size = new Size(420, 426);
                 button_moreless.Text = Program.rm_Configure.GetString("button_moreless_text__less");
                 button_reset.Visible = true;
-                button_remove.Visible = true;
             }
             else
             {
                 this.Size = new Size(420, 342);
                 button_moreless.Text = Program.rm_Configure.GetString("button_moreless_text__more");
                 button_reset.Visible = false;
-                button_remove.Visible = false;
             }
         }
 

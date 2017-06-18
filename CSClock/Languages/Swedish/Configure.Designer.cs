@@ -106,15 +106,6 @@ namespace CSClock.Languages.Swedish {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ta bort CSClock från denna användare.
-        /// </summary>
-        internal static string button_remove_text {
-            get {
-                return ResourceManager.GetString("button_remove_text", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Tar bort all data från CSClock för denna användare.
         /// </summary>
         internal static string button_remove_toolTip {

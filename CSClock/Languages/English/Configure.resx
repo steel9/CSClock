@@ -166,9 +166,6 @@
   <data name="l_wed_text" xml:space="preserve">
     <value>Wed</value>
   </data>
-  <data name="button_remove_text" xml:space="preserve">
-    <value>Remove CSClock from this user</value>
-  </data>
   <data name="button_remove_toolTip" xml:space="preserve">
     <value>Removes all data from CSClock for this user</value>
   </data>
