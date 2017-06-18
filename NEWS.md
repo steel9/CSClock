@@ -1,5 +1,9 @@
 **CSClock, with exceptions for the (partly) portable version and for the development builds, will automatically update at next program start, so there's no need to update manually.**  
   
+**0.4.2 news:**  
+- Bug fixes and improvements  
+- 3rd party library update  
+  
 **0.4.1 news:**  
 - Bug fixes  
     
