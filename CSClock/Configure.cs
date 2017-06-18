@@ -228,7 +228,7 @@ namespace CSClock
             expanded = !expanded;
             if (expanded)
             {
-                this.Size = new Size(420, 426);
+                this.Size = new Size(420, 381);
                 button_moreless.Text = Program.rm_Configure.GetString("button_moreless_text__less");
                 button_reset.Visible = true;
             }

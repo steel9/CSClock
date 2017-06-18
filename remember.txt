@@ -1,1 +1,0 @@
-copyright notice outdated in PortableSettingsProvider
