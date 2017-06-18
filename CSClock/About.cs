@@ -144,7 +144,7 @@ namespace CSClock
 
         private void button_contact_Click(object sender, EventArgs e)
         {
-            Process.Start("mailto:steel9apps@gmail.com");
+            Process.Start("https://steel9apps.wixsite.com/csclock/contact");
         }
 
         private void button_openLog_Click(object sender, EventArgs e)
