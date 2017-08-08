@@ -2,7 +2,7 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "CSClock"
-#define MyAppVersion "0.4.3"
+#define MyAppVersion "0.4.4"
 #define MyAppPublisher "steel9apps"
 #define MyAppURL "https://steel9apps.wixsite.com/csclock"
 #define MyAppExeName "CSClock.exe"
