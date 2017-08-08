@@ -1,0 +1,1 @@
+# This setup was created with Inno Setup, and to compile it you have to download Inno Setup: http://www.jrsoftware.org/isdl.php

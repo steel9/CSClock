@@ -26,7 +26,6 @@ using System.Windows.Forms;
 using System.IO;
 using System.Reflection;
 using System.Resources;
-using Squirrel;
 using System.Net;
 
 namespace CSClock
@@ -223,17 +222,6 @@ namespace CSClock
             {
                 Properties.Settings.Default.properExit = true;
                 Properties.Settings.Default.Save();
-                using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/steel9/CSClock"))
-                {
-                    try
-                    {
-                        await mgr.Result.UpdateApp();
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.Log(className, "Update error: " + ex.ToString(), Logger.LogType.Error);
-                    }
-                }
 
                 CheckForUpdate();
 
@@ -254,17 +242,6 @@ namespace CSClock
                 Properties.Settings.Default.autoUpdate = true;
                 Properties.Settings.Default.Save();
 
-                 using (var mgr = UpdateManager.GitHubUpdateManager("https://github.com/steel9/CSClock"))
-                 {
-                     try
-                     {
-                         await mgr.Result.UpdateApp();
-                     }
-                     catch (Exception ex)
-                     {
-                         logger.Log(className, "Update error: " + ex.ToString(), Logger.LogType.Error);
-                     }
-                 }
                 CheckForUpdate();
             }
 
@@ -344,33 +321,19 @@ namespace CSClock
             Application.Run(CSClockForm);
         }
 
-        static void CheckForUpdate()
+        public static void CheckForUpdate(bool forceUpdate = false)
         {
             WebClient webClient = new WebClient();
 
             FileVersionInfo currVer = FileVersionInfo.GetVersionInfo(Application.ExecutablePath);
             Version currentVersion = new Version(string.Format("{0}.{1}.{2}", currVer.FileMajorPart.ToString(), currVer.FileMinorPart.ToString(),
                 currVer.FileBuildPart.ToString()));
-            //if (!dev)
-            //{
             logger.Log(className, "Downloading VERSION2 file from master branch", Logger.LogType.Info);
-            //}
-            //else
-            //{
-                //logger.Log(className, "Downloading VERSION2 file from development branch", Logger.LogType.Info);
-            //}
             Version latestVersion;
             string latestVersionText = null;
             try
             {
-                //if (!dev)
-                //{
                 latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/master/VERSION2");
-                //}
-                //else
-                //{
-                    //latestVersionText = webClient.DownloadString("https://raw.githubusercontent.com/steel9/CSClock/development/VERSION2");
-                //}
             }
             catch (Exception ex)
             {
@@ -384,22 +347,22 @@ namespace CSClock
             logger.Log(className, "Current version is: " + currentVersion.ToString(), Logger.LogType.Info);
             logger.Log(className, "Latest version is: " + latestVersion.ToString(), Logger.LogType.Info);
 
-            if (currentVersion < latestVersion)
+            if (currentVersion < latestVersion || forceUpdate)
             {
                 if (MessageBox.Show("Update is available: v" + latestVersion.ToString() + "\r\n\r\nUpdate to get latest features and fixes (recommended)?", "CSClock",
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
                 {
                     sfd_update = new SaveFileDialog();
-                    sfd_update.FileName = "CSClock_Setup.exe";
+                    sfd_update.FileName = "CSClockSetup.exe";
                     sfd_update.Filter = "Executable file|*.exe";
-                    sfd_update.InitialDirectory = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+                    sfd_update.InitialDirectory = Path.GetTempPath();
                     if (sfd_update.ShowDialog() == DialogResult.OK)
                     {
                         WebClient wc = new WebClient();
-                        wc.DownloadFile("https://github.com/steel9/CSClock/blob/master/Releases/Setup.exe", sfd_update.FileName);
+                        wc.DownloadFile("https://github.com/steel9/CSClock/blob/master/Setup/CSClockSetup.exe", sfd_update.FileName);
 
                         var process = Process.Start(sfd_update.FileName);
-                        process.WaitForExit();
+                        Application.Exit();
                     }
                 }
             }

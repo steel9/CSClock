@@ -56,41 +56,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <ApplicationIcon>Logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DeltaCompressionDotNet, Version=1.1.0.0, Culture=neutral, PublicKeyToken=1d14d6e5194e7f4a, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeltaCompressionDotNet.1.1.0\lib\net20\DeltaCompressionDotNet.dll</HintPath>
-    </Reference>
-    <Reference Include="DeltaCompressionDotNet.MsDelta, Version=1.1.0.0, Culture=neutral, PublicKeyToken=46b2138a390abf55, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeltaCompressionDotNet.1.1.0\lib\net20\DeltaCompressionDotNet.MsDelta.dll</HintPath>
-    </Reference>
-    <Reference Include="DeltaCompressionDotNet.PatchApi, Version=1.1.0.0, Culture=neutral, PublicKeyToken=3e8888ee913ed789, processorArchitecture=MSIL">
-      <HintPath>..\packages\DeltaCompressionDotNet.1.1.0\lib\net20\DeltaCompressionDotNet.PatchApi.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Cecil, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.9.6.4\lib\net45\Mono.Cecil.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Cecil.Mdb, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.9.6.4\lib\net45\Mono.Cecil.Mdb.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Cecil.Pdb, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.9.6.4\lib\net45\Mono.Cecil.Pdb.dll</HintPath>
-    </Reference>
-    <Reference Include="Mono.Cecil.Rocks, Version=0.9.6.0, Culture=neutral, PublicKeyToken=0738eb9f132ed756, processorArchitecture=MSIL">
-      <HintPath>..\packages\Mono.Cecil.0.9.6.4\lib\net45\Mono.Cecil.Rocks.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NuGet.Squirrel, Version=3.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\squirrel.windows.1.7.5\lib\Net45\NuGet.Squirrel.dll</HintPath>
-    </Reference>
-    <Reference Include="SharpCompress, Version=0.17.1.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpCompress.0.17.1\lib\net45\SharpCompress.dll</HintPath>
-    </Reference>
-    <Reference Include="Splat, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Splat.2.0.0\lib\Net45\Splat.dll</HintPath>
-    </Reference>
-    <Reference Include="Squirrel, Version=1.7.5.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\squirrel.windows.1.7.5\lib\Net45\Squirrel.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -125,6 +92,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     </Compile>
     <Compile Include="AddSubtractTime.Designer.cs">
       <DependentUpon>AddSubtractTime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DebugMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DebugMenu.Designer.cs">
+      <DependentUpon>DebugMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="ExtraVersionInfo.cs" />
     <Compile Include="Languages\English\AddSubtractTime.Designer.cs">
@@ -278,6 +251,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <EmbeddedResource Include="AddSubtractTime.resx">
       <DependentUpon>AddSubtractTime.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="DebugMenu.resx">
+      <DependentUpon>DebugMenu.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Languages\English\AddSubtractTime.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>AddSubtractTime.Designer.cs</LastGenOutput>
@@ -428,21 +404,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <None Include="Resources\Logo.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Licenses\ExtraInfo\Squirrel.Windows.txt" />
-    <EmbeddedResource Include="Licenses\ExtraInfo\Splat.txt" />
-    <EmbeddedResource Include="Licenses\ExtraInfo\Mono.Cecil.txt" />
     <EmbeddedResource Include="Licenses\ExtraInfo\Json.NET.txt" />
-    <EmbeddedResource Include="Licenses\ExtraInfo\DeltaCompressionDotNet.txt" />
     <EmbeddedResource Include="Licenses\ExtraInfo\CustomSettingsProvider.txt" />
     <EmbeddedResource Include="Licenses\ExtraInfo\CSClock.txt" />
-    <EmbeddedResource Include="Licenses\ExtraInfo\SharpCompress.txt" />
-    <EmbeddedResource Include="Licenses\SharpCompress_LICENSE.txt" />
     <Content Include="Logo.ico" />
     <EmbeddedResource Include="Licenses\CustomSettingsProvider_LICENSE.htm" />
-    <EmbeddedResource Include="Licenses\Splat_LICENSE.txt" />
-    <EmbeddedResource Include="Licenses\Mono.Cecil_LICENSE.txt" />
-    <EmbeddedResource Include="Licenses\DeltaCompressionDotNet_LICENSE.txt" />
-    <EmbeddedResource Include="Licenses\Squirrel.Windows_LICENSE.txt" />
     <EmbeddedResource Include="Licenses\Json.NET_LICENSE.txt" />
   </ItemGroup>
   <ItemGroup />

@@ -320,6 +320,7 @@ namespace CSClock
                 }
                 else
                 {
+                    secondsElapsed = 0;
                     Properties.Settings.Default.secondsElapsed = 0;
                     Properties.Settings.Default.secondsElapsedDateTime = DateTime.Now;
                     Properties.Settings.Default.Save();

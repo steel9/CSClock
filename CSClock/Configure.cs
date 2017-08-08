@@ -228,13 +228,13 @@ namespace CSClock
             expanded = !expanded;
             if (expanded)
             {
-                this.Size = new Size(420, 381);
+                this.Size = new Size(420, 410);
                 button_moreless.Text = Program.rm_Configure.GetString("button_moreless_text__less");
                 button_reset.Visible = true;
             }
             else
             {
-                this.Size = new Size(420, 342);
+                this.Size = new Size(420, 334);
                 button_moreless.Text = Program.rm_Configure.GetString("button_moreless_text__more");
                 button_reset.Visible = false;
             }
@@ -243,6 +243,12 @@ namespace CSClock
         private void button_remove_Click(object sender, EventArgs e)
         {
             Program.Uninstall();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            DebugMenu debugMenu = new DebugMenu();
+            debugMenu.Show();
         }
     }
 }

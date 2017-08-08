@@ -1,0 +1,3 @@
+Thank you for downloading CSClock.
+
+Please make sure CSClock is not running before continuing.
