@@ -70,8 +70,6 @@ namespace CSClock
 
         public static bool properExitLast = true;
 
-        static SaveFileDialog sfd_update;
-
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
@@ -352,18 +350,14 @@ namespace CSClock
                 if (MessageBox.Show("Update is available: v" + latestVersion.ToString() + "\r\n\r\nUpdate to get latest features and fixes (recommended)?", "CSClock",
                     MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
                 {
-                    sfd_update = new SaveFileDialog();
-                    sfd_update.FileName = "CSClockSetup.exe";
-                    sfd_update.Filter = "Executable file|*.exe";
-                    sfd_update.InitialDirectory = Path.GetTempPath();
-                    if (sfd_update.ShowDialog() == DialogResult.OK)
+                    string savePath = Path.Combine(Path.GetTempPath(), "CSClockSetup.exe");
+                    using (WebClient wc = new WebClient())
                     {
-                        WebClient wc = new WebClient();
-                        wc.DownloadFile("https://github.com/steel9/CSClock/blob/master/Setup/CSClockSetup.exe", sfd_update.FileName);
-
-                        var process = Process.Start(sfd_update.FileName);
-                        Application.Exit();
+                        wc.DownloadFile("https://github.com/steel9/CSClock/raw/master/Setup/CSClockSetup.exe", savePath);
                     }
+
+                    var process = Process.Start(savePath);
+                    Application.Exit();
                 }
             }
         }
