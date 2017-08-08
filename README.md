@@ -40,7 +40,6 @@ FOR INSTALLATION: Download 'Setup.exe' in 'Releases' folder, open it, press 'Mor
 **START PARAMETERS:**   
 To run CSClock with a start parameter, open the CSClock install folder (default in "%localappdata%\CSClock" (without quotation)), then SHIFT+RIGHT-CLICK on an empty location in the folder, then press "Open command prompt here" or something similar, then run CSClock with the parameter(s), for example "CSClock.exe -deletelogs" (without quotation), which removes the log files.   
    
--removal&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Extract & run the removal tool.   
 -reset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Reset the user data of CSClock.   
 -deletelogs&nbsp;| Deletes the setup & application log files.   
 -disup&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;| Disable automatic updates (not recommended, but it's for users who want to run old versions).   
