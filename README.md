@@ -2,9 +2,9 @@
    
 **A C# application which keeps track of the time you spend on your computer, by setting limits. It will then alert you when your computer time is out. Note that CSClock doesn't *prevent* you from using the computer after the limit is reached, but it *alerts* you.** 
 
-[**Click here to download latest version!**](https://github.com/steel9/CSClock/raw/master/Releases/Setup.exe)  
+[**Click here to download latest version!**](https://github.com/steel9/CSClock/raw/master/Setup/CSClockSetup.exe)  
   
-If everything works as it should, CSClock should automatically update at next app start (if an Internet connection is available).
+If everything works as it should, CSClock should automatically check for updates at next app start (if an Internet connection is available).
    
 **3rd party libraries used:**  
 *List and licenses are located in the '3rd-party-licenses' folder*
@@ -35,13 +35,7 @@ See NEWS.md
   - .NET Framework 4.5.2  
   
 **HOW TO INSTALL:**  
-FOR INSTALLATION: Download 'Setup.exe' in 'Releases' folder, open it, press 'More info' on the SmartScreen warning, then press 'Run anyway'.   
-FOR NON-INSTALLATION: You can still just download and run CSClock.exe, but it does NOT auto update, and it still stores settings in its local appdata folder.
-
-**HOW TO UNINSTALL:**  
-**NOTE!** The removal tool won't work if you have parenthesis in the file name for CSClock.  
-Option 1: Start CSClock with the parameter -removal (more info below under "Start parameters"), then confirm.  
-Option 2: Open CSClock, press the gear, press "More", then press the removal button, then confirm.  
+FOR INSTALLATION: Download 'Setup.exe' in 'Releases' folder, open it, press 'More info' on the SmartScreen warning, then press 'Run anyway'.    
    
 **START PARAMETERS:**   
 To run CSClock with a start parameter, open the CSClock install folder (default in "%localappdata%\CSClock" (without quotation)), then SHIFT+RIGHT-CLICK on an empty location in the folder, then press "Open command prompt here" or something similar, then run CSClock with the parameter(s), for example "CSClock.exe -deletelogs" (without quotation), which removes the log files.   
@@ -74,6 +68,5 @@ Do steps 1, 2, 5, 6
 **FEATURES TO BE ADDED:**  
 - More unified icons (the button icons)  
 - More supported languages  
-- Statistics   
   
 If you want, you can contribute! It is really appreciated!
