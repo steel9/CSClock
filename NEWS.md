@@ -1,5 +1,7 @@
 **CSClock, with exceptions for the (partly) portable version and for the development builds, will automatically update at next program start, so there's no need to update manually.**  
   
+**0.4.4 news:**  
+- Updater fix  
   
 **0.4.3 news:**    
 - Removed Squirrel and switched to Inno Setup  
