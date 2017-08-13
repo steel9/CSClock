@@ -1,5 +1,7 @@
 **CSClock, with exceptions for the (partly) portable version and for the development builds, will automatically update at next program start, so there's no need to update manually.**  
   
+**0.5.2 nwes:**  
+- Bug fix (most issued should be fixed now)  
   
 **0.5.1 news:**  
 - Bug fix  
