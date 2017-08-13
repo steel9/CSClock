@@ -297,6 +297,16 @@ namespace CSClock
                 Properties.Settings.Default.Save();
             }
 
+            try
+            {
+                var test = Properties.Settings.Default.startDate;
+            }
+            catch
+            {
+                Properties.Settings.Default.startDate = DateTime.Now;
+                Properties.Settings.Default.Save();
+            }
+
             logger.Log(className, "executing LoadApplySettings()", Logger.LogType.Info);
             try
             {

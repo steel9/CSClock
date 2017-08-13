@@ -50,7 +50,7 @@ namespace CSClock
             string dateTime = null;
             if (!File.Exists(logPath_))
             {
-                throw new FileNotFoundException();
+                return;
             }
 
             switch (logTimeDateOption_)
