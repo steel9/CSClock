@@ -285,6 +285,7 @@ namespace CSClock
             }
 
             CSClockForm = new CSClock();
+            CSClockForm.startDateTime = DateTime.Now;
 
             LoadNotifyIcon();
 
@@ -358,6 +359,7 @@ namespace CSClock
 
                     var process = Process.Start(savePath);
                     Application.Exit();
+                    return;
                 }
             }
         }
