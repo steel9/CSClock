@@ -285,7 +285,6 @@ namespace CSClock
             }
 
             CSClockForm = new CSClock();
-            CSClockForm.startDateTime = DateTime.Now;
 
             LoadNotifyIcon();
 
