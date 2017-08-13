@@ -190,5 +190,11 @@ namespace CSClock
             lc.TopMost = this.TopMost;
             lc.ShowDialog();
         }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            Process.Start("https://steel9apps.wixsite.com/csclock/donate");
+            Process.Start("https://docs.google.com/forms/d/1so-iTsCwOd-KcT0yQd4LqCEymGbQEyBAASYEu7cXP0I");
+        }
     }
 }

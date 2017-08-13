@@ -277,6 +277,18 @@ namespace CSClock
             {
                 label_timeRemaining.Text = "--:--:--";
             }
+
+            if (Properties.Settings.Default.startDate == default(DateTime))
+            {
+                Properties.Settings.Default.startDate = DateTime.Now;
+                Properties.Settings.Default.Save();
+            }
+            else if (!Properties.Settings.Default.feedbackReminderShown && (DateTime.Now - Properties.Settings.Default.startDate).TotalDays >= 7)
+            {
+                //show feedback/donation window
+                FeedbackDonate feedbackDonate = new FeedbackDonate();
+                feedbackDonate.ShowDialog();
+            }
         }
 
         public void LoadApplySettings()

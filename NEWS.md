@@ -1,5 +1,11 @@
 **CSClock, with exceptions for the (partly) portable version and for the development builds, will automatically update at next program start, so there's no need to update manually.**  
   
+  
+**0.5.0 news:**  
+- GUI improvements  
+- Donation button  
+- Feedback and donation shortcuts  
+  
 **0.4.4 news:**  
 - Updater fix  
   

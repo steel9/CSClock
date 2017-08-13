@@ -234,7 +234,7 @@ namespace CSClock
             }
             else
             {
-                this.Size = new Size(420, 334);
+                this.Size = new Size(420, 342);
                 button_moreless.Text = Program.rm_Configure.GetString("button_moreless_text__more");
                 button_reset.Visible = false;
             }

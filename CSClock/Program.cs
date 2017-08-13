@@ -212,7 +212,7 @@ namespace CSClock
             }
         }
 
-        static async void StartApplication(string[] args)
+        static void StartApplication(string[] args)
         {
             logger.Log(className, "Starting CSClock", Logger.LogType.Info);
 
@@ -293,6 +293,7 @@ namespace CSClock
             {
                 Properties.Settings.Default.overtimeDateTime = default(DateTime);
                 Properties.Settings.Default.secondsElapsedDateTime = default(DateTime);
+                Properties.Settings.Default.startDate = default(DateTime);
                 Properties.Settings.Default.Save();
             }
 

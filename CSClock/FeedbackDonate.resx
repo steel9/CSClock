@@ -117,70 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Sorry for interrupting you. But now that you've used CSClock a while we want to hear your opinion about CSClock / a donation if you find CSClock useful (optional of course). We won't disturb you again with this dialog</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="button1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EwAACxMBAJqcGAAAAAd0SU1FB+EDChUvGsxCWL8AAANjSURBVFhHzVfLThRBFG1i4pIAawG3RBfuAOOi
-        q3qYSWYGhonAF7hyZYghMbqahR+gK3CpiYmMUdZuTGSlH4CP8QMk7nhEFB/nVN9qqntqSPcI6E1Oquq+
-        u7oet4JeFEWR9IKgOjc3wFYpZcakMAzbwG9BW9iJzlw1tiG5vnKRGwj9aWBJa31OWEGk9TCCvnES2IR8
-        RMQBdWkDXBVWymcu0kqNwfEqsA38gINFEQWh1uPgfQBsAh8R9KKIGWyRNgBt1zAeF1F+CpWahPEOYIPs
-        RVHpMpyVgccYf3NkB+QprTHb0QTG+45sR0XRpLgtRjDuOI76xWdx15uQvfRisosG03rb47Aoll2flpKY
-        WpdMC8ZYpKIpMwDdePhgAMZPM876wSNxaQiJTCGWWRP4QMMzBEUuuF2go1TIL38G/AR8TovgO4CFGN5C
-        y1/KGGsSNiZkNA3mF8Dn4DSwjZjxFq3X55nAApjcNj7l04DZ1rVGzeQQVCoVHhzcu5wen4EXsPlK+GTH
-        YJ+xKuVKfLC5CwH9ax6DLsDBhlJ6Au1QDNPf8OlmgbPkkoRLL0ISnNz0GbmAzn3R5awNCszXUOazcQGd
-        eNu5hExGgFEVqtc+IwsYb4j+MPotYEvQIo8y6vhsLSB/At1xq29vtU2AZ/uxCxHGnGp+ecsjY0KU8ShO
-        yTI4ABiLMdtMwKfUBTjmghvCHTEIbHXpkBf/Dq6L3Avzv0hgHeDdfla/gCcjYzHmulkHuEWHuQjxBW6R
-        0QU4P4lF+Dy1CF2CcNln5AI6f7sNr1M3ITCkZ75M+YyygE3fBxFm+4qEQ9UlBxEC82vO6ijeY6yylqO4
-        1mhwFmwN5zM4DfAyWpqtVuPKGYN/dx1bApMFCYvQDnbDXbSvAJ9xUfwCXiitVtCyIGGMo4IEdaxpkdEY
-        yqWketUzM6z9TyKJl/Va/by4DVghMxb7eF8YXmonkGxSYajueBwWAi64FfrqWZQeR3DwKeuwD3TEXTFC
-        htmHyS62Kx8l91BgvsP40JEdgv8WWIGOxjhlp5xqOzfBmX2acXeknmaIcQG894ANwqfZqIhp6z7NVjEu
-        9jSDgfRMn4/TRQRIHqe8O+C45+O0oss82BZoK6yUz1wUlY4qp9lm07SuEwT1Ps/t8TrfTCYs5StNQfAH
-        hrSvc3UuohUAAAAASUVORK5CYII=
-</value>
-  </data>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="button_fwrdRwndTime.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfhCAwWKAwnKqu9AAACj0lEQVRYR72Xu04bQRSG
-        DYKCNEZcEqWihY6O0ldZLigs2RUVHQXhAXgFF66QeYhIoUKpQqQIISGaSEg0UZpUyG0UCkBJ/n/2jDns
-        zu6sZzFH+phh5sw5v+eys1tKs3q9LjVTn6vVamXQAANwXq1WR+BRGLFN+hr4v8wxMvxZrFyGIFIz9S0E
-        7DMJ+JcT+vY5VsI8i5lplUrFlFC9jCBDcCtBEyDoT5Tf4u0Kjh0i1pKOnWp2qlBuYOC1CuTiFgLWwBLq
-        H2N9ca4ZU+dImFWHgOvAO93w+QQWOp3ODMoPLh8NY4J1nWts6DCl/PK8a20E9Ho9Cth39CegCDsTNqee
-        dq65b9o1RkC3280tQOByLOvcxtBxHHP0ESqADCVtZAjAo5a621MoIoAbODqimIY5NPCcuxyzKCKA9Jmb
-        U18GkzxkLEUFMGeZ089Hp8vBR1EBPBUNChi4OnPwEgIGFMCLxeng4UQJOHD0e2Fu7oGQ9X8Ae9hEs3KK
-        uIx/VH9eRhTA69TVmcUVkr43xwjWbDZnZRb+xvx8PIYKuETCt5J/bJiRVfSdgnvlm4URELIEd2Afv/xN
-        u92eR+IV0WAM4rbR/1X5pzEqsgl/gy/gM7hAnD3JbwyiFtG+g/YblK7x0SbEn9BjGIcb8zvibYoGY/j/
-        HdrPlN8Y5rY7ONFZkCMmbrVaM1giHtNDh0/0IEIl9FHs4xfgydgFP6RNEz2KeSGgEnIZFSW6jGSdQq7j
-        Ijxdx9bQyDdgl/M0OJa0T69FKCd9JQsl+UqG6TAlGjZQn8aGNDA2c+icY5v0tTyA9Ndya3ZKqBIDXnI5
-        /B8m1qw6OPKLJ/PTLAf208yseeovj5teH9Rf9+PUmp4q1Kf0eV4q/QdHZ2+d2GMwhwAAAABJRU5ErkJg
-        gg==
-</value>
-  </data>
-  <metadata name="restartEveryDayTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>115, 18</value>
-  </metadata>
-  <metadata name="timer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>282, 18</value>
-  </metadata>
-  <metadata name="saveTimer.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>362, 18</value>
-  </metadata>
-  <data name="button3.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABoAAAAgCAYAAAAMq2gFAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        EwAACxMBAJqcGAAAAAd0SU1FB+EIDBYgHPJEMdEAAAFmSURBVEhLtZa9SsNQHEfj16SrIOgogoPg6Obu
-        IE5uDr6F+ggi+AadxNFJwcHZBxBxEzdxc1AXv88v9gepzVdv7j1wSFrSHv7JTZsMznFNOzDW3ybhBn/w
-        FKf1Ripu8Qu/UcFtFNGnU+gTFXHsDudQRAsWQ1YTaruHkxglVhayDi5iZ+pC0qfzAqdwAoNoClkfs4lB
-        tA1Znc4n1HUbabpRQ1KnU8FjFOP9bS0hIavPveAyitrV2SUkvViuUFRO1zVkFXzDXRRDwVgh6en0nbM4
-        QMyQdfAQRX7tUoSkY4+4jslD17iEyUKvuIMiXxgxQ57iDMXAyosRckA/TSsohm7eriFFPvAIRbIb9gH1
-        41oZMCEhHf+OWyha/QOHhC5RJPmb8DHz2GqC/zSF/Nywj5ogKCKqQl6y9ziDjRe7ibKQp9jAaBRDDpyg
-        Ho+DT1MZxdAzrqKIGhF+yD/IXyUImB4u/O2mimTZL5gKmSWld44JAAAAAElFTkSuQmCC
-</value>
-  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAICAQAAEABADoAgAAFgAAACgAAAAgAAAAQAAAAAEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA

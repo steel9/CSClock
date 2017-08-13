@@ -58,7 +58,6 @@ namespace CSClock
             this.label_timeElapsed = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.button_fwrdRwndTime = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.label_version = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.button_about = new System.Windows.Forms.Button();
@@ -67,6 +66,7 @@ namespace CSClock
             this.button_quit = new System.Windows.Forms.Button();
             this.saveTimer = new System.Windows.Forms.Timer(this.components);
             this.button_stats = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
             this.panel_home.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -166,18 +166,6 @@ namespace CSClock
             this.button_fwrdRwndTime.UseVisualStyleBackColor = true;
             this.button_fwrdRwndTime.Click += new System.EventHandler(this.button_fwrdRwndTime_Click);
             // 
-            // button3
-            // 
-            this.button3.Enabled = false;
-            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
-            this.button3.Location = new System.Drawing.Point(120, 74);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(272, 40);
-            this.button3.TabIndex = 4;
-            this.toolTip1.SetToolTip(this.button3, "Pause/resume");
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
             // label_version
             // 
             this.label_version.AutoSize = true;
@@ -238,16 +226,26 @@ namespace CSClock
             this.button_stats.UseVisualStyleBackColor = true;
             this.button_stats.Click += new System.EventHandler(this.button2_Click);
             // 
+            // button3
+            // 
+            this.button3.Image = ((System.Drawing.Image)(resources.GetObject("button3.Image")));
+            this.button3.Location = new System.Drawing.Point(120, 74);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(272, 40);
+            this.button3.TabIndex = 9;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
             // CSClock
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(404, 150);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.button_stats);
             this.Controls.Add(this.button_fwrdRwndTime);
             this.Controls.Add(this.button_quit);
             this.Controls.Add(this.button_about);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.label_version);
             this.Controls.Add(this.panel_home);
             this.Controls.Add(this.button1);
@@ -275,7 +273,6 @@ namespace CSClock
         private System.Windows.Forms.Label label_configRequired;
         private System.Windows.Forms.Button button1;
         public System.Windows.Forms.Panel panel_home;
-        public System.Windows.Forms.Button button3;
         public System.Windows.Forms.Label label_timeRemaining;
         private System.Windows.Forms.Label label3;
         public System.Windows.Forms.Label label_timeElapsed;
@@ -290,6 +287,7 @@ namespace CSClock
         private System.Windows.Forms.Label l_exclM;
         private System.Windows.Forms.Timer saveTimer;
         private System.Windows.Forms.Button button_stats;
+        private System.Windows.Forms.Button button3;
     }
 }
 
