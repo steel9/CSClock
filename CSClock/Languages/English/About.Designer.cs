@@ -79,6 +79,15 @@ namespace CSClock.Languages.English {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Submit feedback / Donate.
+        /// </summary>
+        internal static string button_feedbackDonate {
+            get {
+                return ResourceManager.GetString("button_feedbackDonate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Licenses.
         /// </summary>
         internal static string button_licenses_text {

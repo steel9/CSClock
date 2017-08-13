@@ -123,6 +123,9 @@
   <data name="button_exportLog_text" xml:space="preserve">
     <value>Export log</value>
   </data>
+  <data name="button_feedbackDonate" xml:space="preserve">
+    <value>Submit feedback / Donate</value>
+  </data>
   <data name="button_licenses_text" xml:space="preserve">
     <value>Licenses</value>
   </data>
