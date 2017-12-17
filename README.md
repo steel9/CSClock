@@ -1,5 +1,5 @@
 # CSClock
-***IMPORTANT:*** Please read the known issues before downloading. Thanks!   
+***IMPORTANT:*** Please read the [known issues](https://github.com/steel9/CSClock/issues) before downloading. Thanks!   
   
 **A C# application which keeps track of the time you spend on your computer, by setting limits. It will then alert you when your computer time is out. Note that CSClock doesn't *prevent* you from using the computer after the limit is reached, but it *alerts* you.** 
 
